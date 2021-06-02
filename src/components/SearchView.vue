@@ -3,6 +3,7 @@ import { bus, currentPoint } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { dijkstra } from '@/algorithm/Dij'
 import { SA } from '@/algorithm/SA'
+import { Ha } from '@/algorithm/Ha_byDij'
 import { mapPoint } from '@/typings/map'
 
 export default defineComponent({
@@ -12,7 +13,44 @@ export default defineComponent({
             loading.value = true
             await nextTick()
             console.log(bus.middle.size)
-            if (bus.middle.size > 0) {
+            if (bus.middle.size <= 7 && bus.middle.size > 0) {
+                const wayPointList: mapPoint[] = []
+                for (let wayPoint of bus.middle) {
+                    wayPointList.push(bus.map.pointsMap[wayPoint])
+                }
+                const timeRoute = Ha(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    wayPointList,
+                    1,
+                )
+                const timeRouteObj = {
+                    name: '最短时间',
+                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
+                    avgDistance: timeRoute[0],
+                    pointSeq: timeRoute[1],
+                    edgeSeq: timeRoute[2],
+                }
+                const distanceRoute = Ha(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    wayPointList,
+                    0,
+                )
+                const distanceRouteObj = {
+                    name: '最短路程',
+                    description: `约${Math.round(distanceRoute[0])}米`,
+                    avgDistance: distanceRoute[0],
+                    pointSeq: distanceRoute[1],
+                    edgeSeq: distanceRoute[2],
+                }
+                bus.routes.push(timeRouteObj)
+                bus.routes.push(distanceRouteObj)
+            } else if (bus.middle.size > 7) {
                 const wayPointList: mapPoint[] = []
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
@@ -87,7 +125,7 @@ export default defineComponent({
             () => bus.middle,
             () => {
                 bus.routes = []
-                if (bus.middle.size <= 3) {
+                if (bus.middle.size <= 7) {
                     calcRoutes()
                 }
             },
@@ -99,7 +137,7 @@ export default defineComponent({
             () => bus.position,
             () => {
                 bus.routes = []
-                if (bus.middle.size <= 3) {
+                if (bus.middle.size <= 7) {
                     calcRoutes()
                 }
             },

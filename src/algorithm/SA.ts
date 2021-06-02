@@ -4,9 +4,9 @@ import { dijkstra } from './Dij_Ha'
 import { dijkstra as dij_raw } from './Dij'
 
 const T0 = 50000.0 // 初始温度
-const T_end = 1e-8
+const T_end = 1e-6
 const q = 0.9 // 退火系数
-const L = 1000 // 每个温度时的迭代次数，即链长
+const L = 100 // 每个温度时的迭代次数，即链长
 
 function init(wayPointList: mapPoint[], startPoint: mapPoint, endPoint: mapPoint) {
     const firstPath = wayPointList.concat()
@@ -79,7 +79,7 @@ export function SA(
     let count = 0
     path = init(wayPointList, startPoint, endPoint)
     while (T > T_end) {
-        for (let i = 0; i < L; i++) {
+        for (let i = 0; i < (L + 5 * wayPointList.length > 300 ? 300 : L + 5 * wayPointList.length); i++) {
             const path_new = create_new(Object.keys(myPointMap).length, path)
             const disOld = path_len(memory, path)
             const disNew = path_len(memory, path_new)
@@ -92,7 +92,7 @@ export function SA(
                 }
             }
         }
-        T *= q - 0.1 + (0.1 * wayPointList.length) / 15 > 0.9 ? 0.9 : q - 0.1 + (0.1 * wayPointList.length) / 15
+        T *= q
         count++
         console.log(count)
     }
