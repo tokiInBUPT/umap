@@ -7,7 +7,7 @@ import { mapPoint, edgeMap, pointMap } from '../typings/map'
  * @param {mapPoint} startPoint - start point
  * @param {mapPoint} endPoint - end point
  * @param {number} timeOrDis - end point
- * @return {[number, string[], string[]]} [cost, points list, paths list]
+ * @return [cost, points list, paths list]
  */
 export function dijkstra(
     myEdgeMap: edgeMap,
@@ -16,7 +16,7 @@ export function dijkstra(
     endPoint: mapPoint,
     /** distance: 0, time:1 */
     timeOrDis: number,
-): [number, string[], string[]] {
+): [Record<string, number>, Record<string, string[]>, Record<string, string[]>] {
     /** 从key点到起始点的距离 */
     const distance: Record<string, number> = {}
     const used: Record<string, boolean> = {}
@@ -73,41 +73,21 @@ export function dijkstra(
             }
         }
     }
-    const points: string[] = []
-    const path: string[] = []
-    let current = myPointMap[endPoint.id].id
-    let e
-    while ((e = prev[current]) !== null) {
-        points.splice(0, 0, current)
-        path.splice(0, 0, e.edge !== null ? e.edge : '')
-        current = e.point.id
+    const points: Record<string, string[]> = {}
+    const path: Record<string, string[]> = {}
+    for (const idCur in distance) {
+        if (distance.hasOwnProperty(idCur)) {
+            let current = idCur
+            points[idCur] = []
+            path[idCur] = []
+            let e
+            while ((e = prev[current]) !== null) {
+                points[idCur].splice(0, 0, current)
+                path[idCur].splice(0, 0, e.edge ? e.edge : '')
+                current = e.point.id
+            }
+            points[idCur].splice(0, 0, current)
+        }
     }
-    points.splice(0, 0, current)
-    return [distance[myPointMap[endPoint.id].id], points, path]
+    return [distance, points, path]
 }
-
-// const startPointNum: number = 0;
-// const endPointNum: number = 9;
-
-// const edgeList = JSON.parse(fs.readFileSync("edgeList.json").toString());
-// const pointList = JSON.parse(fs.readFileSync("pointList.json").toString());
-// const myEdgeMap: edgeMap = {};
-// for (let i of edgeList) {
-//     myEdgeMap[i.id] = i;
-// }
-// const myPointMap: pointMap = {};
-// for (let i of pointList) {
-//     myPointMap[i.id] = i;
-// }
-
-// const [a, b, c] = dijkstra(
-//     myEdgeMap,
-//     myPointMap,
-//     pointList[startPointNum],
-//     pointList[endPointNum],
-//     0
-// );
-
-// console.log(a);
-// console.log(b);
-// console.log(c);

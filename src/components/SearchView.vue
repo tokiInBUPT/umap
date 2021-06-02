@@ -2,6 +2,8 @@
 import { bus, currentPoint } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { dijkstra } from '@/algorithm/Dij'
+import { SA } from '@/algorithm/SA'
+import { mapPoint } from '@/typings/map'
 
 export default defineComponent({
     setup() {
@@ -9,36 +11,76 @@ export default defineComponent({
         async function calcRoutes() {
             loading.value = true
             await nextTick()
-            const timeRoute = dijkstra(
-                bus.map.edgeMap,
-                bus.map.pointsMap,
-                currentPoint.value,
-                bus.map.pointsMap[bus.position],
-                1,
-            )
-            const timeRouteObj = {
-                name: '最短时间',
-                description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
-                avgDistance: timeRoute[0],
-                pointSeq: timeRoute[1],
-                edgeSeq: timeRoute[2],
+            console.log(bus.middle.size)
+            if (bus.middle.size > 0) {
+                const wayPointList: mapPoint[] = []
+                for (let wayPoint of bus.middle) {
+                    wayPointList.push(bus.map.pointsMap[wayPoint])
+                }
+                const timeRoute = SA(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    wayPointList,
+                    1,
+                )
+                const timeRouteObj = {
+                    name: '最短时间',
+                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
+                    avgDistance: timeRoute[0],
+                    pointSeq: timeRoute[1],
+                    edgeSeq: timeRoute[2],
+                }
+                const distanceRoute = SA(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    wayPointList,
+                    0,
+                )
+                const distanceRouteObj = {
+                    name: '最短路程',
+                    description: `约${Math.round(distanceRoute[0])}米`,
+                    avgDistance: distanceRoute[0],
+                    pointSeq: distanceRoute[1],
+                    edgeSeq: distanceRoute[2],
+                }
+                bus.routes.push(timeRouteObj)
+                bus.routes.push(distanceRouteObj)
+            } else {
+                const timeRoute = dijkstra(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    1,
+                )
+                const timeRouteObj = {
+                    name: '最短时间',
+                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
+                    avgDistance: timeRoute[0],
+                    pointSeq: timeRoute[1],
+                    edgeSeq: timeRoute[2],
+                }
+                const distanceRoute = dijkstra(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    0,
+                )
+                const distanceRouteObj = {
+                    name: '最短路程',
+                    description: `约${Math.round(distanceRoute[0])}米`,
+                    avgDistance: distanceRoute[0],
+                    pointSeq: distanceRoute[1],
+                    edgeSeq: distanceRoute[2],
+                }
+                bus.routes.push(timeRouteObj)
+                bus.routes.push(distanceRouteObj)
             }
-            const distanceRoute = dijkstra(
-                bus.map.edgeMap,
-                bus.map.pointsMap,
-                currentPoint.value,
-                bus.map.pointsMap[bus.position],
-                0,
-            )
-            const distanceRouteObj = {
-                name: '最短路程',
-                description: `约${distanceRoute[0]}米`,
-                avgDistance: distanceRoute[0],
-                pointSeq: distanceRoute[1],
-                edgeSeq: distanceRoute[2],
-            }
-            bus.routes.push(timeRouteObj)
-            bus.routes.push(distanceRouteObj)
             loading.value = false
         }
         watch(
@@ -113,7 +155,7 @@ export default defineComponent({
                 <ul v-loading="loading" class="routes">
                     <li v-for="(i, a) in bus.routes" :key="a">
                         <div class="name">{{ i.name }}</div>
-                        <div class="desc">{{ i.desc }}</div>
+                        <div class="desc">{{ i.description }}</div>
                         <el-button circle class="go-button">
                             <fa-icon icon="directions" />
                         </el-button>

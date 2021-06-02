@@ -10,7 +10,7 @@ export const bus = reactive({
     type: '',
     current: 'd08cf367-be23-4c1d-a256-db4d8274ad60',
     position: '',
-    middle: new Set(),
+    middle: new Set<string>(),
     map: {
         points: [...shahe_points] as mapPoint[],
         pointsMap: {} as Record<string, mapPoint>,
@@ -18,9 +18,9 @@ export const bus = reactive({
         edgeMap: {} as Record<string, edge>,
     },
     speed: {
-        walk: 15,
-        bike: 30,
-        bus: 300,
+        walk: 1.4,
+        bike: 5,
+        bus: 16,
     },
     routes: [] as IRoute[],
     routes_: [
