@@ -18,7 +18,7 @@ export const bus = reactive({
         edgeMap: {} as Record<string, edge>,
     },
     speed: {
-        walk: 15,
+        walk: 1.4,
         bike: 30,
         bus: 300,
     },

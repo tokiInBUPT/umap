@@ -32,7 +32,7 @@ export default defineComponent({
             )
             const distanceRouteObj = {
                 name: '最短路程',
-                description: `约${distanceRoute[0]}米`,
+                description: `约${Math.round(distanceRoute[0])}米`,
                 avgDistance: distanceRoute[0],
                 pointSeq: distanceRoute[1],
                 edgeSeq: distanceRoute[2],
@@ -48,6 +48,9 @@ export default defineComponent({
                 if (bus.middle.size <= 3) {
                     calcRoutes()
                 }
+            },
+            {
+                deep: true,
             },
         )
         watch(
@@ -113,7 +116,7 @@ export default defineComponent({
                 <ul v-loading="loading" class="routes">
                     <li v-for="(i, a) in bus.routes" :key="a">
                         <div class="name">{{ i.name }}</div>
-                        <div class="desc">{{ i.desc }}</div>
+                        <div class="desc">{{ i.description }}</div>
                         <el-button circle class="go-button">
                             <fa-icon icon="directions" />
                         </el-button>

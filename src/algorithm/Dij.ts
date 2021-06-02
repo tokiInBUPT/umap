@@ -22,7 +22,7 @@ export function dijkstra(
     const used: Record<string, boolean> = {}
     const prev: Record<string, null | { point: mapPoint; edge: string }> = {}
     for (const point in myPointMap) {
-        if ({}.hasOwnProperty(point)) {
+        if (myPointMap.hasOwnProperty(point)) {
             distance[myPointMap[point].id] = -1
             used[myPointMap[point].id] = false
         }
