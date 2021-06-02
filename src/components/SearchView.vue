@@ -5,6 +5,7 @@ import { dijkstra } from '@/algorithm/Dij'
 import { SA } from '@/algorithm/SA'
 import { Ha } from '@/algorithm/Ha_byDij'
 import { mapPoint } from '@/typings/map'
+import { IRoute } from '@/typings/route'
 
 export default defineComponent({
     setup() {
@@ -184,10 +185,16 @@ export default defineComponent({
                 }
             },
         )
+        function showPath(i: IRoute) {
+            bus.activeRoute = i
+        }
+        function moveAlongPath(i: any) {}
         return {
             bus,
             calcRoutes,
             loading,
+            showPath,
+            moveAlongPath,
         }
     },
 })
@@ -236,14 +243,14 @@ export default defineComponent({
                     </el-tag>
                 </div>
                 <ul v-loading="loading" class="routes">
-                    <li v-for="(i, a) in bus.routes" :key="a">
+                    <li v-for="(i, a) in bus.routes" :key="a" @click="showPath(i)">
                         <div class="name">{{ i.name }}</div>
                         <div class="desc">{{ i.description }}</div>
                         <el-button circle class="go-button">
                             <fa-icon icon="directions" />
                         </el-button>
                     </li>
-                    <li v-if="bus.routes.length <= 0" class="not-calculated">
+                    <li v-if="bus.routes.length <= 0" class="not-calculated" @click.stop.prevent="moveAlongPath(i)">
                         <el-button @click="calcRoutes">计算路线</el-button>
                     </li>
                 </ul>

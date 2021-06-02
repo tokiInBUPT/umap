@@ -26,6 +26,8 @@ export const bus = reactive({
         bike: 5,
         bus: 16,
     },
+    activeRoute: null as IRoute | null,
+    animateState: false,
     routes: [] as IRoute[],
     routes_: [
         {

@@ -13,7 +13,7 @@ module.exports = {
         'no-console': 'off',
         'no-debugger': 'off',
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': ['error'],
+        '@typescript-eslint/no-unused-vars': ['warn'],
         'vue/no-duplicate-attributes': [
             'error',
             {
