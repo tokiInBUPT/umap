@@ -91,6 +91,9 @@ export default defineComponent({
                     calcRoutes()
                 }
             },
+            {
+                deep: true,
+            },
         )
         watch(
             () => bus.position,
