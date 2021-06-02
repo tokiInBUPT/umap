@@ -11,6 +11,10 @@
             {
                 "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
                 "edgeId": "d0f03592-c2b8-11eb-a79d-401c83a07338"
+            },
+            {
+                "toPointId": "7b856662-350c-4fe9-aa29-2224704fa057",
+                "edgeId": "benbu_to_shahe"
             }
         ],
         "neighborBike": [],

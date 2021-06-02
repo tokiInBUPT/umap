@@ -33,6 +33,17 @@ export default defineComponent({
                     pointSeq: timeRoute[1],
                     edgeSeq: timeRoute[2],
                 }
+                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
+                    let counts = (arr: string[], value: string) =>
+                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
+                    timeRouteObj.description = `约${(
+                        (timeRoute[0] / bus.speed.walk +
+                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
+                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
+                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
+                        60
+                    ).toFixed(0)}分钟`
+                }
                 const distanceRoute = Ha(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
@@ -47,6 +58,9 @@ export default defineComponent({
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                }
+                if (distanceRoute[0] > 1000) {
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
                 }
                 bus.routes.push(timeRouteObj)
                 bus.routes.push(distanceRouteObj)
@@ -70,6 +84,17 @@ export default defineComponent({
                     pointSeq: timeRoute[1],
                     edgeSeq: timeRoute[2],
                 }
+                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
+                    let counts = (arr: string[], value: string) =>
+                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
+                    timeRouteObj.description = `约${(
+                        (timeRoute[0] / bus.speed.walk +
+                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
+                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
+                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
+                        60
+                    ).toFixed(0)}分钟`
+                }
                 const distanceRoute = SA(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
@@ -84,6 +109,9 @@ export default defineComponent({
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                }
+                if (distanceRoute[0] > 1000) {
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
                 }
                 bus.routes.push(timeRouteObj)
                 bus.routes.push(distanceRouteObj)
@@ -102,6 +130,17 @@ export default defineComponent({
                     pointSeq: timeRoute[1],
                     edgeSeq: timeRoute[2],
                 }
+                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
+                    let counts = (arr: string[], value: string) =>
+                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
+                    timeRouteObj.description = `约${(
+                        (timeRoute[0] / bus.speed.walk +
+                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
+                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
+                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
+                        60
+                    ).toFixed(0)}分钟`
+                }
                 const distanceRoute = dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
@@ -115,6 +154,9 @@ export default defineComponent({
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                }
+                if (distanceRoute[0] > 1000) {
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
                 }
                 bus.routes.push(timeRouteObj)
                 bus.routes.push(distanceRouteObj)

@@ -4,6 +4,10 @@ import { mapPoint, edge } from './typings/map'
 import shahe_points from '@/data/shahe_point_06012334.json'
 // @ts-ignore
 import shahe_edges from '@/data/shahe_edge_06012334.json'
+// @ts-ignore
+import benbu_points from '@/data/benbu_point_06012334.json'
+// @ts-ignore
+import benbu_edges from '@/data/benbu_edge_06012334.json'
 import { IRoute } from './typings/route'
 
 export const bus = reactive({
@@ -12,9 +16,9 @@ export const bus = reactive({
     position: '',
     middle: new Set<string>(),
     map: {
-        points: [...shahe_points] as mapPoint[],
+        points: [...shahe_points, ...benbu_points] as mapPoint[],
         pointsMap: {} as Record<string, mapPoint>,
-        edges: [...shahe_edges] as edge[],
+        edges: [...shahe_edges, ...benbu_edges] as edge[],
         edgeMap: {} as Record<string, edge>,
     },
     speed: {
