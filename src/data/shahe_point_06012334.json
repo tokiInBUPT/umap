@@ -1,0 +1,1902 @@
+[
+    {
+        "id": "d08cf367-be23-4c1d-a256-db4d8274ad60",
+        "name": "西南2门",
+        "position": {
+            "lat": 40.156835110829554,
+            "lng": 116.28412096184479,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+                "edgeId": "d0f03592-c2b8-11eb-a79d-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "1b152522-c965-468d-863d-133f010ce897",
+        "name": "小南门",
+        "position": {
+            "lat": 40.15740760757316,
+            "lng": 116.28645321483123,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+                "edgeId": "d33367ed-c2b8-11eb-8950-401c83a07338"
+            },
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "d58fb96a-c2b8-11eb-b638-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+        "name": "甲子钟",
+        "position": {
+            "lat": 40.157769126519774,
+            "lng": 116.28774857102371,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1b152522-c965-468d-863d-133f010ce897",
+                "edgeId": "d58fb96a-c2b8-11eb-b638-401c83a07338"
+            },
+            {
+                "toPointId": "00293e4c-2807-4752-8215-88dbe420cd7b",
+                "edgeId": "d987d6c2-c2b8-11eb-bf09-401c83a07338"
+            },
+            {
+                "toPointId": "5a94edf1-cc12-4bdf-bd67-29c150d370fd",
+                "edgeId": "db506afe-c2b8-11eb-8851-401c83a07338"
+            },
+            {
+                "toPointId": "09196478-461f-408b-8b56-b373c2778547",
+                "edgeId": "dcb0a912-c2b8-11eb-aee3-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "4eefcb94-f2d8-47e9-95d1-99f1ee40880e",
+        "name": "操场2门",
+        "position": {
+            "lat": 40.159568810525016,
+            "lng": 116.28681331405778,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "98f41cb5-06fe-43f1-ba52-570c278177fc",
+                "edgeId": "e064ecdf-c2b8-11eb-8363-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+        "name": "宿舍饭堂十字路口",
+        "position": {
+            "lat": 40.15819554087938,
+            "lng": 116.28931776186653,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+                "edgeId": "83d1d3eb-c2b9-11eb-af34-401c83a07338"
+            },
+            {
+                "toPointId": "a278e28d-56df-4fef-ac5e-e29c9e33ad52",
+                "edgeId": "876f6d8a-c2b9-11eb-9c74-401c83a07338"
+            },
+            {
+                "toPointId": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+                "edgeId": "897cbfef-c2b9-11eb-bb6e-401c83a07338"
+            },
+            {
+                "toPointId": "58f7a53c-c28b-4457-8952-5222a4f171bc",
+                "edgeId": "8aff9d24-c2b9-11eb-9e18-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+        "name": "图书馆教学楼十字路口",
+        "position": {
+            "lat": 40.15866836268351,
+            "lng": 116.2911167768616,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "f9803d54-9dba-46f2-b020-2396e8a76468",
+                "edgeId": "90d38397-c2b9-11eb-a5ce-401c83a07338"
+            },
+            {
+                "toPointId": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+                "edgeId": "934eaa8e-c2b9-11eb-85c0-401c83a07338"
+            },
+            {
+                "toPointId": "9e353fce-a2fa-4443-9c4e-ef9cd99a5e37",
+                "edgeId": "95444fe8-c2b9-11eb-a8a8-401c83a07338"
+            },
+            {
+                "toPointId": "ac69acb2-2483-4f8f-acc9-26262ec17602",
+                "edgeId": "9705f07a-c2b9-11eb-b0b5-401c83a07338"
+            },
+            {
+                "toPointId": "6dae7532-d046-4665-a661-812c832f53c7",
+                "edgeId": "98dee6d9-c2b9-11eb-b9b8-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+        "name": "图书馆饭堂十字路口",
+        "position": {
+            "lat": 40.159397769294756,
+            "lng": 116.2907817030657,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "934eaa8e-c2b9-11eb-85c0-401c83a07338"
+            },
+            {
+                "toPointId": "6d8724dc-ccfe-4d32-a458-ab8ef65ff994",
+                "edgeId": "9f3aa19b-c2b9-11eb-aae1-401c83a07338"
+            },
+            {
+                "toPointId": "64f64d4e-685f-45d0-b9dd-4e549f3a0b12",
+                "edgeId": "a2251d3a-c2b9-11eb-a8dc-401c83a07338"
+            },
+            {
+                "toPointId": "391cd1cf-5d4a-4731-aea8-6b4a5641af0d",
+                "edgeId": "a48fb07e-c2b9-11eb-8888-401c83a07338"
+            },
+            {
+                "toPointId": "d0687236-62cf-4800-8f0e-f1635ec32957",
+                "edgeId": "a629d692-c2b9-11eb-8e70-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "391cd1cf-5d4a-4731-aea8-6b4a5641af0d",
+        "name": "自习室入口",
+        "position": {
+            "lat": 40.159576979723,
+            "lng": 116.29123657653281,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+                "edgeId": "a48fb07e-c2b9-11eb-8888-401c83a07338"
+            },
+            {
+                "toPointId": "d0687236-62cf-4800-8f0e-f1635ec32957",
+                "edgeId": "b3e1d450-c2b9-11eb-b1f8-401c83a07338"
+            },
+            {
+                "toPointId": "ecc38cab-cd41-4b4a-9d49-eead5bb9e644",
+                "edgeId": "b5dd799f-c2b9-11eb-9596-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "ecc38cab-cd41-4b4a-9d49-eead5bb9e644",
+        "name": "东配楼",
+        "position": {
+            "lat": 40.15980024242556,
+            "lng": 116.29197276841,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "391cd1cf-5d4a-4731-aea8-6b4a5641af0d",
+                "edgeId": "b5dd799f-c2b9-11eb-9596-401c83a07338"
+            },
+            {
+                "toPointId": "d0687236-62cf-4800-8f0e-f1635ec32957",
+                "edgeId": "ba47bc9a-c2b9-11eb-bf7c-401c83a07338"
+            },
+            {
+                "toPointId": "db328a27-1136-4dc0-b3ff-cb0ee801b963",
+                "edgeId": "bceca1ac-c2b9-11eb-bfcd-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "db328a27-1136-4dc0-b3ff-cb0ee801b963",
+        "name": "塞纳左岸咖啡",
+        "position": {
+            "lat": 40.15943130672082,
+            "lng": 116.29213248954056,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "ecc38cab-cd41-4b4a-9d49-eead5bb9e644",
+                "edgeId": "bceca1ac-c2b9-11eb-bfcd-401c83a07338"
+            },
+            {
+                "toPointId": "8859119f-f1e9-4771-8cdb-2039d41ab949",
+                "edgeId": "c376ba9d-c2b9-11eb-bdf1-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "9e353fce-a2fa-4443-9c4e-ef9cd99a5e37",
+        "name": "图书馆楼梯",
+        "position": {
+            "lat": 40.15893667504603,
+            "lng": 116.29126270037614,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "95444fe8-c2b9-11eb-a8a8-401c83a07338"
+            },
+            {
+                "toPointId": "e4d2b216-0fad-42f5-8d6f-3db50346a584",
+                "edgeId": "c8147cb3-c2b9-11eb-9feb-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e4d2b216-0fad-42f5-8d6f-3db50346a584",
+        "name": "图书馆入口",
+        "position": {
+            "lat": 40.15912728591958,
+            "lng": 116.29178959163767,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9e353fce-a2fa-4443-9c4e-ef9cd99a5e37",
+                "edgeId": "c8147cb3-c2b9-11eb-9feb-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "d0687236-62cf-4800-8f0e-f1635ec32957",
+        "name": "图书馆一层入口",
+        "position": {
+            "lat": 40.159370753098074,
+            "lng": 116.29123714628508,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+                "edgeId": "a629d692-c2b9-11eb-8e70-401c83a07338"
+            },
+            {
+                "toPointId": "391cd1cf-5d4a-4731-aea8-6b4a5641af0d",
+                "edgeId": "b3e1d450-c2b9-11eb-b1f8-401c83a07338"
+            },
+            {
+                "toPointId": "ecc38cab-cd41-4b4a-9d49-eead5bb9e644",
+                "edgeId": "ba47bc9a-c2b9-11eb-bf7c-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "a825ad1e-35e6-4b77-b50b-a1556b35a004",
+        "name": "S楼进路路口",
+        "position": {
+            "lat": 40.15793886589745,
+            "lng": 116.29147409623761,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "ac69acb2-2483-4f8f-acc9-26262ec17602",
+                "edgeId": "d81596ba-c2b9-11eb-ac0d-401c83a07338"
+            },
+            {
+                "toPointId": "ee8bf2aa-ee79-44f9-aad1-afada6338b08",
+                "edgeId": "da1ccc76-c2b9-11eb-82f0-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "ee8bf2aa-ee79-44f9-aad1-afada6338b08",
+        "name": "S楼入口1",
+        "position": {
+            "lat": 40.15805291750507,
+            "lng": 116.29186864094436,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "a825ad1e-35e6-4b77-b50b-a1556b35a004",
+                "edgeId": "da1ccc76-c2b9-11eb-82f0-401c83a07338"
+            },
+            {
+                "toPointId": "440318a4-cac3-42fd-a41c-8e3235d49e9b",
+                "edgeId": "e2b944e8-c2b9-11eb-ae2a-401c83a07338"
+            },
+            {
+                "toPointId": "c23feae9-1ef0-4cd7-9be2-cc3418934857",
+                "edgeId": "e54fda6b-c2b9-11eb-b777-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "440318a4-cac3-42fd-a41c-8e3235d49e9b",
+        "name": "S楼入口2",
+        "position": {
+            "lat": 40.15815343937897,
+            "lng": 116.29224444282386,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "ee8bf2aa-ee79-44f9-aad1-afada6338b08",
+                "edgeId": "e2b944e8-c2b9-11eb-ae2a-401c83a07338"
+            },
+            {
+                "toPointId": "cae8f729-689e-4e5e-9cea-f3ceecbe3ce9",
+                "edgeId": "eade9abb-c2b9-11eb-b88b-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "ac69acb2-2483-4f8f-acc9-26262ec17602",
+        "name": "N楼进路路口",
+        "position": {
+            "lat": 40.15815545007246,
+            "lng": 116.29138552550285,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "9705f07a-c2b9-11eb-b0b5-401c83a07338"
+            },
+            {
+                "toPointId": "a825ad1e-35e6-4b77-b50b-a1556b35a004",
+                "edgeId": "d81596ba-c2b9-11eb-ac0d-401c83a07338"
+            },
+            {
+                "toPointId": "c23feae9-1ef0-4cd7-9be2-cc3418934857",
+                "edgeId": "f0624aaf-c2b9-11eb-80c8-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "c23feae9-1ef0-4cd7-9be2-cc3418934857",
+        "name": "N楼入口1",
+        "position": {
+            "lat": 40.158270336822696,
+            "lng": 116.29177371826461,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "ee8bf2aa-ee79-44f9-aad1-afada6338b08",
+                "edgeId": "e54fda6b-c2b9-11eb-b777-401c83a07338"
+            },
+            {
+                "toPointId": "ac69acb2-2483-4f8f-acc9-26262ec17602",
+                "edgeId": "f0624aaf-c2b9-11eb-80c8-401c83a07338"
+            },
+            {
+                "toPointId": "3c4a71c7-523a-4beb-aed8-658088974cae",
+                "edgeId": "f523c686-c2b9-11eb-bfb5-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "3c4a71c7-523a-4beb-aed8-658088974cae",
+        "name": "N楼入口2",
+        "position": {
+            "lat": 40.15836512784188,
+            "lng": 116.29212468530841,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "c23feae9-1ef0-4cd7-9be2-cc3418934857",
+                "edgeId": "f523c686-c2b9-11eb-bfb5-401c83a07338"
+            },
+            {
+                "toPointId": "fd37f5d9-649f-4040-8068-5f54cc37333b",
+                "edgeId": "f8ff9f70-c2b9-11eb-b0a4-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "654ad1e8-4ad6-4c35-835f-d15b00bfecc4",
+        "name": "排球场",
+        "position": {
+            "lat": 40.15799481994644,
+            "lng": 116.28672764716794,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "7048d862-14c1-44aa-919f-2de7837f16ac",
+                "edgeId": "02ecdfad-c2ba-11eb-992a-401c83a07338"
+            },
+            {
+                "toPointId": "b6a312ae-c4c6-476f-98d7-728e39b92719",
+                "edgeId": "06b3b54d-c2ba-11eb-ada5-401c83a07338"
+            },
+            {
+                "toPointId": "f844b80f-6e95-4a7c-967c-487e13f12d76",
+                "edgeId": "09cc999b-c2ba-11eb-8fc3-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "7048d862-14c1-44aa-919f-2de7837f16ac",
+        "name": "网球场",
+        "position": {
+            "lat": 40.15787867660225,
+            "lng": 116.28622677273722,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "654ad1e8-4ad6-4c35-835f-d15b00bfecc4",
+                "edgeId": "02ecdfad-c2ba-11eb-992a-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "b6a312ae-c4c6-476f-98d7-728e39b92719",
+        "name": "篮球场",
+        "position": {
+            "lat": 40.158141598589374,
+            "lng": 116.28708898046989,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "654ad1e8-4ad6-4c35-835f-d15b00bfecc4",
+                "edgeId": "06b3b54d-c2ba-11eb-ada5-401c83a07338"
+            },
+            {
+                "toPointId": "f844b80f-6e95-4a7c-967c-487e13f12d76",
+                "edgeId": "12ebcabd-c2ba-11eb-95d7-401c83a07338"
+            },
+            {
+                "toPointId": "00293e4c-2807-4752-8215-88dbe420cd7b",
+                "edgeId": "15075278-c2ba-11eb-ae4f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "f844b80f-6e95-4a7c-967c-487e13f12d76",
+        "name": "AED急救设备",
+        "position": {
+            "lat": 40.1581372519735,
+            "lng": 116.28729438556456,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "654ad1e8-4ad6-4c35-835f-d15b00bfecc4",
+                "edgeId": "09cc999b-c2ba-11eb-8fc3-401c83a07338"
+            },
+            {
+                "toPointId": "b6a312ae-c4c6-476f-98d7-728e39b92719",
+                "edgeId": "12ebcabd-c2ba-11eb-95d7-401c83a07338"
+            },
+            {
+                "toPointId": "00293e4c-2807-4752-8215-88dbe420cd7b",
+                "edgeId": "18aa3cb9-c2ba-11eb-9366-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "564e4a0f-66f3-4782-b09a-108755b19297",
+        "name": "邮局进路路口",
+        "position": {
+            "lat": 40.15848956555394,
+            "lng": 116.29035608218987,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+                "edgeId": "1d814f3f-c2ba-11eb-be77-401c83a07338"
+            },
+            {
+                "toPointId": "f9803d54-9dba-46f2-b020-2396e8a76468",
+                "edgeId": "1f0019a4-c2ba-11eb-988e-401c83a07338"
+            },
+            {
+                "toPointId": "a066621e-a401-4768-ad8b-d934f9d09d34",
+                "edgeId": "20e506e7-c2ba-11eb-8295-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "a066621e-a401-4768-ad8b-d934f9d09d34",
+        "name": "邮局",
+        "position": {
+            "lat": 40.158713930005376,
+            "lng": 116.29023704080396,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "564e4a0f-66f3-4782-b09a-108755b19297",
+                "edgeId": "20e506e7-c2ba-11eb-8295-401c83a07338"
+            },
+            {
+                "toPointId": "59b88cdd-cd54-4b42-8257-1288cc7aa855",
+                "edgeId": "27eca107-c2ba-11eb-b8c7-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "64f64d4e-685f-45d0-b9dd-4e549f3a0b12",
+        "name": "行政楼",
+        "position": {
+            "lat": 40.15934870866378,
+            "lng": 116.29017095267977,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+                "edgeId": "a2251d3a-c2b9-11eb-a8dc-401c83a07338"
+            },
+            {
+                "toPointId": "3fdf2ab1-b242-4d75-bf8a-b2c10ab7d037",
+                "edgeId": "2d82d125-c2ba-11eb-91b6-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "408c7055-48fc-43ed-b3ad-0366e3f11365",
+        "name": "二维码广场",
+        "position": {
+            "lat": 40.15919886476122,
+            "lng": 116.28962351483983,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1c6d74b2-6731-4816-8918-13097a3e5d32",
+                "edgeId": "352b3c58-c2ba-11eb-9078-401c83a07338"
+            },
+            {
+                "toPointId": "3fdf2ab1-b242-4d75-bf8a-b2c10ab7d037",
+                "edgeId": "36a107a1-c2ba-11eb-9b77-401c83a07338"
+            },
+            {
+                "toPointId": "cb687139-6a4d-4c44-ba9d-6274b2193a62",
+                "edgeId": "38ec01b0-c2ba-11eb-80f1-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "59b88cdd-cd54-4b42-8257-1288cc7aa855",
+        "name": "学生活动中心",
+        "position": {
+            "lat": 40.15876463961829,
+            "lng": 116.2903639638547,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "a066621e-a401-4768-ad8b-d934f9d09d34",
+                "edgeId": "27eca107-c2ba-11eb-b8c7-401c83a07338"
+            },
+            {
+                "toPointId": "f9803d54-9dba-46f2-b020-2396e8a76468",
+                "edgeId": "3cdc8a77-c2ba-11eb-a04a-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "58f7a53c-c28b-4457-8952-5222a4f171bc",
+        "name": "雁南园S2",
+        "position": {
+            "lat": 40.15781978293442,
+            "lng": 116.28946417231782,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "8aff9d24-c2b9-11eb-9e18-401c83a07338"
+            },
+            {
+                "toPointId": "9edd1550-4240-469f-af0e-213b1cb95217",
+                "edgeId": "4b62be02-c2ba-11eb-8060-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "9edd1550-4240-469f-af0e-213b1cb95217",
+        "name": "雁南园S3",
+        "position": {
+            "lat": 40.157385953246724,
+            "lng": 116.28965543478387,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "58f7a53c-c28b-4457-8952-5222a4f171bc",
+                "edgeId": "4b62be02-c2ba-11eb-8060-401c83a07338"
+            },
+            {
+                "toPointId": "da8f3bb9-1176-478f-b69c-a3410efc7e8e",
+                "edgeId": "4e403f51-c2ba-11eb-b483-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "da8f3bb9-1176-478f-b69c-a3410efc7e8e",
+        "name": "雁南园S4",
+        "position": {
+            "lat": 40.15692460740871,
+            "lng": 116.28987043989355,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9edd1550-4240-469f-af0e-213b1cb95217",
+                "edgeId": "4e403f51-c2ba-11eb-b483-401c83a07338"
+            },
+            {
+                "toPointId": "efc66808-3e06-4609-94ec-48e547deb3a8",
+                "edgeId": "52371876-c2ba-11eb-b660-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "efc66808-3e06-4609-94ec-48e547deb3a8",
+        "name": "雁南园S5-入口1",
+        "position": {
+            "lat": 40.156484018048566,
+            "lng": 116.29004703388944,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "da8f3bb9-1176-478f-b69c-a3410efc7e8e",
+                "edgeId": "52371876-c2ba-11eb-b660-401c83a07338"
+            },
+            {
+                "toPointId": "b7f89a3b-5a9e-4dcf-ae6f-45f1b837882f",
+                "edgeId": "59f81b38-c2ba-11eb-8ee2-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "b7f89a3b-5a9e-4dcf-ae6f-45f1b837882f",
+        "name": "雁南园S5-路口",
+        "position": {
+            "lat": 40.15601675213537,
+            "lng": 116.29027655455423,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "efc66808-3e06-4609-94ec-48e547deb3a8",
+                "edgeId": "59f81b38-c2ba-11eb-8ee2-401c83a07338"
+            },
+            {
+                "toPointId": "06b5e511-e470-4b16-97c5-e4eeab0c2a14",
+                "edgeId": "602bbc43-c2ba-11eb-aa08-401c83a07338"
+            },
+            {
+                "toPointId": "b7963ae4-58c5-4143-a8de-ca5e1fb201e2",
+                "edgeId": "6349081f-c2ba-11eb-be65-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "06b5e511-e470-4b16-97c5-e4eeab0c2a14",
+        "name": "雁南园S5-入口2",
+        "position": {
+            "lat": 40.155997019103246,
+            "lng": 116.29011263390805,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "b7f89a3b-5a9e-4dcf-ae6f-45f1b837882f",
+                "edgeId": "602bbc43-c2ba-11eb-aa08-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "b7963ae4-58c5-4143-a8de-ca5e1fb201e2",
+        "name": "雁南园S6",
+        "position": {
+            "lat": 40.15549306439522,
+            "lng": 116.29048551656808,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "b7f89a3b-5a9e-4dcf-ae6f-45f1b837882f",
+                "edgeId": "6349081f-c2ba-11eb-be65-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "53ad921c-0d0e-45ab-86cf-70b778ba5f4b",
+        "name": "雁北园-医务室路口",
+        "position": {
+            "lat": 40.15942349567388,
+            "lng": 116.28879414872586,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "23d0bcb3-e8d1-412e-b680-8a7be91a0d8d",
+                "edgeId": "6ebb0564-c2ba-11eb-997a-401c83a07338"
+            },
+            {
+                "toPointId": "4317e974-410e-4593-9f58-50b07586cc6e",
+                "edgeId": "737b592f-c2ba-11eb-8d64-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "4317e974-410e-4593-9f58-50b07586cc6e",
+        "name": "医务室进路路口",
+        "position": {
+            "lat": 40.159625839403404,
+            "lng": 116.28948237267991,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "53ad921c-0d0e-45ab-86cf-70b778ba5f4b",
+                "edgeId": "737b592f-c2ba-11eb-8d64-401c83a07338"
+            },
+            {
+                "toPointId": "25a90b00-78d7-4cb8-8606-77e3eee7b848",
+                "edgeId": "7b664d00-c2ba-11eb-a9e3-401c83a07338"
+            },
+            {
+                "toPointId": "6d8724dc-ccfe-4d32-a458-ab8ef65ff994",
+                "edgeId": "7d9f15af-c2ba-11eb-b45a-401c83a07338"
+            },
+            {
+                "toPointId": "3fdf2ab1-b242-4d75-bf8a-b2c10ab7d037",
+                "edgeId": "818e3e35-c2ba-11eb-ad0e-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "25a90b00-78d7-4cb8-8606-77e3eee7b848",
+        "name": "医务室",
+        "position": {
+            "lat": 40.15984834845519,
+            "lng": 116.2895878888005,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "4317e974-410e-4593-9f58-50b07586cc6e",
+                "edgeId": "7b664d00-c2ba-11eb-a9e3-401c83a07338"
+            },
+            {
+                "toPointId": "6d8724dc-ccfe-4d32-a458-ab8ef65ff994",
+                "edgeId": "8c9024d6-c2ba-11eb-a5f4-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "6d8724dc-ccfe-4d32-a458-ab8ef65ff994",
+        "name": "医务室-图书馆路口",
+        "position": {
+            "lat": 40.15989387096615,
+            "lng": 116.29052298588408,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "1ee433d5-fcb8-4669-b4b2-478ddaa5893b",
+                "edgeId": "9f3aa19b-c2b9-11eb-aae1-401c83a07338"
+            },
+            {
+                "toPointId": "4317e974-410e-4593-9f58-50b07586cc6e",
+                "edgeId": "7d9f15af-c2ba-11eb-b45a-401c83a07338"
+            },
+            {
+                "toPointId": "25a90b00-78d7-4cb8-8606-77e3eee7b848",
+                "edgeId": "8c9024d6-c2ba-11eb-a5f4-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "6dae7532-d046-4665-a661-812c832f53c7",
+        "name": "N楼进路路口-图书馆",
+        "position": {
+            "lat": 40.15890323928057,
+            "lng": 116.29210605106698,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "98dee6d9-c2b9-11eb-b9b8-401c83a07338"
+            },
+            {
+                "toPointId": "8859119f-f1e9-4771-8cdb-2039d41ab949",
+                "edgeId": "c59de967-c2ba-11eb-bef5-401c83a07338"
+            },
+            {
+                "toPointId": "96089637-f560-43ca-ba12-73bd3b54da8c",
+                "edgeId": "c6daf8a0-c2ba-11eb-a5bc-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "96089637-f560-43ca-ba12-73bd3b54da8c",
+        "name": "N楼入口3",
+        "position": {
+            "lat": 40.15866164639913,
+            "lng": 116.29219644148031,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "6dae7532-d046-4665-a661-812c832f53c7",
+                "edgeId": "c6daf8a0-c2ba-11eb-a5bc-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "a278e28d-56df-4fef-ac5e-e29c9e33ad52",
+        "name": "学生食堂入口1进路路口",
+        "position": {
+            "lat": 40.1584479019213,
+            "lng": 116.28922812488236,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "876f6d8a-c2b9-11eb-9c74-401c83a07338"
+            },
+            {
+                "toPointId": "d16793a9-349d-4d7e-9933-256a790ba705",
+                "edgeId": "d33a7810-c2ba-11eb-9ae0-401c83a07338"
+            },
+            {
+                "toPointId": "fb412d9a-766d-45c6-8a1a-3c90f436d801",
+                "edgeId": "d6af42c4-c2ba-11eb-ac91-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "fb412d9a-766d-45c6-8a1a-3c90f436d801",
+        "name": "学生食堂入口1",
+        "position": {
+            "lat": 40.15850965553013,
+            "lng": 116.28946145769783,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "a278e28d-56df-4fef-ac5e-e29c9e33ad52",
+                "edgeId": "d6af42c4-c2ba-11eb-ac91-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "d16793a9-349d-4d7e-9933-256a790ba705",
+        "name": "学生食堂入口2进路路口",
+        "position": {
+            "lat": 40.158839022333964,
+            "lng": 116.28904504353295,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "a278e28d-56df-4fef-ac5e-e29c9e33ad52",
+                "edgeId": "d33a7810-c2ba-11eb-9ae0-401c83a07338"
+            },
+            {
+                "toPointId": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
+                "edgeId": "e3225cb3-c2ba-11eb-a400-401c83a07338"
+            },
+            {
+                "toPointId": "e4c46e0b-753e-47a2-b510-05fdbb4a1d40",
+                "edgeId": "e5e29a4b-c2ba-11eb-9a49-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e4c46e0b-753e-47a2-b510-05fdbb4a1d40",
+        "name": "学生食堂入口2",
+        "position": {
+            "lat": 40.1589172347453,
+            "lng": 116.28924832047505,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "d16793a9-349d-4d7e-9933-256a790ba705",
+                "edgeId": "e5e29a4b-c2ba-11eb-9a49-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "23d0bcb3-e8d1-412e-b680-8a7be91a0d8d",
+        "name": "洗衣房",
+        "position": {
+            "lat": 40.159156030362915,
+            "lng": 116.28888954235708,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "53ad921c-0d0e-45ab-86cf-70b778ba5f4b",
+                "edgeId": "6ebb0564-c2ba-11eb-997a-401c83a07338"
+            },
+            {
+                "toPointId": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
+                "edgeId": "f5d58608-c2ba-11eb-b1fb-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "cb687139-6a4d-4c44-ba9d-6274b2193a62",
+        "name": "小麦铺进路路口",
+        "position": {
+            "lat": 40.15895224060771,
+            "lng": 116.28973424875494,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "408c7055-48fc-43ed-b3ad-0366e3f11365",
+                "edgeId": "38ec01b0-c2ba-11eb-80f1-401c83a07338"
+            },
+            {
+                "toPointId": "76281d26-b119-4d02-b9f1-f589cea807c4",
+                "edgeId": "fc06d0ab-c2ba-11eb-bc5b-401c83a07338"
+            },
+            {
+                "toPointId": "e3786052-7c53-4798-9420-fda97d0a38ad",
+                "edgeId": "00b73c21-c2bb-11eb-bd35-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e3786052-7c53-4798-9420-fda97d0a38ad",
+        "name": "小麦铺",
+        "position": {
+            "lat": 40.15900761467004,
+            "lng": 116.28988382560101,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "cb687139-6a4d-4c44-ba9d-6274b2193a62",
+                "edgeId": "00b73c21-c2bb-11eb-bd35-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "3fdf2ab1-b242-4d75-bf8a-b2c10ab7d037",
+        "name": "教工食堂入口2",
+        "position": {
+            "lat": 40.15924483370357,
+            "lng": 116.28974777563553,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "64f64d4e-685f-45d0-b9dd-4e549f3a0b12",
+                "edgeId": "2d82d125-c2ba-11eb-91b6-401c83a07338"
+            },
+            {
+                "toPointId": "408c7055-48fc-43ed-b3ad-0366e3f11365",
+                "edgeId": "36a107a1-c2ba-11eb-9b77-401c83a07338"
+            },
+            {
+                "toPointId": "4317e974-410e-4593-9f58-50b07586cc6e",
+                "edgeId": "818e3e35-c2ba-11eb-ad0e-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "1c6d74b2-6731-4816-8918-13097a3e5d32",
+        "name": "教工食堂入口1",
+        "position": {
+            "lat": 40.159164323125246,
+            "lng": 116.2893986226286,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "408c7055-48fc-43ed-b3ad-0366e3f11365",
+                "edgeId": "352b3c58-c2ba-11eb-9078-401c83a07338"
+            },
+            {
+                "toPointId": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
+                "edgeId": "0d14fc1b-c2bb-11eb-9b7a-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
+        "name": "雁北-食堂十字路口",
+        "position": {
+            "lat": 40.15904440417113,
+            "lng": 116.2889555272094,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "d16793a9-349d-4d7e-9933-256a790ba705",
+                "edgeId": "e3225cb3-c2ba-11eb-a400-401c83a07338"
+            },
+            {
+                "toPointId": "23d0bcb3-e8d1-412e-b680-8a7be91a0d8d",
+                "edgeId": "f5d58608-c2ba-11eb-b1fb-401c83a07338"
+            },
+            {
+                "toPointId": "1c6d74b2-6731-4816-8918-13097a3e5d32",
+                "edgeId": "0d14fc1b-c2bb-11eb-9b7a-401c83a07338"
+            },
+            {
+                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
+                "edgeId": "1b082967-c2bc-11eb-bb13-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "5a94edf1-cc12-4bdf-bd67-29c150d370fd",
+        "name": "校园微型消防站",
+        "position": {
+            "lat": 40.15717679459754,
+            "lng": 116.2880992888197,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "db506afe-c2b8-11eb-8851-401c83a07338"
+            },
+            {
+                "toPointId": "e8424cb7-a288-4193-9487-c60b4a9df633",
+                "edgeId": "1b6ffb8b-c2bb-11eb-8dba-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "88548e8b-b944-4775-bded-ed6296250567",
+        "name": "新教学楼路口",
+        "position": {
+            "lat": 40.159134601852884,
+            "lng": 116.29299938828399,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "8859119f-f1e9-4771-8cdb-2039d41ab949",
+                "edgeId": "219975cb-c2bb-11eb-861d-401c83a07338"
+            },
+            {
+                "toPointId": "7fa978a4-6fe7-4f08-83f6-ee7c18e44429",
+                "edgeId": "26eb8b24-c2bb-11eb-b536-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "8859119f-f1e9-4771-8cdb-2039d41ab949",
+        "name": "塞纳左岸咖啡进路路口",
+        "position": {
+            "lat": 40.15896700903339,
+            "lng": 116.2923383142645,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "db328a27-1136-4dc0-b3ff-cb0ee801b963",
+                "edgeId": "c376ba9d-c2b9-11eb-bdf1-401c83a07338"
+            },
+            {
+                "toPointId": "6dae7532-d046-4665-a661-812c832f53c7",
+                "edgeId": "c59de967-c2ba-11eb-bef5-401c83a07338"
+            },
+            {
+                "toPointId": "88548e8b-b944-4775-bded-ed6296250567",
+                "edgeId": "219975cb-c2bb-11eb-861d-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "bcd8dc46-faba-437c-8f35-bc5b4e857160",
+        "name": "N楼入口4",
+        "position": {
+            "lat": 40.15863957990851,
+            "lng": 116.2930919339019,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "fd37f5d9-649f-4040-8068-5f54cc37333b",
+                "edgeId": "2eae451a-c2bb-11eb-994a-401c83a07338"
+            },
+            {
+                "toPointId": "7fa978a4-6fe7-4f08-83f6-ee7c18e44429",
+                "edgeId": "303095df-c2bb-11eb-8e1d-401c83a07338"
+            },
+            {
+                "toPointId": "232e34dc-fc04-4ac1-9880-5e3584529d1a",
+                "edgeId": "3363f035-c2bb-11eb-b7fe-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "232e34dc-fc04-4ac1-9880-5e3584529d1a",
+        "name": "S楼入口3",
+        "position": {
+            "lat": 40.158356682315144,
+            "lng": 116.29322094581562,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "bcd8dc46-faba-437c-8f35-bc5b4e857160",
+                "edgeId": "3363f035-c2bb-11eb-b7fe-401c83a07338"
+            },
+            {
+                "toPointId": "cae8f729-689e-4e5e-9cea-f3ceecbe3ce9",
+                "edgeId": "37b3ff50-c2bb-11eb-a90f-401c83a07338"
+            },
+            {
+                "toPointId": "3ab362a5-f77e-4841-89e7-381ba66ce558",
+                "edgeId": "39c729a5-c2bb-11eb-8c86-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "7fa978a4-6fe7-4f08-83f6-ee7c18e44429",
+        "name": "N楼入口4进路路口",
+        "position": {
+            "lat": 40.15871569476828,
+            "lng": 116.29325567116427,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "88548e8b-b944-4775-bded-ed6296250567",
+                "edgeId": "26eb8b24-c2bb-11eb-b536-401c83a07338"
+            },
+            {
+                "toPointId": "bcd8dc46-faba-437c-8f35-bc5b4e857160",
+                "edgeId": "303095df-c2bb-11eb-8e1d-401c83a07338"
+            },
+            {
+                "toPointId": "0f66549a-66e6-4297-ad90-2fa0e3a048a2",
+                "edgeId": "42f4c7c7-c2bb-11eb-bef6-401c83a07338"
+            },
+            {
+                "toPointId": "3ab362a5-f77e-4841-89e7-381ba66ce558",
+                "edgeId": "457e5031-c2bb-11eb-9a1e-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "3ab362a5-f77e-4841-89e7-381ba66ce558",
+        "name": "S楼入口3进路路口",
+        "position": {
+            "lat": 40.15843000470808,
+            "lng": 116.29343743860954,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "232e34dc-fc04-4ac1-9880-5e3584529d1a",
+                "edgeId": "39c729a5-c2bb-11eb-8c86-401c83a07338"
+            },
+            {
+                "toPointId": "7fa978a4-6fe7-4f08-83f6-ee7c18e44429",
+                "edgeId": "457e5031-c2bb-11eb-9a1e-401c83a07338"
+            },
+            {
+                "toPointId": "bba14bf6-c727-4aaf-a103-7fd0a5c0ba3b",
+                "edgeId": "50466bb0-c2bb-11eb-8c18-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "76281d26-b119-4d02-b9f1-f589cea807c4",
+        "name": "学生食堂入口3",
+        "position": {
+            "lat": 40.15865214689797,
+            "lng": 116.28983098805816,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "cb687139-6a4d-4c44-ba9d-6274b2193a62",
+                "edgeId": "fc06d0ab-c2ba-11eb-bc5b-401c83a07338"
+            },
+            {
+                "toPointId": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+                "edgeId": "56ef704d-c2bb-11eb-913f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+        "name": "学生食堂入口3进路路口",
+        "position": {
+            "lat": 40.15838854936704,
+            "lng": 116.28993453484577,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "897cbfef-c2b9-11eb-bb6e-401c83a07338"
+            },
+            {
+                "toPointId": "564e4a0f-66f3-4782-b09a-108755b19297",
+                "edgeId": "1d814f3f-c2ba-11eb-be77-401c83a07338"
+            },
+            {
+                "toPointId": "76281d26-b119-4d02-b9f1-f589cea807c4",
+                "edgeId": "56ef704d-c2bb-11eb-913f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "f9803d54-9dba-46f2-b020-2396e8a76468",
+        "name": "学生活动中心进路路口",
+        "position": {
+            "lat": 40.15852655096412,
+            "lng": 116.29046688841254,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "90d38397-c2b9-11eb-a5ce-401c83a07338"
+            },
+            {
+                "toPointId": "564e4a0f-66f3-4782-b09a-108755b19297",
+                "edgeId": "1f0019a4-c2ba-11eb-988e-401c83a07338"
+            },
+            {
+                "toPointId": "59b88cdd-cd54-4b42-8257-1288cc7aa855",
+                "edgeId": "3cdc8a77-c2ba-11eb-a04a-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "0f66549a-66e6-4297-ad90-2fa0e3a048a2",
+        "name": "S1教学楼",
+        "position": {
+            "lat": 40.15880714097405,
+            "lng": 116.29347824218974,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "7fa978a4-6fe7-4f08-83f6-ee7c18e44429",
+                "edgeId": "42f4c7c7-c2bb-11eb-bef6-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "bba14bf6-c727-4aaf-a103-7fd0a5c0ba3b",
+        "name": "S3教学楼进路路口",
+        "position": {
+            "lat": 40.15828684382376,
+            "lng": 116.29353254265106,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "3ab362a5-f77e-4841-89e7-381ba66ce558",
+                "edgeId": "50466bb0-c2bb-11eb-8c18-401c83a07338"
+            },
+            {
+                "toPointId": "e8a17ca3-bc7c-47e2-af1e-bb0a454d2b94",
+                "edgeId": "aa756a74-c2bb-11eb-8fdd-401c83a07338"
+            },
+            {
+                "toPointId": "3a4ab2a6-12c6-436b-86e6-50c6cbe5d4fd",
+                "edgeId": "ae8c813b-c2bb-11eb-a481-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e8a17ca3-bc7c-47e2-af1e-bb0a454d2b94",
+        "name": "S3教学楼",
+        "position": {
+            "lat": 40.158376415734665,
+            "lng": 116.29378122383616,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "bba14bf6-c727-4aaf-a103-7fd0a5c0ba3b",
+                "edgeId": "aa756a74-c2bb-11eb-8fdd-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "3a4ab2a6-12c6-436b-86e6-50c6cbe5d4fd",
+        "name": "马克思学院楼进路路口",
+        "position": {
+            "lat": 40.157718021731135,
+            "lng": 116.29384176584585,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "bba14bf6-c727-4aaf-a103-7fd0a5c0ba3b",
+                "edgeId": "ae8c813b-c2bb-11eb-a481-401c83a07338"
+            },
+            {
+                "toPointId": "adc992b9-2bfa-4326-8423-c61aed0bdfcb",
+                "edgeId": "b51231ea-c2bb-11eb-ba21-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "adc992b9-2bfa-4326-8423-c61aed0bdfcb",
+        "name": "马克思学院楼",
+        "position": {
+            "lat": 40.15777767900996,
+            "lng": 116.29406808988278,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "3a4ab2a6-12c6-436b-86e6-50c6cbe5d4fd",
+                "edgeId": "b51231ea-c2bb-11eb-ba21-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "fd37f5d9-649f-4040-8068-5f54cc37333b",
+        "name": "报告厅入口N",
+        "position": {
+            "lat": 40.15844056115016,
+            "lng": 116.29239132331736,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "3c4a71c7-523a-4beb-aed8-658088974cae",
+                "edgeId": "f8ff9f70-c2b9-11eb-b0a4-401c83a07338"
+            },
+            {
+                "toPointId": "bcd8dc46-faba-437c-8f35-bc5b4e857160",
+                "edgeId": "2eae451a-c2bb-11eb-994a-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "cae8f729-689e-4e5e-9cea-f3ceecbe3ce9",
+        "name": "报告厅入口S",
+        "position": {
+            "lat": 40.15822541305774,
+            "lng": 116.29247779269951,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "440318a4-cac3-42fd-a41c-8e3235d49e9b",
+                "edgeId": "eade9abb-c2b9-11eb-b88b-401c83a07338"
+            },
+            {
+                "toPointId": "232e34dc-fc04-4ac1-9880-5e3584529d1a",
+                "edgeId": "37b3ff50-c2bb-11eb-a90f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "7a679bff-8342-49bf-b8c2-07a8eee67634",
+        "name": "雁北园A楼",
+        "position": {
+            "lat": 40.15835387493502,
+            "lng": 116.28798983579168,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "00293e4c-2807-4752-8215-88dbe420cd7b",
+                "edgeId": "d086ebeb-c2bb-11eb-a866-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "00293e4c-2807-4752-8215-88dbe420cd7b",
+        "name": "操场1门",
+        "position": {
+            "lat": 40.15822247219221,
+            "lng": 116.2875412142456,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "d987d6c2-c2b8-11eb-bf09-401c83a07338"
+            },
+            {
+                "toPointId": "b6a312ae-c4c6-476f-98d7-728e39b92719",
+                "edgeId": "15075278-c2ba-11eb-ae4f-401c83a07338"
+            },
+            {
+                "toPointId": "f844b80f-6e95-4a7c-967c-487e13f12d76",
+                "edgeId": "18aa3cb9-c2ba-11eb-9366-401c83a07338"
+            },
+            {
+                "toPointId": "7a679bff-8342-49bf-b8c2-07a8eee67634",
+                "edgeId": "d086ebeb-c2bb-11eb-a866-401c83a07338"
+            },
+            {
+                "toPointId": "dd2f49fb-8263-4d91-8fbf-b6cbed8537b1",
+                "edgeId": "e4ac5516-c2bb-11eb-8030-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "dd2f49fb-8263-4d91-8fbf-b6cbed8537b1",
+        "name": "雁北园中间-操场路口",
+        "position": {
+            "lat": 40.15866990837283,
+            "lng": 116.28733829459816,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "98f41cb5-06fe-43f1-ba52-570c278177fc",
+                "edgeId": "e0709214-c2bb-11eb-999e-401c83a07338"
+            },
+            {
+                "toPointId": "00293e4c-2807-4752-8215-88dbe420cd7b",
+                "edgeId": "e4ac5516-c2bb-11eb-8030-401c83a07338"
+            },
+            {
+                "toPointId": "45dc8d28-c72c-4642-bba9-f2d5c7d18a5c",
+                "edgeId": "e6e7e845-c2bb-11eb-b224-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "45dc8d28-c72c-4642-bba9-f2d5c7d18a5c",
+        "name": "雁北园B楼",
+        "position": {
+            "lat": 40.15886836668017,
+            "lng": 116.28794429608479,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "dd2f49fb-8263-4d91-8fbf-b6cbed8537b1",
+                "edgeId": "e6e7e845-c2bb-11eb-b224-401c83a07338"
+            },
+            {
+                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
+                "edgeId": "0db7c38d-c2bc-11eb-8ec5-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "7af52e67-fafc-4a83-9fa3-aecfc261ff43",
+        "name": "雁北园D2楼",
+        "position": {
+            "lat": 40.15930548791634,
+            "lng": 116.28838515061534,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
+                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "4a68334a-dc17-4fff-a7ba-7cb13e6d0029",
+        "name": "雁北园E楼",
+        "position": {
+            "lat": 40.15910781098336,
+            "lng": 116.28755962335606,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "98f41cb5-06fe-43f1-ba52-570c278177fc",
+                "edgeId": "02da0084-c2bc-11eb-9a2f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "98f41cb5-06fe-43f1-ba52-570c278177fc",
+        "name": "雁北园E楼进路路口",
+        "position": {
+            "lat": 40.15904510367724,
+            "lng": 116.2871688528553,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "4eefcb94-f2d8-47e9-95d1-99f1ee40880e",
+                "edgeId": "e064ecdf-c2b8-11eb-8363-401c83a07338"
+            },
+            {
+                "toPointId": "dd2f49fb-8263-4d91-8fbf-b6cbed8537b1",
+                "edgeId": "e0709214-c2bb-11eb-999e-401c83a07338"
+            },
+            {
+                "toPointId": "4a68334a-dc17-4fff-a7ba-7cb13e6d0029",
+                "edgeId": "02da0084-c2bc-11eb-9a2f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "cca81217-b556-40eb-8a44-60be65ad0788",
+        "name": "雁北园D1楼",
+        "position": {
+            "lat": 40.15832768980867,
+            "lng": 116.2888742697138,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "45dc8d28-c72c-4642-bba9-f2d5c7d18a5c",
+                "edgeId": "0db7c38d-c2bc-11eb-8ec5-401c83a07338"
+            },
+            {
+                "toPointId": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
+                "edgeId": "1b082967-c2bc-11eb-bb13-401c83a07338"
+            },
+            {
+                "toPointId": "7af52e67-fafc-4a83-9fa3-aecfc261ff43",
+                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07338"
+            },
+            {
+                "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+                "edgeId": "3cc38195-c2bc-11eb-bc5f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+        "name": "雁北园D1楼进路路口",
+        "position": {
+            "lat": 40.158107846346816,
+            "lng": 116.28895992692753,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "83d1d3eb-c2b9-11eb-af34-401c83a07338"
+            },
+            {
+                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
+                "edgeId": "3cc38195-c2bc-11eb-bc5f-401c83a07338"
+            },
+            {
+                "toPointId": "09196478-461f-408b-8b56-b373c2778547",
+                "edgeId": "44c6da58-c2bc-11eb-9c4f-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "09196478-461f-408b-8b56-b373c2778547",
+        "name": "信息楼进路路口",
+        "position": {
+            "lat": 40.15794500860832,
+            "lng": 116.28836102140315,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "dcb0a912-c2b8-11eb-aee3-401c83a07338"
+            },
+            {
+                "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+                "edgeId": "44c6da58-c2bc-11eb-9c4f-401c83a07338"
+            },
+            {
+                "toPointId": "8891bab4-c0c4-42d8-8d42-afe8899a95d7",
+                "edgeId": "4c98d8fd-c2bc-11eb-b3d3-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "8891bab4-c0c4-42d8-8d42-afe8899a95d7",
+        "name": "信息楼",
+        "position": {
+            "lat": 40.15773272411811,
+            "lng": 116.28845802976343,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "09196478-461f-408b-8b56-b373c2778547",
+                "edgeId": "4c98d8fd-c2bc-11eb-b3d3-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "e8424cb7-a288-4193-9487-c60b4a9df633",
+        "name": "保卫处",
+        "position": {
+            "lat": 40.15729671565164,
+            "lng": 116.28844879588178,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "5a94edf1-cc12-4bdf-bd67-29c150d370fd",
+                "edgeId": "1b6ffb8b-c2bb-11eb-8dba-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+        "name": "快递站",
+        "position": {
+            "lat": 40.15691930815662,
+            "lng": 116.28443132264727,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "d08cf367-be23-4c1d-a256-db4d8274ad60",
+                "edgeId": "d0f03592-c2b8-11eb-a79d-401c83a07338"
+            },
+            {
+                "toPointId": "1b152522-c965-468d-863d-133f010ce897",
+                "edgeId": "d33367ed-c2b8-11eb-8950-401c83a07338"
+            },
+            {
+                "toPointId": "9d8cd54a-a690-47fa-a839-cf00bbc2b8a9",
+                "edgeId": "558fff7e-c2bc-11eb-9363-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "9d8cd54a-a690-47fa-a839-cf00bbc2b8a9",
+        "name": "京东快递",
+        "position": {
+            "lat": 40.157200986683726,
+            "lng": 116.28443377584722,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+                "edgeId": "558fff7e-c2bc-11eb-9363-401c83a07338"
+            },
+            {
+                "toPointId": "64cdde36-4dca-4ee0-9b41-830f2ec95707",
+                "edgeId": "59ec466d-c2bc-11eb-8124-401c83a07338"
+            },
+            {
+                "toPointId": "06aea246-8660-4049-8afb-02a619f4706a",
+                "edgeId": "5dc1d378-c2bc-11eb-8cbc-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "06aea246-8660-4049-8afb-02a619f4706a",
+        "name": "菜鸟驿站",
+        "position": {
+            "lat": 40.15716332024913,
+            "lng": 116.2841951612038,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9d8cd54a-a690-47fa-a839-cf00bbc2b8a9",
+                "edgeId": "5dc1d378-c2bc-11eb-8cbc-401c83a07338"
+            },
+            {
+                "toPointId": "64cdde36-4dca-4ee0-9b41-830f2ec95707",
+                "edgeId": "64b0d6d1-c2bc-11eb-af38-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    },
+    {
+        "id": "64cdde36-4dca-4ee0-9b41-830f2ec95707",
+        "name": "顺丰快递",
+        "position": {
+            "lat": 40.15717659036054,
+            "lng": 116.28424120098089,
+            "height": 0
+        },
+        "neighborWalk": [
+            {
+                "toPointId": "9d8cd54a-a690-47fa-a839-cf00bbc2b8a9",
+                "edgeId": "59ec466d-c2bc-11eb-8124-401c83a07338"
+            },
+            {
+                "toPointId": "06aea246-8660-4049-8afb-02a619f4706a",
+                "edgeId": "64b0d6d1-c2bc-11eb-af38-401c83a07338"
+            }
+        ],
+        "neighborBike": [],
+        "styleId": "default"
+    }
+]
