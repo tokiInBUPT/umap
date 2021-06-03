@@ -14,7 +14,8 @@ export default defineComponent({
         let map: any
         let label: any
         let marker: any
-        let routeLayer: any
+        let routeLayer: any = null
+        let middleMarkerLayer: any = null
         onMounted(() => {
             const center = new TMap.LatLng(40.15756173403039, 116.2895435631267)
             map = new TMap.Map(mapEl.value, {
@@ -95,6 +96,9 @@ export default defineComponent({
                 if (routeLayer) {
                     routeLayer.destroy()
                 }
+                if (middleMarkerLayer) {
+                    middleMarkerLayer.destroy()
+                }
                 marker.stopMove()
                 if (!route) {
                     return
@@ -102,18 +106,47 @@ export default defineComponent({
                 const path = []
                 for (const r of route.pointSeq) {
                     const p = bus.map.pointsMap[r].position
-                    path.push(new TMap.LatLng(p.lat, p.lng))
+                    const pos = new TMap.LatLng(p.lat, p.lng)
+                    path.push(pos)
                 }
+                const points = [
+                    {
+                        id: bus.current,
+                        styleId: 'start',
+                        position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng),
+                    },
+                ]
+                for (const r of bus.middle) {
+                    const p = bus.map.pointsMap[r].position
+                    points.push({
+                        id: r,
+                        styleId: 'middle',
+                        position: new TMap.LatLng(p.lat, p.lng),
+                    })
+                }
+                {
+                    const p = bus.map.pointsMap[bus.position].position
+                    points.push({
+                        id: bus.position + (bus.position === bus.current ? 'e' : ''),
+                        styleId: 'end',
+                        position: new TMap.LatLng(p.lat, bus.position === bus.current ? p.lng + 0.00005 : p.lng),
+                    })
+                }
+                console.log(points)
                 routeLayer = new TMap.MultiPolyline({
                     map, // 绘制到目标地图
                     // 折线样式定义
                     styles: {
                         style_blue: new TMap.PolylineStyle({
                             color: '#3777FF', // 线填充色
-                            width: 5, // 折线宽度
-                            borderWidth: 2, // 边线宽度
+                            width: 10, // 折线宽度
+                            borderWidth: 1, // 边线宽度
                             borderColor: '#FFF', // 边线颜色
                             lineCap: 'round', // 线端头方式
+                            showArrow: true,
+                            arrowOptions: {
+                                space: 70,
+                            },
                         }),
                     },
                     geometries: [
@@ -122,6 +155,31 @@ export default defineComponent({
                             paths: path,
                         },
                     ],
+                })
+                middleMarkerLayer = new TMap.MultiMarker({
+                    id: 'middle-marker-layer',
+                    map: map,
+                    styles: {
+                        start: new TMap.MarkerStyle({
+                            width: 25,
+                            height: 35,
+                            anchor: { x: 16, y: 32 },
+                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/start.png',
+                        }),
+                        end: new TMap.MarkerStyle({
+                            width: 25,
+                            height: 35,
+                            anchor: { x: 16, y: 32 },
+                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/end.png',
+                        }),
+                        middle: new TMap.MarkerStyle({
+                            width: 25,
+                            height: 35,
+                            anchor: { x: 16, y: 32 },
+                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/markerDefault.png',
+                        }),
+                    },
+                    geometries: points,
                 })
                 marker.moveAlong(
                     {
@@ -137,7 +195,7 @@ export default defineComponent({
             },
         )
         watch(
-            () => currentPoint,
+            () => bus.current,
             () => {
                 marker &&
                     marker.updateGeometries([
