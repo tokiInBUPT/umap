@@ -103,11 +103,29 @@ export default defineComponent({
                 if (!route) {
                     return
                 }
-                const path = []
-                for (const r of route.pointSeq) {
-                    const p = bus.map.pointsMap[r].position
-                    const pos = new TMap.LatLng(p.lat, p.lng)
-                    path.push(pos)
+                const movePaths = []
+                const rainbowPaths = []
+                const P_GREEN = 'rgba(0, 180, 0, 1)'
+                const P_YELLOW = '#ff9200'
+                const P_RED = '#f56c6c'
+                for (let i = 1; i < route.pointSeq.length; i++) {
+                    const p0Id = route.pointSeq[i - 1]
+                    const p1Id = route.pointSeq[i]
+                    const p0 = bus.map.pointsMap[p0Id]
+                    const p1 = bus.map.pointsMap[p1Id]
+                    if (i === 1) {
+                        movePaths.push(new TMap.LatLng(p0.position.lat, p0.position.lng))
+                    }
+                    movePaths.push(new TMap.LatLng(p1.position.lat, p1.position.lng))
+                    const edge = bus.map.edgeMap[route.edgeSeq[i - 1]]
+                    rainbowPaths.push({
+                        color:
+                            edge.congestionDegree < 0.334 ? P_GREEN : edge.congestionDegree < 0.667 ? P_YELLOW : P_RED,
+                        path: [
+                            new TMap.LatLng(p0.position.lat, p0.position.lng),
+                            new TMap.LatLng(p1.position.lat, p1.position.lng),
+                        ],
+                    })
                 }
                 const points = [
                     {
@@ -152,7 +170,7 @@ export default defineComponent({
                     geometries: [
                         {
                             styleId: 'style_blue',
-                            paths: path,
+                            rainbowPaths,
                         },
                     ],
                 })
@@ -184,7 +202,7 @@ export default defineComponent({
                 marker.moveAlong(
                     {
                         user: {
-                            path,
+                            path: movePaths,
                             speed: 200,
                         },
                     },

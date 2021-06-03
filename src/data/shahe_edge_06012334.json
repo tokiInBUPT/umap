@@ -7,12 +7,12 @@
     {
         "id": "d33367ed-c2b8-11eb-8950-401c83a07338",
         "length": 180.59211337160244,
-        "congestionDegree": 0
+        "congestionDegree": 0.9
     },
     {
         "id": "d58fb96a-c2b8-11eb-b638-401c83a07338",
         "length": 117.43464067322101,
-        "congestionDegree": 0
+        "congestionDegree": 0.35
     },
     {
         "id": "d987d6c2-c2b8-11eb-bf09-401c83a07338",
