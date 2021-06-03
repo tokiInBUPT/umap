@@ -142,7 +142,7 @@
     {
         "id": "e2b944e8-c2b9-11eb-ae2a-401c83a07338",
         "length": 33.90685108781319,
-        "congestionDegree": 0
+        "congestionDegree": 0.7
     },
     {
         "id": "e54fda6b-c2b9-11eb-b777-401c83a07338",
@@ -162,7 +162,7 @@
     {
         "id": "f523c686-c2b9-11eb-bfb5-401c83a07338",
         "length": 31.699515490726117,
-        "congestionDegree": 0
+        "congestionDegree": 0.3
     },
     {
         "id": "f8ff9f70-c2b9-11eb-b0a4-401c83a07338",
@@ -455,23 +455,13 @@
         "congestionDegree": 0
     },
     {
-        "id": "0db7c38d-c2bc-11eb-8ec5-401c83a07338",
-        "length": 99.40651614977564,
-        "congestionDegree": 0
-    },
-    {
-        "id": "1b082967-c2bc-11eb-bb13-401c83a07338",
-        "length": 79.88283971296251,
-        "congestionDegree": 0
-    },
-    {
-        "id": "1f0ad2c5-c2bc-11eb-86dc-401c83a07338",
-        "length": 116.29459837021527,
-        "congestionDegree": 0
-    },
-    {
         "id": "3cc38195-c2bc-11eb-bc5f-401c83a07338",
         "length": 25.478395715073365,
+        "congestionDegree": 0
+    },
+    {
+        "id": "1f0ad2c5-c2bc-11eb-86dc-401c83a07339",
+        "length": 37.226908715921944,
         "congestionDegree": 0
     },
     {

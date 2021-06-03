@@ -818,6 +818,10 @@
             {
                 "toPointId": "4317e974-410e-4593-9f58-50b07586cc6e",
                 "edgeId": "737b592f-c2ba-11eb-8d64-401c83a07338"
+            },
+            {
+                "toPointId": "7af52e67-fafc-4a83-9fa3-aecfc261ff43",
+                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07339"
             }
         ],
         "neighborBike": [],
@@ -1153,10 +1157,6 @@
             {
                 "toPointId": "1c6d74b2-6731-4816-8918-13097a3e5d32",
                 "edgeId": "0d14fc1b-c2bb-11eb-9b7a-401c83a07338"
-            },
-            {
-                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
-                "edgeId": "1b082967-c2bc-11eb-bb13-401c83a07338"
             }
         ],
         "neighborBike": [],
@@ -1630,10 +1630,6 @@
             {
                 "toPointId": "dd2f49fb-8263-4d91-8fbf-b6cbed8537b1",
                 "edgeId": "e6e7e845-c2bb-11eb-b224-401c83a07338"
-            },
-            {
-                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
-                "edgeId": "0db7c38d-c2bc-11eb-8ec5-401c83a07338"
             }
         ],
         "neighborBike": [],
@@ -1649,8 +1645,8 @@
         },
         "neighborWalk": [
             {
-                "toPointId": "cca81217-b556-40eb-8a44-60be65ad0788",
-                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07338"
+                "toPointId": "53ad921c-0d0e-45ab-86cf-70b778ba5f4b",
+                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07339"
             }
         ],
         "neighborBike": [],
@@ -1707,18 +1703,6 @@
             "height": 0
         },
         "neighborWalk": [
-            {
-                "toPointId": "45dc8d28-c72c-4642-bba9-f2d5c7d18a5c",
-                "edgeId": "0db7c38d-c2bc-11eb-8ec5-401c83a07338"
-            },
-            {
-                "toPointId": "37c56e18-8c62-4065-9f2d-ca44e4404aeb",
-                "edgeId": "1b082967-c2bc-11eb-bb13-401c83a07338"
-            },
-            {
-                "toPointId": "7af52e67-fafc-4a83-9fa3-aecfc261ff43",
-                "edgeId": "1f0ad2c5-c2bc-11eb-86dc-401c83a07338"
-            },
             {
                 "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
                 "edgeId": "3cc38195-c2bc-11eb-bc5f-401c83a07338"
