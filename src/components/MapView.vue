@@ -223,6 +223,11 @@ export default defineComponent({
                         console.log('next,stopped')
                         marker.off('move_ended', next)
                         marker.off('moving', moving)
+                        if (bus.activeRoute) {
+                            const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
+                            bus.current = p0.id
+                            bus.log.push(`到达 ${p0.name} ，导航结束`)
+                        }
                         bus.animateState = false
                         return
                     }
@@ -236,6 +241,9 @@ export default defineComponent({
                     const speed = bus.speed.walk / (e0.congestionDegree + 1)
                     console.log('next,i=', pos, 'speed=', speed * bus.speed.timeScale * 3.6)
                     marker.once('move_ended', next)
+                    if (pos === 1) {
+                        bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                    }
                     bus.log.push(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
                     bus.current = p0.id
                     bus.animateInfo.current = p0.id
