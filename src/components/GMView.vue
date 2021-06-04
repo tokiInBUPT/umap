@@ -18,6 +18,9 @@ export default defineComponent({
                         </el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="时间倍率（下一节点生效）">
+                    <el-slider v-model="speed.timeScale" :min="30" :max="200" show-input></el-slider>
+                </el-form-item>
                 <el-form-item label="食堂1人数">
                     <el-slider v-model="restaurantPersonCount[0]" :max="20" show-input></el-slider>
                 </el-form-item>
