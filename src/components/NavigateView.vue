@@ -10,15 +10,15 @@ export default defineComponent({
 </script>
 <template>
     <el-card v-show="animateState" class="navigateView">
-        <div class="bigicon">
-            <fa-icon icon="angle-double-left" />
-        </div>
         <div class="bigdesc">
             前方 {{ map.pointsMap[animateInfo.next] ? map.pointsMap[animateInfo.next].name : '未知点' }}
         </div>
         <div class="timestat">用时30秒 预计还需9分钟</div>
         <div class="actions">
-            <el-button @click="animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
+            <el-button v-if="!animateInfo.paused" @click="animateInfo.paused = true">
+                <fa-icon icon="pause" /> 暂停 </el-button
+            ><el-button v-else @click="animateInfo.paused = false"> <fa-icon icon="play" /> 继续 </el-button
+            ><el-button style="margin: 0" @click="animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
         </div>
     </el-card>
 </template>
@@ -41,9 +41,10 @@ export default defineComponent({
         top: 0;
         bottom: 0;
         .el-button {
-            width: 80px;
+            width: 65px;
             height: 90px;
             border: 0;
+            padding: 0;
             svg {
                 display: block;
                 font-size: 30px;
@@ -52,29 +53,17 @@ export default defineComponent({
             }
         }
     }
-
-    .bigicon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 79px;
-        font-size: 55px;
-        text-align: center;
-        line-height: 90px;
-    }
-
     .bigdesc {
         font-size: 26px;
         padding-top: 15px;
         padding-bottom: 3px;
-        padding-left: 80px;
+        padding-left: 10px;
     }
 
     .timestat {
         font-size: 14px;
         color: #777;
-        padding-left: 80px;
+        padding-left: 10px;
     }
 }
 </style>

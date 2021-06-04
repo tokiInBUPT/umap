@@ -201,17 +201,28 @@ export default defineComponent({
                 console.log('animateState changed')
                 if (!v) {
                     marker.stopMove()
+                    marker.updateGeometries([
+                        {
+                            id: 'user',
+                            styleId: 'car-down', // 绑定样式
+                            position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
+                        },
+                    ])
                     return
                 }
                 if (!bus.activeRoute) return
                 // @ts-ignore
                 window.marker = marker
                 let pos = 0
+                const moving = async function (p: any) {
+                    // console.log(p)
+                }
                 function next() {
                     pos++
                     if (!bus.activeRoute || !bus.activeRoute.pointSeq[pos]) {
                         console.log('next,stopped')
                         marker.off('move_ended', next)
+                        marker.off('moving', moving)
                         bus.animateState = false
                         return
                     }
@@ -241,9 +252,11 @@ export default defineComponent({
                         },
                     )
                 }
+                marker.on('moving', moving)
                 marker.once('move_stopped', () => {
                     console.log('move stopped')
                     marker.off('move_ended', next)
+                    marker.off('moving', moving)
                 })
                 next()
             },
@@ -260,6 +273,20 @@ export default defineComponent({
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
+            },
+        )
+        watch(
+            () => bus.animateInfo.paused,
+            async (v) => {
+                if (v) {
+                    marker.pauseMove()
+                    await nextTick()
+                    marker.pauseMove()
+                } else {
+                    marker.resumeMove()
+                    await nextTick()
+                    marker.resumeMove()
+                }
             },
         )
         return {

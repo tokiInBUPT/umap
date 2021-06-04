@@ -30,6 +30,7 @@ export const bus = reactive({
     activeRoute: null as IRoute | null,
     animateState: false,
     animateInfo: {
+        paused: false,
         current: '',
         next: '',
         currentTime: 0,
