@@ -1,21 +1,24 @@
 <script lang="ts">
+import { bus } from '@/bus'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
     setup() {
-        return {}
+        return bus
     },
 })
 </script>
 <template>
-    <el-card class="navigateView">
+    <el-card v-show="animateState" class="navigateView">
         <div class="bigicon">
             <fa-icon icon="angle-double-left" />
         </div>
-        <div class="bigdesc">前方路口左转</div>
+        <div class="bigdesc">
+            前方 {{ map.pointsMap[animateInfo.next] ? map.pointsMap[animateInfo.next].name : '未知点' }}
+        </div>
         <div class="timestat">用时30秒 预计还需9分钟</div>
         <div class="actions">
-            <el-button> <fa-icon icon="times" /> 取消 </el-button>
+            <el-button @click="animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
         </div>
     </el-card>
 </template>

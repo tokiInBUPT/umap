@@ -1,7 +1,7 @@
 <script lang="ts">
-import { defineComponent, ref, watch, computed, onMounted } from 'vue'
+import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 // @ts-ignore
-import car from '@/assets/car.png'
+import car from '@/assets/user.png'
 import { bus } from '@/bus'
 //  @ts-ignore
 const TMap: any = window.TMap
@@ -103,7 +103,6 @@ export default defineComponent({
                 if (!route) {
                     return
                 }
-                const movePaths = []
                 const rainbowPaths = []
                 const P_GREEN = 'rgba(0, 180, 0, 1)'
                 const P_YELLOW = '#ff9200'
@@ -113,10 +112,6 @@ export default defineComponent({
                     const p1Id = route.pointSeq[i]
                     const p0 = bus.map.pointsMap[p0Id]
                     const p1 = bus.map.pointsMap[p1Id]
-                    if (i === 1) {
-                        movePaths.push(new TMap.LatLng(p0.position.lat, p0.position.lng))
-                    }
-                    movePaths.push(new TMap.LatLng(p1.position.lat, p1.position.lng))
                     const edge = bus.map.edgeMap[route.edgeSeq[i - 1]]
                     rainbowPaths.push({
                         color:
@@ -150,7 +145,6 @@ export default defineComponent({
                         position: new TMap.LatLng(p.lat, bus.position === bus.current ? p.lng + 0.00005 : p.lng),
                     })
                 }
-                console.log(points)
                 routeLayer = new TMap.MultiPolyline({
                     map, // 绘制到目标地图
                     // 折线样式定义
@@ -199,22 +193,65 @@ export default defineComponent({
                     },
                     geometries: points,
                 })
-                marker.moveAlong(
-                    {
-                        user: {
-                            path: movePaths,
-                            speed: 200,
+            },
+        )
+        watch(
+            () => bus.animateState,
+            async (v) => {
+                console.log('animateState changed')
+                if (!v) {
+                    marker.stopMove()
+                    return
+                }
+                if (!bus.activeRoute) return
+                // @ts-ignore
+                window.marker = marker
+                let pos = 0
+                function next() {
+                    pos++
+                    if (!bus.activeRoute || !bus.activeRoute.pointSeq[pos]) {
+                        console.log('next,stopped')
+                        marker.off('move_ended', next)
+                        bus.animateState = false
+                        return
+                    }
+                    const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
+                    const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 0]]
+                    const t0 = new TMap.LatLng(p0.position.lat, p0.position.lng)
+                    const t1 = new TMap.LatLng(p1.position.lat, p1.position.lng)
+                    const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[pos - 1]]
+                    t0.id = p0.id
+                    t1.id = p1.id
+                    const speed = bus.speed.walk / (e0.congestionDegree + 1)
+                    console.log('next,i=', pos, 'speed=', speed * bus.speed.timeScale * 3.6)
+                    marker.once('move_ended', next)
+                    bus.log.push(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                    bus.current = p0.id
+                    bus.animateInfo.current = p0.id
+                    bus.animateInfo.next = p1.id
+                    marker.moveAlong(
+                        {
+                            user: {
+                                path: [t0, t1],
+                                speed: speed * bus.speed.timeScale * 3.6,
+                            },
                         },
-                    },
-                    {
-                        autoRotation: true,
-                    },
-                )
+                        {
+                            autoRotation: true,
+                        },
+                    )
+                }
+                marker.once('move_stopped', () => {
+                    console.log('move stopped')
+                    marker.off('move_ended', next)
+                })
+                next()
             },
         )
         watch(
             () => bus.current,
             () => {
+                if (bus.animateState) return
                 marker &&
                     marker.updateGeometries([
                         {

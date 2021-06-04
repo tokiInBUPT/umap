@@ -11,7 +11,7 @@ export default defineComponent({
 <template>
     <el-popover placement="left" title="日志管理" :width="300" trigger="click">
         <div class="log">
-            <el-input type="textarea" disabled model-value="暂无日志" rows="15"></el-input>
+            <el-input type="textarea" disabled :model-value="log.join('\r\n') || '暂无日志'" rows="15"></el-input>
             <el-button style="float: right; margin-top: 20px"> <fa-icon icon="file-download" /> 导出到文件 </el-button>
         </div>
         <template #reference>

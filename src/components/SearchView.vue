@@ -188,7 +188,14 @@ export default defineComponent({
         function showPath(i: IRoute) {
             bus.activeRoute = i
         }
-        function moveAlongPath(i: any) {}
+        async function moveAlongPath(i: IRoute) {
+            console.log(i)
+            bus.activeRoute = i
+            bus.animateState = false
+            bus.current = i.pointSeq[0]
+            await nextTick()
+            bus.animateState = true
+        }
         return {
             bus,
             calcRoutes,
@@ -246,11 +253,11 @@ export default defineComponent({
                     <li v-for="(i, a) in bus.routes" :key="a" @click="showPath(i)">
                         <div class="name">{{ i.name }}</div>
                         <div class="desc">{{ i.description }}</div>
-                        <el-button circle class="go-button">
+                        <el-button circle class="go-button" @click.stop.prevent="moveAlongPath(i)">
                             <fa-icon icon="directions" />
                         </el-button>
                     </li>
-                    <li v-if="bus.routes.length <= 0" class="not-calculated" @click.stop.prevent="moveAlongPath(i)">
+                    <li v-if="bus.routes.length <= 0" class="not-calculated">
                         <el-button @click="calcRoutes">计算路线</el-button>
                     </li>
                 </ul>

@@ -25,9 +25,16 @@ export const bus = reactive({
         walk: 1.4,
         bike: 5,
         bus: 16,
+        timeScale: 60,
     },
     activeRoute: null as IRoute | null,
     animateState: false,
+    animateInfo: {
+        current: '',
+        next: '',
+        currentTime: 0,
+        totalTime: 0,
+    },
     routes: [] as IRoute[],
     routes_: [
         {
@@ -44,6 +51,7 @@ export const bus = reactive({
         },
     ],
     restaurantPersonCount: [10, 11, 15, 20],
+    log: [] as string[],
 })
 for (const i of bus.map.points) {
     // @ts-ignore
