@@ -3,6 +3,11 @@ export interface neighbor {
     edgeId: string
 }
 
+export interface logicPosition {
+    id: string
+    name: string
+}
+
 export interface mapPoint {
     id: string
     name: string

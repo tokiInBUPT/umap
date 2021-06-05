@@ -7,8 +7,11 @@ import shahe_edges from '@/data/shahe_edge_06012334.json'
 // @ts-ignore
 import benbu_points from '@/data/benbu_point_06012334.json'
 // @ts-ignore
+import logic_position from '@/data/logicPosition.json'
+// @ts-ignore
 import benbu_edges from '@/data/benbu_edge_06012334.json'
 import { IRoute } from './typings/route'
+import { logicPosition } from './algorithm/typing'
 
 export const bus = reactive({
     type: '',
@@ -20,6 +23,7 @@ export const bus = reactive({
         pointsMap: {} as Record<string, mapPoint>,
         edges: [...shahe_edges, ...benbu_edges] as edge[],
         edgeMap: {} as Record<string, edge>,
+        logics: logic_position as logicPosition[],
     },
     speed: {
         walk: 1.4,

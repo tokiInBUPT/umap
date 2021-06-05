@@ -214,8 +214,23 @@ export default defineComponent({
             <el-option label="逻辑" value="logic"> </el-option>
         </el-select>
         <el-select v-model="bus.position" clearable class="searchBox" filterable placeholder="输入或搜索目的地">
-            <template v-for="item in bus.map.points" :key="item.id">
-                <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
+            <template v-if="bus.type === ''">
+                <template v-for="item in bus.map.points" :key="item.id">
+                    <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
+                </template>
+                <template v-for="item in bus.map.logics" :key="item.id">
+                    <el-option :label="item.name" :value="item.id"> </el-option>
+                </template>
+            </template>
+            <template v-else-if="bus.type === 'physic'">
+                <template v-for="item in bus.map.points" :key="item.id">
+                    <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
+                </template>
+            </template>
+            <template v-else>
+                <template v-for="item in bus.map.logics" :key="item.id">
+                    <el-option :label="item.name" :value="item.id"> </el-option>
+                </template>
             </template>
         </el-select>
         <transition name="el-zoom-in-top">
