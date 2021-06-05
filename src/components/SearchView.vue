@@ -226,6 +226,16 @@ export default defineComponent({
                 }
             },
         )
+        watch(
+            () => bus.current,
+            () => {
+                if (bus.animateState) return
+                bus.routes = []
+                if (bus.middle.size <= 7) {
+                    calcRoutes()
+                }
+            },
+        )
         function showPath(i: IRoute) {
             bus.activeRoute = i
         }
