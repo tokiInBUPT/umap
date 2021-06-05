@@ -171,10 +171,37 @@ export default defineComponent({
                         timeRouteBike[0] / 1000
                     ).toFixed(2)}千米`
                 }
-
+                const distanceRouteBike = dijkstra(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    0,
+                    1,
+                )
+                time = 0
+                for (const pathTimeItem of distanceRouteBike[3]) {
+                    time += pathTimeItem
+                }
+                const distanceRouteBikeObj = {
+                    name: '最短路程(骑行)',
+                    description: `约${Math.round(distanceRouteBike[0])}米, 约${(time / 60).toFixed(0)}分钟${(
+                        time % 60
+                    ).toFixed(0)}秒`,
+                    avgDistance: distanceRouteBike[0],
+                    pointSeq: distanceRouteBike[1],
+                    edgeSeq: distanceRouteBike[2],
+                    pathTime: distanceRouteBike[3],
+                }
+                if (distanceRouteBike[0] > 1000) {
+                    distanceRouteBikeObj.description = `约${(distanceRouteBike[0] / 1000).toFixed(2)}千米, 约${(
+                        time / 60
+                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
+                }
                 bus.routes.push(timeRouteObj)
                 bus.routes.push(distanceRouteObj)
                 bus.routes.push(timeRouteBikeObj)
+                bus.routes.push(distanceRouteBikeObj)
             }
             loading.value = false
         }
@@ -230,7 +257,7 @@ export default defineComponent({
         <el-select v-model="bus.position" clearable class="searchBox" filterable placeholder="输入或搜索目的地">
             <template v-if="bus.type === ''">
                 <template v-for="item in bus.map.logics" :key="item.id">
-                    <el-option :label="item.name" :value="item.id"> </el-option>
+                    <el-option :label="item.name + '(逻辑)'" :value="item.id"> </el-option>
                 </template>
                 <template v-for="item in bus.map.points" :key="item.id">
                     <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
@@ -243,7 +270,7 @@ export default defineComponent({
             </template>
             <template v-else>
                 <template v-for="item in bus.map.logics" :key="item.id">
-                    <el-option :label="item.name" :value="item.id"> </el-option>
+                    <el-option :label="item.name + '(逻辑)'" :value="item.id"> </el-option>
                 </template>
             </template>
         </el-select>

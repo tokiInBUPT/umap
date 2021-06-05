@@ -37,10 +37,10 @@ export function dijkstra(
     rawDistance[startPoint.id] = 0
     used[startPoint.id] = true
     prev[startPoint.id] = null
-    const tempNeighber: neighbor[] = JSON.parse(JSON.stringify(startPoint.neighborWalk))
+    const tempNeighbor: neighbor[] = JSON.parse(JSON.stringify(startPoint.neighborWalk))
     if (bike) {
         for (const bikeItem of startPoint.neighborBike) {
-            for (const walkItem of tempNeighber) {
+            for (const walkItem of tempNeighbor) {
                 if (walkItem.toPointId === bikeItem.toPointId) {
                     walkItem.edgeId = bikeItem.edgeId
                     break
@@ -48,7 +48,7 @@ export function dijkstra(
             }
         }
     }
-    for (const next of tempNeighber) {
+    for (const next of tempNeighbor) {
         if (myEdgeMap[next.edgeId] === undefined) {
             console.log(myEdgeMap)
             console.log(next.edgeId)
@@ -80,10 +80,10 @@ export function dijkstra(
             }
         }
         used[minNum] = true
-        const tempNeighber2: neighbor[] = JSON.parse(JSON.stringify(myPointMap[minNum].neighborWalk))
+        const tempNeighbor2: neighbor[] = JSON.parse(JSON.stringify(myPointMap[minNum].neighborWalk))
         if (bike) {
             for (const bikeItem of myPointMap[minNum].neighborBike) {
-                for (const walkItem of tempNeighber2) {
+                for (const walkItem of tempNeighbor2) {
                     if (walkItem.toPointId === bikeItem.toPointId) {
                         walkItem.edgeId = bikeItem.edgeId
                         break
@@ -91,7 +91,7 @@ export function dijkstra(
                 }
             }
         }
-        for (const next of tempNeighber2) {
+        for (const next of tempNeighbor2) {
             if (myEdgeMap[next.edgeId] === undefined) {
                 console.log(myEdgeMap)
                 console.log(next.edgeId)
