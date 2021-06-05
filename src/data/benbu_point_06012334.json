@@ -11,10 +11,6 @@
             {
                 "toPointId": "21c4fed4-1d71-4394-b1b6-5d5caacb6efc",
                 "edgeId": "782e0949-c2de-11eb-92c3-401c83a07338"
-            },
-            {
-                "toPointId": "d08cf367-be23-4c1d-a256-db4d8274ad60",
-                "edgeId": "benbu_to_shahe"
             }
         ],
         "neighborBike": [],
@@ -711,7 +707,7 @@
     },
     {
         "id": "d684ab57-02d2-4e9e-9b0d-f48af73cb2b6",
-        "name": "路口14",
+        "name": "西门",
         "position": {
             "lat": 39.961157185026124,
             "lng": 116.35553601197341,
@@ -729,6 +725,10 @@
             {
                 "toPointId": "315737e1-9b05-4288-ba08-f7f168c44a65",
                 "edgeId": "07e61439-c2e4-11eb-8383-401c83a07338"
+            },
+            {
+                "toPointId": "d08cf367-be23-4c1d-a256-db4d8274ad60",
+                "edgeId": "benbu_to_shahe"
             }
         ],
         "neighborBike": [],
