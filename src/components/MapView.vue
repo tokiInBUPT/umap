@@ -281,6 +281,7 @@ export default defineComponent({
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
+                map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
             },
         )
         watch(
