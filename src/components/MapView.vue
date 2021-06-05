@@ -193,6 +193,24 @@ export default defineComponent({
                     },
                     geometries: points,
                 })
+                let bounds = new TMap.LatLngBounds()
+                route.pointSeq.forEach(function (item) {
+                    // 若坐标点不在范围内，扩大bounds范围
+                    if (
+                        bounds.isEmpty() ||
+                        !bounds.contains(
+                            new TMap.LatLng(bus.map.pointsMap[item].position.lat, bus.map.pointsMap[item].position.lng),
+                        )
+                    ) {
+                        bounds.extend(
+                            new TMap.LatLng(bus.map.pointsMap[item].position.lat, bus.map.pointsMap[item].position.lng),
+                        )
+                    }
+                })
+                // 设置地图可视范围
+                map.fitBounds(bounds, {
+                    padding: 300, // 自适应边距
+                })
             },
         )
         watch(

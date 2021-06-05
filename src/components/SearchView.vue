@@ -237,6 +237,7 @@ export default defineComponent({
             },
         )
         function showPath(i: IRoute) {
+            if (bus.animateState) return
             bus.activeRoute = i
         }
         async function moveAlongPath(i: IRoute) {
