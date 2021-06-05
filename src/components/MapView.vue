@@ -238,7 +238,10 @@ export default defineComponent({
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[pos - 1]]
                     t0.id = p0.id
                     t1.id = p1.id
-                    const speed = bus.speed.walk / (e0.congestionDegree + 1)
+                    let speed = bus.speed.walk / (e0.congestionDegree + 1)
+                    if (e0.type === 3) {
+                        speed *= 5
+                    }
                     console.log('next,i=', pos, 'speed=', speed * bus.speed.timeScale * 3.6)
                     marker.once('move_ended', next)
                     if (pos === 1) {
