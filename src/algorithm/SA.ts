@@ -7,7 +7,7 @@ import { bus } from '@/bus'
 const T0 = 50000.0 // 初始温度
 const T_end = 1e-4
 const q = 0.9 // 退火系数
-const L = 100 // 每个温度时的迭代次数，即链长
+const L = 500 // 每个温度时的迭代次数，即链长
 
 function init(wayPointList: mapPoint[], startPoint: mapPoint, endPoint: mapPoint) {
     const firstPath = wayPointList.concat()
@@ -16,17 +16,37 @@ function init(wayPointList: mapPoint[], startPoint: mapPoint, endPoint: mapPoint
     return firstPath
 }
 
-function countDis(myEdgeMap: edgeMap, myPointMap: pointMap, timeOrDis: number, bike: number) {
+function countDis(
+    myEdgeMap: edgeMap,
+    myPointMap: pointMap,
+    timeOrDis: number,
+    bike: number,
+    wayPointList: mapPoint[],
+    startPoint: mapPoint,
+    endPoint: mapPoint,
+) {
     const memory: Record<string, Record<string, [number, string[], string[]]>> = {}
-    for (const point in myPointMap) {
-        if (myPointMap.hasOwnProperty(point)) {
-            memory[point] = {}
-            const answer = dijkstra(myEdgeMap, myPointMap, myPointMap[point], myPointMap[point], timeOrDis, bike)
-            for (const idCur in answer[0]) {
-                if (answer[0].hasOwnProperty(idCur)) {
-                    memory[point][idCur] = [answer[0][idCur], answer[1][idCur], answer[2][idCur]]
-                }
+    for (const point of wayPointList) {
+        memory[point.id] = {}
+        const answer = dijkstra(myEdgeMap, myPointMap, point, point, timeOrDis, bike)
+        for (const idCur in answer[0]) {
+            if (answer[0].hasOwnProperty(idCur)) {
+                memory[point.id][idCur] = [answer[0][idCur], answer[1][idCur], answer[2][idCur]]
             }
+        }
+    }
+    memory[startPoint.id] = {}
+    let answer = dijkstra(myEdgeMap, myPointMap, startPoint, startPoint, timeOrDis, bike)
+    for (const idCur in answer[0]) {
+        if (answer[0].hasOwnProperty(idCur)) {
+            memory[startPoint.id][idCur] = [answer[0][idCur], answer[1][idCur], answer[2][idCur]]
+        }
+    }
+    memory[endPoint.id] = {}
+    answer = dijkstra(myEdgeMap, myPointMap, endPoint, endPoint, timeOrDis, bike)
+    for (const idCur in answer[0]) {
+        if (answer[0].hasOwnProperty(idCur)) {
+            memory[endPoint.id][idCur] = [answer[0][idCur], answer[1][idCur], answer[2][idCur]]
         }
     }
     return memory
@@ -76,7 +96,7 @@ export function SA(
         return dij_raw(myEdgeMap, myPointMap, startPoint, endPoint, timeOrDis, bike)
     }
     let T: number = T0
-    const memory = countDis(myEdgeMap, myPointMap, timeOrDis, bike)
+    const memory = countDis(myEdgeMap, myPointMap, timeOrDis, bike, wayPointList, startPoint, endPoint)
     let path: mapPoint[]
     let count = 0
     path = init(wayPointList, startPoint, endPoint)
