@@ -1,13 +1,16 @@
+/* eslint-disable complexity */
 /* eslint-disable max-params */
-import { mapPoint, edgeMap, pointMap } from '../typings/map'
+import { mapPoint, edgeMap, pointMap, neighbor } from '../typings/map'
+import { bus } from '@/bus'
 
 /**
  * @param {edgeMap} myEdgeMap - edge map
  * @param {pointMap} myPointMap - point map
  * @param {mapPoint} startPoint - start point
  * @param {mapPoint} endPoint - end point
- * @param {number} timeOrDis - end point
- * @return {[number, string[], string[]]} [cost, points list, paths list]
+ * @param {number} timeOrDis - distance: 0, time:1
+ * @param {number} bike - is bike?
+ * @return {[number, string[], string[], number[]]} [cost, points list, paths list, paths time list]
  */
 export function dijkstra(
     myEdgeMap: edgeMap,
@@ -16,24 +19,52 @@ export function dijkstra(
     endPoint: mapPoint,
     /** distance: 0, time:1 */
     timeOrDis: number,
-): [number, string[], string[]] {
+    bike: number,
+): [number, string[], string[], number[]] {
     /** 从key点到起始点的距离 */
     const distance: Record<string, number> = {}
+    const rawDistance: Record<string, number> = {}
     const used: Record<string, boolean> = {}
     const prev: Record<string, null | { point: mapPoint; edge: string }> = {}
     for (const point in myPointMap) {
         if (myPointMap.hasOwnProperty(point)) {
             distance[myPointMap[point].id] = -1
+            rawDistance[myPointMap[point].id] = -1
             used[myPointMap[point].id] = false
         }
     }
     distance[startPoint.id] = 0
+    rawDistance[startPoint.id] = 0
     used[startPoint.id] = true
     prev[startPoint.id] = null
-    for (const next of startPoint.neighborWalk) {
-        distance[next.toPointId] =
-            distance[startPoint.id] +
-            myEdgeMap[next.edgeId].length * (1 + 0.01 * myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+    const tempNeighber: neighbor[] = JSON.parse(JSON.stringify(startPoint.neighborWalk))
+    if (bike) {
+        for (const bikeItem of startPoint.neighborBike) {
+            for (const walkItem of tempNeighber) {
+                if (walkItem.toPointId === bikeItem.toPointId) {
+                    walkItem.edgeId = bikeItem.edgeId
+                    break
+                }
+            }
+        }
+    }
+    for (const next of tempNeighber) {
+        if (myEdgeMap[next.edgeId] === undefined) {
+            console.log(myEdgeMap)
+            console.log(next.edgeId)
+        }
+        if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+            distance[next.toPointId] =
+                distance[startPoint.id] +
+                ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
+                    bus.speed.bike) *
+                    bus.speed.walk
+        } else {
+            distance[next.toPointId] =
+                distance[startPoint.id] +
+                myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+        }
+        rawDistance[next.toPointId] = rawDistance[startPoint.id] + myEdgeMap[next.edgeId].length
         prev[next.toPointId] = {
             point: startPoint,
             edge: next.edgeId,
@@ -49,11 +80,58 @@ export function dijkstra(
             }
         }
         used[minNum] = true
-        for (const next of myPointMap[minNum].neighborWalk) {
+        const tempNeighber2: neighbor[] = JSON.parse(JSON.stringify(myPointMap[minNum].neighborWalk))
+        if (bike) {
+            for (const bikeItem of myPointMap[minNum].neighborBike) {
+                for (const walkItem of tempNeighber2) {
+                    if (walkItem.toPointId === bikeItem.toPointId) {
+                        walkItem.edgeId = bikeItem.edgeId
+                        break
+                    }
+                }
+            }
+        }
+        for (const next of tempNeighber2) {
+            if (myEdgeMap[next.edgeId] === undefined) {
+                console.log(myEdgeMap)
+                console.log(next.edgeId)
+            }
             if (distance[next.toPointId] === -1) {
-                distance[next.toPointId] =
+                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
+                            bus.speed.bike) *
+                            bus.speed.walk
+                } else {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                }
+                rawDistance[next.toPointId] = rawDistance[minNum] + myEdgeMap[next.edgeId].length
+                prev[next.toPointId] = {
+                    point: myPointMap[minNum],
+                    edge: next.edgeId,
+                }
+            } else if (
+                timeOrDis &&
+                myEdgeMap[next.edgeId].type === 2 &&
+                distance[next.toPointId] >
                     distance[minNum] +
-                    myEdgeMap[next.edgeId].length * (1 + 0.01 * myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                        myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+            ) {
+                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
+                            bus.speed.bike) *
+                            bus.speed.walk
+                } else {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                }
+                rawDistance[next.toPointId] = rawDistance[minNum] + myEdgeMap[next.edgeId].length
                 prev[next.toPointId] = {
                     point: myPointMap[minNum],
                     edge: next.edgeId,
@@ -61,11 +139,20 @@ export function dijkstra(
             } else if (
                 distance[next.toPointId] >
                 distance[minNum] +
-                    myEdgeMap[next.edgeId].length * (1 + 0.01 * myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                    myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
             ) {
-                distance[next.toPointId] =
-                    distance[minNum] +
-                    myEdgeMap[next.edgeId].length * (1 + 0.01 * myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
+                            bus.speed.bike) *
+                            bus.speed.walk
+                } else {
+                    distance[next.toPointId] =
+                        distance[minNum] +
+                        myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
+                }
+                rawDistance[next.toPointId] = rawDistance[minNum] + myEdgeMap[next.edgeId].length
                 prev[next.toPointId] = {
                     point: myPointMap[minNum],
                     edge: next.edgeId,
@@ -75,15 +162,24 @@ export function dijkstra(
     }
     const points: string[] = []
     const path: string[] = []
+    const pathTime: number[] = []
     let current = myPointMap[endPoint.id].id
     let e
     while ((e = prev[current]) !== null) {
         points.splice(0, 0, current)
+        if (myEdgeMap[e.edge].type === 1) {
+            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.walk)
+        } else if (myEdgeMap[e.edge].type === 2) {
+            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.bike)
+        } else {
+            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.bus)
+        }
+
         path.splice(0, 0, e.edge !== null ? e.edge : '')
         current = e.point.id
     }
     points.splice(0, 0, current)
-    return [distance[myPointMap[endPoint.id].id], points, path]
+    return [rawDistance[myPointMap[endPoint.id].id], points, path, pathTime]
 }
 
 // const startPointNum: number = 0;

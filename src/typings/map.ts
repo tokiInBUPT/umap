@@ -22,8 +22,11 @@ export interface mapPoint {
 export interface edge {
     id: string
     length: number
-    /** range: 0-100 */
+    /** range: 0-1 */
     congestionDegree: number
+    /** walk: 1, bike: 2, bus: 3 */
+    type: number
+    time: number
 }
 
 export interface timeTableItem {

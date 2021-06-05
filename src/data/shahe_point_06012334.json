@@ -17,7 +17,12 @@
                 "edgeId": "benbu_to_shahe"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+                "edgeId": "d0f03592-c2b8-11eb-a79d-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -38,7 +43,16 @@
                 "edgeId": "d58fb96a-c2b8-11eb-b638-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "0aec46ea-94a8-46f2-8852-c080ec45b07d",
+                "edgeId": "d33367ed-c2b8-11eb-8950-401c83a07330"
+            },
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "d58fb96a-c2b8-11eb-b638-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -67,7 +81,16 @@
                 "edgeId": "dcb0a912-c2b8-11eb-aee3-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "1b152522-c965-468d-863d-133f010ce897",
+                "edgeId": "d58fb96a-c2b8-11eb-b638-401c83a07330"
+            },
+            {
+                "toPointId": "09196478-461f-408b-8b56-b373c2778547",
+                "edgeId": "dcb0a912-c2b8-11eb-aee3-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -113,7 +136,16 @@
                 "edgeId": "8aff9d24-c2b9-11eb-9e18-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+                "edgeId": "83d1d3eb-c2b9-11eb-af34-401c83a07330"
+            },
+            {
+                "toPointId": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+                "edgeId": "897cbfef-c2b9-11eb-bb6e-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -568,7 +600,16 @@
                 "edgeId": "20e506e7-c2ba-11eb-8295-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "f9803d54-9dba-46f2-b020-2396e8a76468",
+                "edgeId": "1f0019a4-c2ba-11eb-988e-401c83a07330"
+            },
+            {
+                "toPointId": "2d2d33b1-c5ee-48ab-9bca-02c363de26f8",
+                "edgeId": "1d814f3f-c2ba-11eb-be77-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -1376,7 +1417,16 @@
                 "edgeId": "56ef704d-c2bb-11eb-913f-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "897cbfef-c2b9-11eb-bb6e-401c83a07330"
+            },
+            {
+                "toPointId": "564e4a0f-66f3-4782-b09a-108755b19297",
+                "edgeId": "1d814f3f-c2ba-11eb-be77-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -1401,7 +1451,20 @@
                 "edgeId": "3cdc8a77-c2ba-11eb-a04a-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "564e4a0f-66f3-4782-b09a-108755b19297",
+                "edgeId": "1f0019a4-c2ba-11eb-988e-401c83a07330"
+            },
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "90d38397-c2b9-11eb-a5ce-401c83a07330"
+            },
+            {
+                "toPointId": "e81eb3f5-6d9b-4887-8616-cd465c7d6dbc",
+                "edgeId": "90d38397-c2b9-11eb-a5ce-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -1733,7 +1796,16 @@
                 "edgeId": "44c6da58-c2bc-11eb-9c4f-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "09196478-461f-408b-8b56-b373c2778547",
+                "edgeId": "44c6da58-c2bc-11eb-9c4f-401c83a07330"
+            },
+            {
+                "toPointId": "9c7f78b2-db6f-4801-b6d2-b4616e9e1927",
+                "edgeId": "83d1d3eb-c2b9-11eb-af34-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -1758,7 +1830,16 @@
                 "edgeId": "4c98d8fd-c2bc-11eb-b3d3-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "9c4f041a-5655-4fa6-bc8c-30935e826e2a",
+                "edgeId": "dcb0a912-c2b8-11eb-aee3-401c83a07330"
+            },
+            {
+                "toPointId": "f4cffb12-1d4f-4a04-ba20-241c2113f4ff",
+                "edgeId": "44c6da58-c2bc-11eb-9c4f-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {
@@ -1817,7 +1898,16 @@
                 "edgeId": "558fff7e-c2bc-11eb-9363-401c83a07338"
             }
         ],
-        "neighborBike": [],
+        "neighborBike": [
+            {
+                "toPointId": "d08cf367-be23-4c1d-a256-db4d8274ad60",
+                "edgeId": "d0f03592-c2b8-11eb-a79d-401c83a07330"
+            },
+            {
+                "toPointId": "1b152522-c965-468d-863d-133f010ce897",
+                "edgeId": "d33367ed-c2b8-11eb-8950-401c83a07330"
+            }
+        ],
         "styleId": "default"
     },
     {

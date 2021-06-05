@@ -2,11 +2,12 @@
 import { mapPoint, edgeMap, pointMap } from '../typings/map'
 import { dijkstra } from './Dij_Ha'
 import { dijkstra as dij_raw } from './Dij'
+import { bus } from '@/bus'
 
 const T0 = 50000.0 // 初始温度
 const T_end = 1e-4
 const q = 0.9 // 退火系数
-const L = 500 // 每个温度时的迭代次数，即链长
+const L = 100 // 每个温度时的迭代次数，即链长
 
 function init(wayPointList: mapPoint[], startPoint: mapPoint, endPoint: mapPoint) {
     const firstPath = wayPointList.concat()
@@ -15,12 +16,12 @@ function init(wayPointList: mapPoint[], startPoint: mapPoint, endPoint: mapPoint
     return firstPath
 }
 
-function countDis(myEdgeMap: edgeMap, myPointMap: pointMap, timeOrDis: number) {
+function countDis(myEdgeMap: edgeMap, myPointMap: pointMap, timeOrDis: number, bike: number) {
     const memory: Record<string, Record<string, [number, string[], string[]]>> = {}
     for (const point in myPointMap) {
         if (myPointMap.hasOwnProperty(point)) {
             memory[point] = {}
-            const answer = dijkstra(myEdgeMap, myPointMap, myPointMap[point], myPointMap[point], timeOrDis)
+            const answer = dijkstra(myEdgeMap, myPointMap, myPointMap[point], myPointMap[point], timeOrDis, bike)
             for (const idCur in answer[0]) {
                 if (answer[0].hasOwnProperty(idCur)) {
                     memory[point][idCur] = [answer[0][idCur], answer[1][idCur], answer[2][idCur]]
@@ -67,14 +68,15 @@ export function SA(
     wayPointList: mapPoint[],
     /** distance: 0, time:1 */
     timeOrDis: number,
-): [number, string[], string[]] {
+    bike: number,
+): [number, string[], string[], number[]] {
     console.log('now in SA')
     if (wayPointList.length === 0) {
         console.log('SA to Dij')
-        return dij_raw(myEdgeMap, myPointMap, startPoint, endPoint, timeOrDis)
+        return dij_raw(myEdgeMap, myPointMap, startPoint, endPoint, timeOrDis, bike)
     }
     let T: number = T0
-    const memory = countDis(myEdgeMap, myPointMap, timeOrDis)
+    const memory = countDis(myEdgeMap, myPointMap, timeOrDis, bike)
     let path: mapPoint[]
     let count = 0
     path = init(wayPointList, startPoint, endPoint)
@@ -97,6 +99,7 @@ export function SA(
         console.log(count)
     }
     let answer_path: string[] = []
+    const answer_path_time: number[] = []
     let answer_points: string[] = [startPoint.id]
     for (let i = 0; i < path.length - 1; i++) {
         const tmpMemory = memory[path[i].id][path[i + 1].id][1].concat()
@@ -104,6 +107,28 @@ export function SA(
         answer_points = answer_points.concat(tmpMemory)
         answer_path = answer_path.concat(memory[path[i].id][path[i + 1].id][2])
     }
+    for (const pathItem of answer_path) {
+        if (myEdgeMap[pathItem].type === 1) {
+            answer_path_time.splice(
+                0,
+                0,
+                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.walk,
+            )
+        } else if (myEdgeMap[pathItem].type === 2) {
+            answer_path_time.splice(
+                0,
+                0,
+                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bike,
+            )
+        } else {
+            answer_path_time.splice(
+                0,
+                0,
+                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bus,
+            )
+        }
+    }
+
     console.log('SA ended')
-    return [path_len(memory, path), answer_points, answer_path]
+    return [path_len(memory, path), answer_points, answer_path, answer_path_time]
 }

@@ -10,6 +10,7 @@ import { IRoute } from '@/typings/route'
 export default defineComponent({
     setup() {
         const loading = ref(false)
+        // eslint-disable-next-line complexity
         async function calcRoutes() {
             loading.value = true
             await nextTick()
@@ -19,32 +20,6 @@ export default defineComponent({
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
                 }
-                const timeRoute = Ha(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    wayPointList,
-                    1,
-                )
-                const timeRouteObj = {
-                    name: '最短时间',
-                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
-                    avgDistance: timeRoute[0],
-                    pointSeq: timeRoute[1],
-                    edgeSeq: timeRoute[2],
-                }
-                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
-                    let counts = (arr: string[], value: string) =>
-                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
-                    timeRouteObj.description = `约${(
-                        (timeRoute[0] / bus.speed.walk +
-                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
-                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
-                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
-                        60
-                    ).toFixed(0)}分钟`
-                }
                 const distanceRoute = Ha(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
@@ -52,49 +27,33 @@ export default defineComponent({
                     bus.map.pointsMap[bus.position],
                     wayPointList,
                     0,
+                    0,
                 )
+                let time = 0
+                for (const pathTimeItem of distanceRoute[3]) {
+                    time += pathTimeItem
+                }
                 const distanceRouteObj = {
                     name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米`,
+                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
+                        time % 60
+                    ).toFixed(0)}秒`,
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                    pathTime: distanceRoute[3],
                 }
                 if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
+                        time / 60
+                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
                 }
-                bus.routes.push(timeRouteObj)
+
                 bus.routes.push(distanceRouteObj)
             } else if (bus.middle.size > 7) {
                 const wayPointList: mapPoint[] = []
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
-                }
-                const timeRoute = SA(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    wayPointList,
-                    1,
-                )
-                const timeRouteObj = {
-                    name: '最短时间',
-                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
-                    avgDistance: timeRoute[0],
-                    pointSeq: timeRoute[1],
-                    edgeSeq: timeRoute[2],
-                }
-                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
-                    let counts = (arr: string[], value: string) =>
-                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
-                    timeRouteObj.description = `约${(
-                        (timeRoute[0] / bus.speed.walk +
-                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
-                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
-                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
-                        60
-                    ).toFixed(0)}分钟`
                 }
                 const distanceRoute = SA(
                     bus.map.edgeMap,
@@ -103,44 +62,60 @@ export default defineComponent({
                     bus.map.pointsMap[bus.position],
                     wayPointList,
                     0,
+                    0,
                 )
+                let time = 0
+                for (const pathTimeItem of distanceRoute[3]) {
+                    time += pathTimeItem
+                }
                 const distanceRouteObj = {
                     name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米`,
+                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
+                        time % 60
+                    ).toFixed(0)}秒`,
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                    pathTime: distanceRoute[3],
                 }
                 if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
+                        time / 60
+                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
                 }
-                bus.routes.push(timeRouteObj)
+
                 bus.routes.push(distanceRouteObj)
             } else {
+                const wayPointList: mapPoint[] = []
+                for (let wayPoint of bus.middle) {
+                    wayPointList.push(bus.map.pointsMap[wayPoint])
+                }
                 const timeRoute = dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
                     bus.map.pointsMap[bus.position],
                     1,
+                    0,
                 )
+                let time = 0
+                for (const pathTimeItem of timeRoute[3]) {
+                    time += pathTimeItem
+                }
                 const timeRouteObj = {
                     name: '最短时间',
-                    description: `约${(timeRoute[0] / bus.speed.walk / 60).toFixed(0)}分钟`,
+                    description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(
+                        timeRoute[0],
+                    )}米`,
                     avgDistance: timeRoute[0],
                     pointSeq: timeRoute[1],
                     edgeSeq: timeRoute[2],
+                    pathTime: timeRoute[3],
                 }
-                if (timeRouteObj.edgeSeq.includes('benbu_to_shahe')) {
-                    let counts = (arr: string[], value: string) =>
-                        arr.reduce((a, v) => (v === value ? a + 1 : a + 0), 0)
-                    timeRouteObj.description = `约${(
-                        (timeRoute[0] / bus.speed.walk +
-                            (-bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.walk +
-                                bus.map.edgeMap['benbu_to_shahe'].length / bus.speed.bus) *
-                                counts(timeRouteObj.edgeSeq, 'benbu_to_shahe')) /
-                        60
-                    ).toFixed(0)}分钟`
+                if (timeRoute[0] > 1000) {
+                    timeRouteObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
+                        timeRoute[0] / 1000
+                    ).toFixed(2)}千米`
                 }
                 const distanceRoute = dijkstra(
                     bus.map.edgeMap,
@@ -148,19 +123,58 @@ export default defineComponent({
                     currentPoint.value,
                     bus.map.pointsMap[bus.position],
                     0,
+                    0,
                 )
+                time = 0
+                for (const pathTimeItem of distanceRoute[3]) {
+                    time += pathTimeItem
+                }
                 const distanceRouteObj = {
                     name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米`,
+                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
+                        time % 60
+                    ).toFixed(0)}秒`,
                     avgDistance: distanceRoute[0],
                     pointSeq: distanceRoute[1],
                     edgeSeq: distanceRoute[2],
+                    pathTime: distanceRoute[3],
                 }
                 if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米`
+                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
+                        time / 60
+                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
                 }
+                const timeRouteBike = dijkstra(
+                    bus.map.edgeMap,
+                    bus.map.pointsMap,
+                    currentPoint.value,
+                    bus.map.pointsMap[bus.position],
+                    1,
+                    1,
+                )
+                time = 0
+                for (const pathTimeItem of timeRouteBike[3]) {
+                    time += pathTimeItem
+                }
+                const timeRouteBikeObj = {
+                    name: '最短时间(骑行)',
+                    description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(
+                        timeRouteBike[0],
+                    )}米`,
+                    avgDistance: timeRouteBike[0],
+                    pointSeq: timeRouteBike[1],
+                    edgeSeq: timeRouteBike[2],
+                    pathTime: timeRouteBike[3],
+                }
+                if (timeRouteBike[0] > 1000) {
+                    timeRouteBikeObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
+                        timeRouteBike[0] / 1000
+                    ).toFixed(2)}千米`
+                }
+
                 bus.routes.push(timeRouteObj)
                 bus.routes.push(distanceRouteObj)
+                bus.routes.push(timeRouteBikeObj)
             }
             loading.value = false
         }
@@ -215,11 +229,11 @@ export default defineComponent({
         </el-select>
         <el-select v-model="bus.position" clearable class="searchBox" filterable placeholder="输入或搜索目的地">
             <template v-if="bus.type === ''">
-                <template v-for="item in bus.map.points" :key="item.id">
-                    <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
-                </template>
                 <template v-for="item in bus.map.logics" :key="item.id">
                     <el-option :label="item.name" :value="item.id"> </el-option>
+                </template>
+                <template v-for="item in bus.map.points" :key="item.id">
+                    <el-option v-if="!item.name.includes('路口')" :label="item.name" :value="item.id"> </el-option>
                 </template>
             </template>
             <template v-else-if="bus.type === 'physic'">
