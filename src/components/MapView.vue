@@ -89,6 +89,14 @@ export default defineComponent({
                 },
                 geometries: labels,
             })
+            const eventClick = function (res: any) {
+                const ress = res && res.geometry
+                console.log('click')
+                if (ress) {
+                    bus.position = ress.id
+                }
+            }
+            label.on('click', eventClick)
         })
         watch(
             () => bus.activeRoute,
@@ -209,7 +217,7 @@ export default defineComponent({
                 })
                 // 设置地图可视范围
                 map.fitBounds(bounds, {
-                    padding: 300, // 自适应边距
+                    padding: 200, // 自适应边距
                 })
             },
         )
