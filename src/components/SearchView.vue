@@ -230,9 +230,11 @@ export default defineComponent({
             () => bus.current,
             () => {
                 if (bus.animateState) return
-                bus.routes = []
-                if (bus.middle.size <= 7) {
-                    calcRoutes()
+                if (bus.position) {
+                    bus.routes = []
+                    if (bus.middle.size <= 7) {
+                        calcRoutes()
+                    }
                 }
             },
         )

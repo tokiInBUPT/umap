@@ -1,15 +1,44 @@
 <script lang="ts">
 import { bus } from '@/bus'
 import { defineComponent } from 'vue'
+import { dijkstra } from '../algorithm/Dij_Ha'
 
 export default defineComponent({
     setup() {
-        return bus
+        function searchAround() {
+            const answer = dijkstra(
+                bus.map.edgeMap,
+                bus.map.pointsMap,
+                bus.map.pointsMap[bus.current],
+                bus.map.pointsMap[bus.current],
+                0,
+                0,
+            )
+            const memory: [string, number][] = []
+            for (const idCur in answer[0]) {
+                if (answer[0].hasOwnProperty(idCur)) {
+                    if (!bus.map.pointsMap[idCur].name.includes('路口') && answer[0][idCur] > 0) {
+                        memory.push([idCur, answer[0][idCur]])
+                    }
+                }
+            }
+            memory.sort(function (a, b) {
+                return a[1] - b[1]
+            })
+            const pointAround: [string, number][] = []
+            for (let i = 0; i < (memory.length < 5 ? memory.length : 5); i++) {
+                pointAround.push(memory[i])
+                console.log(bus.map.pointsMap[memory[i][0]].name)
+                console.log(memory[i][1])
+            }
+            return pointAround
+        }
+        return { bus, searchAround }
     },
 })
 </script>
 <template>
-    <el-popover placement="top" title="附近地点" :width="300" trigger="click">
+    <el-popover placement="top" title="附近地点" :width="300" trigger="click" @show="searchAround">
         <ul class="around">
             <li>
                 <div class="title">教学楼N</div>
