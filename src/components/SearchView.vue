@@ -208,9 +208,11 @@ export default defineComponent({
         watch(
             () => bus.middle,
             () => {
-                bus.routes = []
-                if (bus.middle.size <= 7) {
-                    calcRoutes()
+                if (bus.position) {
+                    bus.routes = []
+                    if (bus.middle.size <= 7) {
+                        calcRoutes()
+                    }
                 }
             },
             {
@@ -220,9 +222,13 @@ export default defineComponent({
         watch(
             () => bus.position,
             () => {
-                bus.routes = []
-                if (bus.middle.size <= 7) {
-                    calcRoutes()
+                if (bus.position) {
+                    bus.routes = []
+                    if (bus.middle.size <= 7) {
+                        calcRoutes()
+                    }
+                } else {
+                    bus.middle.clear()
                 }
             },
         )
