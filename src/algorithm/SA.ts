@@ -140,19 +140,19 @@ export function SA({
             answer_path_time.splice(
                 0,
                 0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.walk,
+                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.walk,
             )
         } else if (myEdgeMap[pathItem].type === 2) {
             answer_path_time.splice(
                 0,
                 0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bike,
+                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bike,
             )
         } else {
             answer_path_time.splice(
                 0,
                 0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bus,
+                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bus,
             )
         }
     }
