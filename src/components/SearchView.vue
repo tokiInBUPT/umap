@@ -247,8 +247,12 @@ export default defineComponent({
             bus.activeRoute = i
         }
         async function moveAlongPath(i: IRoute) {
-            console.log(i)
-            bus.activeRoute = i
+            if (bus.activeRoute !== i) {
+                bus.activeRoute = i
+                await new Promise((resolve) => {
+                    setTimeout(resolve, 500)
+                })
+            }
             bus.animateState = false
             bus.current = i.pointSeq[0]
             await nextTick()
