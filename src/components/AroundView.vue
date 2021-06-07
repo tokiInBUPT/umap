@@ -1,10 +1,11 @@
 <script lang="ts">
 import { bus } from '@/bus'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { dijkstra } from '../algorithm/Dij_Ha'
 
 export default defineComponent({
     setup() {
+        let pointsAround = ref([] as [string, number][])
         function searchAround() {
             const answer = dijkstra(
                 bus.map.edgeMap,
@@ -31,38 +32,28 @@ export default defineComponent({
                 console.log(bus.map.pointsMap[memory[i][0]].name)
                 console.log(memory[i][1])
             }
-            return pointAround
+            pointsAround.value = pointAround
         }
-        return { bus, searchAround }
+        const showPopover = ref(false)
+        return { bus, searchAround, pointsAround, showPopover }
     },
 })
 </script>
 <template>
-    <el-popover placement="top" title="附近地点" :width="300" trigger="click" @show="searchAround">
+    <el-popover
+        v-model:visible="showPopover"
+        placement="top"
+        title="附近地点"
+        :width="300"
+        trigger="click"
+        @show="searchAround"
+    >
         <ul class="around">
-            <li>
-                <div class="title">教学楼N</div>
-                <div class="desc">200m</div>
+            <li v-for="i in pointsAround" :key="i[0]">
+                <div class="title">{{ bus.map.pointsMap[i[0]].name }}</div>
+                <div class="desc">{{ Math.round(i[1]) }}m</div>
                 <div class="action">
-                    <el-button circle class="set-button" @click="position = 'jxl-n'">
-                        <fa-icon icon="directions" />
-                    </el-button>
-                </div>
-            </li>
-            <li>
-                <div class="title">教学楼S</div>
-                <div class="desc">200m</div>
-                <div class="action">
-                    <el-button circle class="set-button" @click="position = 'jxl-s'">
-                        <fa-icon icon="directions" />
-                    </el-button>
-                </div>
-            </li>
-            <li>
-                <div class="title">图书馆</div>
-                <div class="desc">200m</div>
-                <div class="action">
-                    <el-button circle class="set-button" @click="position = 'tsg'">
+                    <el-button circle class="set-button" @click=";(showPopover = false) || (bus.position = i[0])">
                         <fa-icon icon="directions" />
                     </el-button>
                 </div>
