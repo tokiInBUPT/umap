@@ -3,4 +3,5 @@ export interface IRoute {
     description: string
     pointSeq: string[]
     edgeSeq: string[]
+    pathTime: number[]
 }
