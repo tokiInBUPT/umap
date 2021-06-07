@@ -3,10 +3,12 @@ import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 // @ts-ignore
 import car from '@/assets/user.png'
 import { bus } from '@/bus'
+import gsap from 'gsap'
 //  @ts-ignore
 const TMap: any = window.TMap
 export default defineComponent({
     setup() {
+        let gsapObj: gsap.core.Timeline | null = null
         const currentPoint = computed(() => {
             return bus.map.pointsMap[bus.current]
         })
@@ -226,7 +228,10 @@ export default defineComponent({
             async (v) => {
                 console.log('animateState changed')
                 if (!v) {
-                    marker.stopMove()
+                    if (gsapObj) {
+                        gsapObj.kill()
+                        gsapObj = null
+                    }
                     marker.updateGeometries([
                         {
                             id: 'user',
@@ -237,65 +242,55 @@ export default defineComponent({
                     return
                 }
                 if (!bus.activeRoute) return
-                // @ts-ignore
-                window.marker = marker
-                let pos = 0
-                const moving = async function (p: any) {
-                    // console.log(p)
-                }
-                function next() {
-                    pos++
-                    if (!bus.activeRoute || !bus.activeRoute.pointSeq[pos]) {
-                        console.log('next,stopped')
-                        marker.off('move_ended', next)
-                        marker.off('moving', moving)
-                        if (bus.activeRoute) {
-                            const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
-                            bus.current = p0.id
-                            bus.log.push(`到达 ${p0.name} ，导航结束`)
-                        }
-                        bus.animateState = false
-                        return
-                    }
-                    const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
-                    const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 0]]
-                    const t0 = new TMap.LatLng(p0.position.lat, p0.position.lng)
-                    const t1 = new TMap.LatLng(p1.position.lat, p1.position.lng)
-                    const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[pos - 1]]
-                    t0.id = p0.id
-                    t1.id = p1.id
-                    let speed = bus.speed.walk / (e0.congestionDegree + 1)
-                    if (e0.type === 3) {
-                        speed *= 5
-                    }
-                    console.log('next,i=', pos, 'speed=', speed * bus.speed.timeScale * 3.6)
-                    marker.once('move_ended', next)
-                    if (pos === 1) {
-                        bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                    }
-                    bus.log.push(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                    bus.current = p0.id
-                    bus.animateInfo.current = p0.id
-                    bus.animateInfo.next = p1.id
-                    marker.moveAlong(
-                        {
-                            user: {
-                                path: [t0, t1],
-                                speed: speed * bus.speed.timeScale * 3.6,
+                const tn = { ...currentPoint.value.position }
+                const tl = gsap.timeline({
+                    smoothChildTiming: true,
+                    autoRemoveChildren: true,
+                    yoyo: false,
+                    onUpdate() {
+                        marker.updateGeometries([
+                            {
+                                id: 'user',
+                                styleId: 'car-down',
+                                position: new TMap.LatLng(tn.lat / 1e5, tn.lng / 1e5),
                             },
-                        },
-                        {
-                            autoRotation: true,
-                        },
-                    )
-                }
-                marker.on('moving', moving)
-                marker.once('move_stopped', () => {
-                    console.log('move stopped')
-                    marker.off('move_ended', next)
-                    marker.off('moving', moving)
+                        ])
+                        map._changeFPS()
+                    },
                 })
-                next()
+                tl.timeScale(bus.speed.timeScale)
+                marker.updateGeometries([
+                    {
+                        id: 'user',
+                        styleId: 'car-down',
+                        position: new TMap.LatLng(tn.lat, tn.lng),
+                    },
+                ])
+                for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
+                    const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
+                    const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
+                    const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
+                    const t0 = bus.activeRoute.pathTime[i]
+                    tl.to(tn, {
+                        lat: p1.position.lat * 1e5,
+                        lng: p1.position.lng * 1e5,
+                        ease: 'linear',
+                        duration: t0,
+                        onStart: () => {
+                            if (i === 0) {
+                                bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                            } else {
+                                bus.log.push(
+                                    `到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`,
+                                )
+                            }
+                            bus.current = p0.id
+                            bus.animateInfo.current = p0.id
+                            bus.animateInfo.next = p1.id
+                        },
+                    })
+                }
+                gsapObj = tl
             },
         )
         watch(
@@ -316,14 +311,11 @@ export default defineComponent({
         watch(
             () => bus.animateInfo.paused,
             async (v) => {
+                if (!gsapObj) return
                 if (v) {
-                    marker.pauseMove()
-                    await nextTick()
-                    marker.pauseMove()
+                    gsapObj.pause()
                 } else {
-                    marker.resumeMove()
-                    await nextTick()
-                    marker.resumeMove()
+                    gsapObj.resume()
                 }
             },
         )
