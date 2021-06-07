@@ -45,7 +45,7 @@ export default defineComponent({
                             y: 20,
                         },
                         faceTo: 'map', // 取’map’让小车贴于地面，faceTo取值说明请见下文图示
-                        rotate: 180, // 初始小车朝向（正北0度，逆时针一周为360度，180为正南）
+                        rotate: 0, // 初始小车朝向（正北0度，逆时针一周为360度，180为正南）
                         src: car, // 小车图片（图中小车车头向上，即正北0度）
                     }),
                 },
@@ -248,6 +248,7 @@ export default defineComponent({
                 const tn = {
                     lat: firstPoint.position.lat * 2e16,
                     lng: firstPoint.position.lng * 2e16,
+                    angle: 0,
                 }
                 const tl = gsap.timeline({
                     smoothChildTiming: true,
@@ -259,6 +260,9 @@ export default defineComponent({
                                 id: 'user',
                                 styleId: 'car-down',
                                 position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
+                                properties: {
+                                    $angle: tn.angle,
+                                },
                             },
                         ])
                         map._changeFPS()
@@ -302,6 +306,13 @@ export default defineComponent({
                             bus.current = p0.id
                             bus.animateInfo.current = p0.id
                             bus.animateInfo.next = p1.id
+                            const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
+                            const x =
+                                Math.cos(p0.position.lat) * Math.sin(p1.position.lat) -
+                                Math.sin(p0.position.lat) *
+                                    Math.cos(p1.position.lat) *
+                                    Math.cos(p1.position.lng - p0.position.lng)
+                            tn.angle = (180 * Math.atan2(y, x)) / Math.PI
                         },
                     })
                 }
