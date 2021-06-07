@@ -242,7 +242,10 @@ export default defineComponent({
                     return
                 }
                 if (!bus.activeRoute) return
-                const tn = { ...currentPoint.value.position }
+                const tn = {
+                    lat: currentPoint.value.position.lat * 2e16,
+                    lng: currentPoint.value.position.lng * 2e16,
+                }
                 const tl = gsap.timeline({
                     smoothChildTiming: true,
                     autoRemoveChildren: true,
@@ -252,10 +255,17 @@ export default defineComponent({
                             {
                                 id: 'user',
                                 styleId: 'car-down',
-                                position: new TMap.LatLng(tn.lat / 1e5, tn.lng / 1e5),
+                                position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                             },
                         ])
                         map._changeFPS()
+                    },
+                    onComplete() {
+                        bus.log.push(`导航结束`)
+                        bus.animateState = false
+                        bus.animateInfo.paused = false
+                        bus.current = bus.animateInfo.next
+                        map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
                     },
                 })
                 tl.timeScale(bus.speed.timeScale)
@@ -263,7 +273,7 @@ export default defineComponent({
                     {
                         id: 'user',
                         styleId: 'car-down',
-                        position: new TMap.LatLng(tn.lat, tn.lng),
+                        position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                     },
                 ])
                 for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
@@ -272,8 +282,8 @@ export default defineComponent({
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
                     const t0 = bus.activeRoute.pathTime[i]
                     tl.to(tn, {
-                        lat: p1.position.lat * 1e5,
-                        lng: p1.position.lng * 1e5,
+                        lat: p1.position.lat * 2e16,
+                        lng: p1.position.lng * 2e16,
                         ease: 'linear',
                         duration: t0,
                         onStart: () => {
@@ -294,6 +304,12 @@ export default defineComponent({
             },
         )
         watch(
+            () => bus.speed.timeScale,
+            () => {
+                gsapObj && gsapObj.timeScale(bus.speed.timeScale)
+            },
+        )
+        watch(
             () => bus.current,
             () => {
                 if (bus.animateState) return
@@ -305,7 +321,9 @@ export default defineComponent({
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
-                map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                if (!bus.activeRoute) {
+                    map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                }
             },
         )
         watch(
