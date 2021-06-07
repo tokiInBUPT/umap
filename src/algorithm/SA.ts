@@ -137,21 +137,15 @@ export function SA({
     }
     for (const pathItem of answer_path) {
         if (myEdgeMap[pathItem].type === 1) {
-            answer_path_time.splice(
-                0,
-                0,
+            answer_path_time.push(
                 (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.walk,
             )
         } else if (myEdgeMap[pathItem].type === 2) {
-            answer_path_time.splice(
-                0,
-                0,
+            answer_path_time.push(
                 (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bike,
             )
         } else {
-            answer_path_time.splice(
-                0,
-                0,
+            answer_path_time.push(
                 (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bus,
             )
         }
