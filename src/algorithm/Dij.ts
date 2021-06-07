@@ -12,15 +12,22 @@ import { bus } from '@/bus'
  * @param {number} bike - is bike?
  * @return {[number, string[], string[], number[]]} [cost, points list, paths list, paths time list]
  */
-export function dijkstra(
-    myEdgeMap: edgeMap,
-    myPointMap: pointMap,
-    startPoint: mapPoint,
-    endPoint: mapPoint,
+export function dijkstra({
+    myEdgeMap,
+    myPointMap,
+    startPoint,
+    endPoint,
+    timeOrDis,
+    bike,
+}: {
+    myEdgeMap: edgeMap
+    myPointMap: pointMap
+    startPoint: mapPoint
+    endPoint: mapPoint
     /** distance: 0, time:1 */
-    timeOrDis: number,
-    bike: number,
-): [number, string[], string[], number[]] {
+    timeOrDis: number
+    bike: number
+}): [number, string[], string[], number[]] {
     /** 从key点到起始点的距离 */
     const distance: Record<string, number> = {}
     const rawDistance: Record<string, number> = {}

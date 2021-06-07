@@ -13,16 +13,24 @@ import { dijkstra } from './Dij_Ha'
  *
  * 注：不能有重复
  */
-export function Ha(
-    myEdgeMap: edgeMap,
-    myPointMap: pointMap,
-    startPoint: mapPoint,
-    endPoint: mapPoint,
-    wayPointList: mapPoint[],
+export function Ha({
+    myEdgeMap,
+    myPointMap,
+    startPoint,
+    wayPointList,
+    endPoint,
+    timeOrDis,
+    bike,
+}: {
+    myEdgeMap: edgeMap
+    myPointMap: pointMap
+    startPoint: mapPoint
+    endPoint: mapPoint
+    wayPointList: mapPoint[]
     /** distance: 0, time:1 */
-    timeOrDis: number,
-    bike: number,
-): [number, string[], string[], number[]] {
+    timeOrDis: number
+    bike: number
+}): [number, string[], string[], number[]] {
     wayPointList.sort((a, b) =>
         Math.abs(a.position.lat - startPoint.position.lat) + Math.abs(a.position.lng - startPoint.position.lng) >
         Math.abs(b.position.lat - startPoint.position.lat) + Math.abs(b.position.lng - startPoint.position.lng)

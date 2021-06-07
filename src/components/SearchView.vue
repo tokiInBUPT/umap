@@ -1,9 +1,7 @@
 <script lang="ts">
 import { bus, currentPoint } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
-import { dijkstra } from '@/algorithm/Dij'
-import { SA } from '@/algorithm/SA'
-import { Ha } from '@/algorithm/Ha_byDij'
+import { dijkstra, SA, Ha } from '@/algorithm/workerClient'
 import { mapPoint } from '@/typings/map'
 import { IRoute } from '@/typings/route'
 
@@ -20,7 +18,7 @@ export default defineComponent({
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
                 }
-                const distanceRoute = Ha(
+                const distanceRoute = await Ha(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
@@ -55,7 +53,7 @@ export default defineComponent({
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
                 }
-                const distanceRoute = SA(
+                const distanceRoute = await SA(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
@@ -90,7 +88,7 @@ export default defineComponent({
                 for (let wayPoint of bus.middle) {
                     wayPointList.push(bus.map.pointsMap[wayPoint])
                 }
-                const timeRoute = dijkstra(
+                const timeRoute = await dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
@@ -117,7 +115,7 @@ export default defineComponent({
                         timeRoute[0] / 1000
                     ).toFixed(2)}千米`
                 }
-                const distanceRoute = dijkstra(
+                const distanceRoute = await dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
@@ -144,7 +142,7 @@ export default defineComponent({
                         time / 60
                     ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
                 }
-                const timeRouteBike = dijkstra(
+                const timeRouteBike = await dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,
@@ -171,7 +169,7 @@ export default defineComponent({
                         timeRouteBike[0] / 1000
                     ).toFixed(2)}千米`
                 }
-                const distanceRouteBike = dijkstra(
+                const distanceRouteBike = await dijkstra(
                     bus.map.edgeMap,
                     bus.map.pointsMap,
                     currentPoint.value,

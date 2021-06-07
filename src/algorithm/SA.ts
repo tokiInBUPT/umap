@@ -80,20 +80,28 @@ function create_new(cityCount: number, pointInPathRaw: mapPoint[]) {
     return pointInPath
 }
 
-export function SA(
-    myEdgeMap: edgeMap,
-    myPointMap: pointMap,
-    startPoint: mapPoint,
-    endPoint: mapPoint,
-    wayPointList: mapPoint[],
+export function SA({
+    myEdgeMap,
+    myPointMap,
+    startPoint,
+    wayPointList,
+    endPoint,
+    timeOrDis,
+    bike,
+}: {
+    myEdgeMap: edgeMap
+    myPointMap: pointMap
+    startPoint: mapPoint
+    endPoint: mapPoint
+    wayPointList: mapPoint[]
     /** distance: 0, time:1 */
-    timeOrDis: number,
-    bike: number,
-): [number, string[], string[], number[]] {
+    timeOrDis: number
+    bike: number
+}): [number, string[], string[], number[]] {
     console.log('now in SA')
     if (wayPointList.length === 0) {
         console.log('SA to Dij')
-        return dij_raw(myEdgeMap, myPointMap, startPoint, endPoint, timeOrDis, bike)
+        return dij_raw({ myEdgeMap, myPointMap, startPoint, endPoint, timeOrDis, bike })
     }
     let T: number = T0
     const memory = countDis(myEdgeMap, myPointMap, timeOrDis, bike, wayPointList, startPoint, endPoint)

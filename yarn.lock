@@ -1085,7 +1085,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/json-schema@^7.0.3", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
+"@types/json-schema@^7.0.3", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.7"
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.7.tgz?cache=0&sync_timestamp=1613378919536&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
   integrity sha1-mKmTUWyFnrDVxMjwmDF6nqaNua0=
@@ -1859,7 +1859,7 @@ ajv-keywords@^3.1.0, ajv-keywords@^3.4.1, ajv-keywords@^3.5.2:
   resolved "https://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-3.5.2.tgz#31f29da5ab6e00d1c2d329acf7b5929614d5014d"
   integrity sha1-MfKdpatuANHC0yms97WSlhTVAU0=
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5:
   version "6.12.6"
   resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha1-uvWmLoArB9l3A0WG+MO69a3ybfQ=
@@ -5946,6 +5946,11 @@ microevent.ts@~0.1.1:
   resolved "https://registry.npm.taobao.org/microevent.ts/download/microevent.ts-0.1.1.tgz#70b09b83f43df5172d0205a63025bce0f7357fa0"
   integrity sha1-cLCbg/Q99RctAgWmMCW84Pc1f6A=
 
+microevent.ts@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npm.taobao.org/microevent.ts/download/microevent.ts-0.2.1.tgz#bfa357f97d577d296f47e9ac69cde7c03c75a882"
+  integrity sha1-v6NX+X1XfSlvR+msac3nwDx1qII=
+
 micromatch@^3.1.10, micromatch@^3.1.4:
   version "3.1.10"
   resolved "https://registry.npm.taobao.org/micromatch/download/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
@@ -7809,6 +7814,15 @@ schema-utils@^2.0.0, schema-utils@^2.5.0, schema-utils@^2.6.1, schema-utils@^2.6
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
 
+schema-utils@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/schema-utils/download/schema-utils-3.0.0.tgz#67502f6aa2b66a2d4032b4279a2944978a0913ef"
+  integrity sha1-Z1AvaqK2ai1AMrQnmilEl4oJE+8=
+  dependencies:
+    "@types/json-schema" "^7.0.6"
+    ajv "^6.12.5"
+    ajv-keywords "^3.5.2"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -9253,12 +9267,27 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
+worker-loader@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.npm.taobao.org/worker-loader/download/worker-loader-3.0.8.tgz#5fc5cda4a3d3163d9c274a4e3a811ce8b60dbb37"
+  integrity sha1-X8XNpKPTFj2cJ0pOOoEc6LYNuzc=
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
+
 worker-rpc@^0.1.0:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/worker-rpc/download/worker-rpc-0.1.1.tgz#cb565bd6d7071a8f16660686051e969ad32f54d5"
   integrity sha1-y1Zb1tcHGo8WZgaGBR6WmtMvVNU=
   dependencies:
     microevent.ts "~0.1.1"
+
+worker-rpc@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/worker-rpc/download/worker-rpc-0.2.0.tgz#24528f2820bc83a09d5a6b2e715842df8443e710"
+  integrity sha1-JFKPKCC8g6CdWmsucVhC34RD5xA=
+  dependencies:
+    microevent.ts "~0.2.1"
 
 wrap-ansi@^5.1.0:
   version "5.1.0"
