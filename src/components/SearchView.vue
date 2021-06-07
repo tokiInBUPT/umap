@@ -311,16 +311,18 @@ export default defineComponent({
                             </el-option>
                         </template>
                     </el-select>
-                    <el-tag
-                        v-for="one in bus.middle"
-                        :key="one"
-                        closable
-                        :disable-transitions="false"
-                        @close="bus.middle.delete(one)"
-                    >
-                        <fa-icon icon="map-marker-alt" />
-                        {{ bus.map.pointsMap[one].name }}
-                    </el-tag>
+                    <div class="middle-list">
+                        <el-tag
+                            v-for="one in bus.middle"
+                            :key="one"
+                            closable
+                            :disable-transitions="false"
+                            @close="bus.middle.delete(one)"
+                        >
+                            <fa-icon icon="map-marker-alt" />
+                            {{ bus.map.pointsMap[one].name }}
+                        </el-tag>
+                    </div>
                 </div>
                 <ul v-loading="loading" class="routes">
                     <li v-for="(i, a) in bus.routes" :key="a" @click="showPath(i)">
@@ -371,6 +373,7 @@ export default defineComponent({
                 right: 10px;
                 top: 7px;
             }
+            border-radius: 0;
         }
     }
     .routes {
@@ -403,6 +406,10 @@ export default defineComponent({
             font-size: 15px;
             color: #888;
         }
+    }
+    .middle-list {
+        max-height: calc(100vh - 360px);
+        overflow: auto;
     }
 }
 </style>
