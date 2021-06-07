@@ -132,11 +132,13 @@ export default defineComponent({
                         ],
                     })
                 }
+
+                const firstPoint = bus.map.pointsMap[route.pointSeq[0]]
                 const points = [
                     {
                         id: bus.current,
                         styleId: 'start',
-                        position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng),
+                        position: new TMap.LatLng(firstPoint.position.lat, firstPoint.position.lng),
                     },
                 ]
                 for (const r of bus.middle) {
@@ -150,9 +152,9 @@ export default defineComponent({
                 {
                     const p = bus.map.pointsMap[bus.position].position
                     points.push({
-                        id: bus.position + (bus.position === bus.current ? 'e' : ''),
+                        id: bus.position + (bus.position === firstPoint.id ? 'e' : ''),
                         styleId: 'end',
-                        position: new TMap.LatLng(p.lat, bus.position === bus.current ? p.lng + 0.00005 : p.lng),
+                        position: new TMap.LatLng(p.lat, bus.position === firstPoint.id ? p.lng + 0.00005 : p.lng),
                     })
                 }
                 routeLayer = new TMap.MultiPolyline({
@@ -242,9 +244,10 @@ export default defineComponent({
                     return
                 }
                 if (!bus.activeRoute) return
+                const firstPoint = bus.map.pointsMap[bus.activeRoute.pointSeq[0]]
                 const tn = {
-                    lat: currentPoint.value.position.lat * 2e16,
-                    lng: currentPoint.value.position.lng * 2e16,
+                    lat: firstPoint.position.lat * 2e16,
+                    lng: firstPoint.position.lng * 2e16,
                 }
                 const tl = gsap.timeline({
                     smoothChildTiming: true,
@@ -260,12 +263,14 @@ export default defineComponent({
                         ])
                         map._changeFPS()
                     },
-                    onComplete() {
+                    // @ts-ignore
+                    async onComplete() {
                         bus.log.push(`导航结束`)
-                        bus.animateState = false
-                        bus.animateInfo.paused = false
                         bus.current = bus.animateInfo.next
                         map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                        await nextTick()
+                        bus.animateState = false
+                        bus.animateInfo.paused = false
                     },
                 })
                 tl.timeScale(bus.speed.timeScale)
