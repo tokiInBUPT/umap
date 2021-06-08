@@ -202,6 +202,7 @@ export default defineComponent({
                 bus.routes.push(distanceRouteBikeObj)
             }
             loading.value = false
+            showPath(bus.routes[0])
         }
         watch(
             () => bus.middle,
@@ -220,6 +221,7 @@ export default defineComponent({
         watch(
             () => bus.position,
             () => {
+                bus.activeRoute = null
                 if (bus.position) {
                     bus.routes = []
                     if (bus.middle.size <= 7) {
@@ -247,8 +249,12 @@ export default defineComponent({
             bus.activeRoute = i
         }
         async function moveAlongPath(i: IRoute) {
-            console.log(i)
-            bus.activeRoute = i
+            if (bus.activeRoute !== i) {
+                bus.activeRoute = i
+                await new Promise((resolve) => {
+                    setTimeout(resolve, 500)
+                })
+            }
             bus.animateState = false
             bus.current = i.pointSeq[0]
             await nextTick()
@@ -325,15 +331,26 @@ export default defineComponent({
                     </div>
                 </div>
                 <ul v-loading="loading" class="routes">
-                    <li v-for="(i, a) in bus.routes" :key="a" @click="showPath(i)">
+                    <li
+                        v-for="(i, a) in bus.routes"
+                        :key="a"
+                        :class="{ active: i === bus.activeRoute }"
+                        @click="showPath(i)"
+                    >
                         <div class="name">{{ i.name }}</div>
                         <div class="desc">{{ i.description }}</div>
-                        <el-button circle class="go-button" @click.stop.prevent="moveAlongPath(i)">
+                        <el-button
+                            circle
+                            plain
+                            class="go-button"
+                            :type="i === bus.activeRoute ? 'primary' : 'default'"
+                            @click.stop.prevent="moveAlongPath(i)"
+                        >
                             <fa-icon icon="directions" />
                         </el-button>
                     </li>
                     <li v-if="bus.routes.length <= 0" class="not-calculated">
-                        <el-button @click="calcRoutes">计算路线</el-button>
+                        <el-button @click="calcRoutes"> 计算路线 </el-button>
                     </li>
                 </ul>
             </el-card>
@@ -397,6 +414,16 @@ export default defineComponent({
             }
             &:hover {
                 background: #f5f5f5;
+            }
+            &.active {
+                background: #ecf5ff;
+                color: #2c80d7;
+                .desc {
+                    color: #409eff;
+                }
+                &:hover {
+                    background: #d9ecff;
+                }
             }
             &.not-calculated {
                 text-align: center;

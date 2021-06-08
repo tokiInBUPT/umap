@@ -175,11 +175,19 @@ export function dijkstra({
     while ((e = prev[current]) !== null) {
         points.splice(0, 0, current)
         if (myEdgeMap[e.edge].type === 1) {
-            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.walk)
+            pathTime.splice(
+                0,
+                0,
+                (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / bus.speed.walk,
+            )
         } else if (myEdgeMap[e.edge].type === 2) {
-            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.bike)
+            pathTime.splice(
+                0,
+                0,
+                (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / bus.speed.bike,
+            )
         } else {
-            pathTime.splice(0, 0, myEdgeMap[e.edge].length / (1 + myEdgeMap[e.edge].congestionDegree) / bus.speed.bus)
+            pathTime.splice(0, 0, (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / bus.speed.bus)
         }
 
         path.splice(0, 0, e.edge !== null ? e.edge : '')

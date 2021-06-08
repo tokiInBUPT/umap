@@ -1078,6 +1078,13 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/gsap@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.nlark.com/@types/gsap/download/@types/gsap-3.0.0.tgz#28dc350ad89b6d19b13c8edbdf1dd74e8ee5c84f"
+  integrity sha1-KNw1CtibbRmxPI7b3x3XTo7lyE8=
+  dependencies:
+    gsap "*"
+
 "@types/http-proxy@^1.17.4":
   version "1.17.5"
   resolved "https://registry.npm.taobao.org/@types/http-proxy/download/@types/http-proxy-1.17.5.tgz#c203c5e6e9dc6820d27a40eb1e511c70a220423d"
@@ -4659,6 +4666,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   version "4.2.6"
   resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha1-/wQLKwhTsjw9MQJ1I3BvGIXXa+4=
+
+gsap@*, gsap@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npm.taobao.org/gsap/download/gsap-3.6.1.tgz?cache=0&sync_timestamp=1616656240224&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fgsap%2Fdownload%2Fgsap-3.6.1.tgz#618f2338044d2b78b8cbced8ea8bf246d1cf6407"
+  integrity sha1-YY8jOARNK3i4y87Y6ovyRtHPZAc=
 
 gzip-size@^5.0.0:
   version "5.1.1"

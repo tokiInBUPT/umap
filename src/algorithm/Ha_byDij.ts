@@ -97,26 +97,14 @@ export function Ha({
     minPoints.splice(0, 0, startPoint.id)
     for (const pathItem of minPath) {
         if (myEdgeMap[pathItem].type === 1) {
-            minPathTime.splice(
-                0,
-                0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.walk,
-            )
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.walk)
         } else if (myEdgeMap[pathItem].type === 2) {
-            minPathTime.splice(
-                0,
-                0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bike,
-            )
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bike)
         } else {
-            minPathTime.splice(
-                0,
-                0,
-                myEdgeMap[pathItem].length / (1 + myEdgeMap[pathItem].congestionDegree) / bus.speed.bus,
-            )
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bus)
         }
     }
-
+    console.log(minPathTime)
     return [minRawCost, minPoints, minPath, minPathTime]
 }
 

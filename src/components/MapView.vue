@@ -2,11 +2,13 @@
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 // @ts-ignore
 import car from '@/assets/user.png'
-import { bus } from '@/bus'
+import { bus, clock } from '@/bus'
+import gsap from 'gsap'
 //  @ts-ignore
 const TMap: any = window.TMap
 export default defineComponent({
     setup() {
+        let gsapObj: gsap.core.Timeline | null = null
         const currentPoint = computed(() => {
             return bus.map.pointsMap[bus.current]
         })
@@ -43,7 +45,7 @@ export default defineComponent({
                             y: 20,
                         },
                         faceTo: 'map', // 取’map’让小车贴于地面，faceTo取值说明请见下文图示
-                        rotate: 180, // 初始小车朝向（正北0度，逆时针一周为360度，180为正南）
+                        rotate: 0, // 初始小车朝向（正北0度，逆时针一周为360度，180为正南）
                         src: car, // 小车图片（图中小车车头向上，即正北0度）
                     }),
                 },
@@ -130,11 +132,13 @@ export default defineComponent({
                         ],
                     })
                 }
+
+                const firstPoint = bus.map.pointsMap[route.pointSeq[0]]
                 const points = [
                     {
                         id: bus.current,
                         styleId: 'start',
-                        position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng),
+                        position: new TMap.LatLng(firstPoint.position.lat, firstPoint.position.lng),
                     },
                 ]
                 for (const r of bus.middle) {
@@ -148,9 +152,9 @@ export default defineComponent({
                 {
                     const p = bus.map.pointsMap[bus.position].position
                     points.push({
-                        id: bus.position + (bus.position === bus.current ? 'e' : ''),
+                        id: bus.position + (bus.position === firstPoint.id ? 'e' : ''),
                         styleId: 'end',
-                        position: new TMap.LatLng(p.lat, bus.position === bus.current ? p.lng + 0.00005 : p.lng),
+                        position: new TMap.LatLng(p.lat, bus.position === firstPoint.id ? p.lng + 0.00005 : p.lng),
                     })
                 }
                 routeLayer = new TMap.MultiPolyline({
@@ -225,8 +229,14 @@ export default defineComponent({
             () => bus.animateState,
             async (v) => {
                 console.log('animateState changed')
+                clock.clockBase += clock.clockOffset
+                clock.clockBase = clock.clockBase % (3600 * 24)
+                clock.clockOffset = 0
                 if (!v) {
-                    marker.stopMove()
+                    if (gsapObj) {
+                        gsapObj.kill()
+                        gsapObj = null
+                    }
                     marker.updateGeometries([
                         {
                             id: 'user',
@@ -237,65 +247,92 @@ export default defineComponent({
                     return
                 }
                 if (!bus.activeRoute) return
-                // @ts-ignore
-                window.marker = marker
-                let pos = 0
-                const moving = async function (p: any) {
-                    // console.log(p)
+                const firstPoint = bus.map.pointsMap[bus.activeRoute.pointSeq[0]]
+                const tn = {
+                    lat: firstPoint.position.lat * 2e16,
+                    lng: firstPoint.position.lng * 2e16,
+                    angle: 0,
                 }
-                function next() {
-                    pos++
-                    if (!bus.activeRoute || !bus.activeRoute.pointSeq[pos]) {
-                        console.log('next,stopped')
-                        marker.off('move_ended', next)
-                        marker.off('moving', moving)
-                        if (bus.activeRoute) {
-                            const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
-                            bus.current = p0.id
-                            bus.log.push(`到达 ${p0.name} ，导航结束`)
-                        }
-                        bus.animateState = false
-                        return
-                    }
-                    const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 1]]
-                    const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[pos - 0]]
-                    const t0 = new TMap.LatLng(p0.position.lat, p0.position.lng)
-                    const t1 = new TMap.LatLng(p1.position.lat, p1.position.lng)
-                    const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[pos - 1]]
-                    t0.id = p0.id
-                    t1.id = p1.id
-                    let speed = bus.speed.walk / (e0.congestionDegree + 1)
-                    if (e0.type === 3) {
-                        speed *= 5
-                    }
-                    console.log('next,i=', pos, 'speed=', speed * bus.speed.timeScale * 3.6)
-                    marker.once('move_ended', next)
-                    if (pos === 1) {
-                        bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                    }
-                    bus.log.push(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                    bus.current = p0.id
-                    bus.animateInfo.current = p0.id
-                    bus.animateInfo.next = p1.id
-                    marker.moveAlong(
-                        {
-                            user: {
-                                path: [t0, t1],
-                                speed: speed * bus.speed.timeScale * 3.6,
+                const tl = gsap.timeline({
+                    smoothChildTiming: true,
+                    autoRemoveChildren: true,
+                    yoyo: false,
+                    onUpdate() {
+                        marker.updateGeometries([
+                            {
+                                id: 'user',
+                                styleId: 'car-down',
+                                position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
+                                properties: {
+                                    $angle: tn.angle,
+                                },
                             },
-                        },
-                        {
-                            autoRotation: true,
-                        },
-                    )
-                }
-                marker.on('moving', moving)
-                marker.once('move_stopped', () => {
-                    console.log('move stopped')
-                    marker.off('move_ended', next)
-                    marker.off('moving', moving)
+                        ])
+                        map._changeFPS()
+                        const now = performance.now()
+                        clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
+                        clock.clockOffset = clock.clockOffset % (3600 * 24)
+                        clock.lastOffsetUpdate = now
+                    },
+                    // @ts-ignore
+                    async onComplete() {
+                        bus.log.push(`导航结束`)
+                        bus.current = bus.animateInfo.next
+                        map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                        await nextTick()
+                        bus.animateState = false
+                        bus.animateInfo.paused = false
+                    },
                 })
-                next()
+                tl.timeScale(bus.speed.timeScale)
+                marker.updateGeometries([
+                    {
+                        id: 'user',
+                        styleId: 'car-down',
+                        position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
+                    },
+                ])
+                let lastOffset = 0
+                for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
+                    const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
+                    const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
+                    const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
+                    const t0 = bus.activeRoute.pathTime[i]
+                    tl.to(tn, {
+                        lat: p1.position.lat * 2e16,
+                        lng: p1.position.lng * 2e16,
+                        ease: 'linear',
+                        duration: t0,
+                        onStart: () => {
+                            if (i === 0) {
+                                bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                            } else {
+                                bus.log.push(
+                                    `到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`,
+                                )
+                            }
+                            bus.current = p0.id
+                            bus.animateInfo.current = p0.id
+                            bus.animateInfo.next = p1.id
+                            const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
+                            const x =
+                                Math.cos(p0.position.lat) * Math.sin(p1.position.lat) -
+                                Math.sin(p0.position.lat) *
+                                    Math.cos(p1.position.lat) *
+                                    Math.cos(p1.position.lng - p0.position.lng)
+                            tn.angle = (180 * Math.atan2(y, x)) / Math.PI
+                            clock.clockOffset = lastOffset
+                        },
+                    })
+                    lastOffset += t0
+                }
+                gsapObj = tl
+            },
+        )
+        watch(
+            () => bus.speed.timeScale,
+            () => {
+                gsapObj && gsapObj.timeScale(bus.speed.timeScale)
             },
         )
         watch(
@@ -310,20 +347,19 @@ export default defineComponent({
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
-                map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                if (!bus.activeRoute) {
+                    map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
+                }
             },
         )
         watch(
             () => bus.animateInfo.paused,
             async (v) => {
+                if (!gsapObj) return
                 if (v) {
-                    marker.pauseMove()
-                    await nextTick()
-                    marker.pauseMove()
+                    gsapObj.pause()
                 } else {
-                    marker.resumeMove()
-                    await nextTick()
-                    marker.resumeMove()
+                    gsapObj.resume()
                 }
             },
         )
