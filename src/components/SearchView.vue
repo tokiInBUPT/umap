@@ -232,31 +232,19 @@ export default defineComponent({
                 }
             },
         )
-        watch(
-            () => bus.current,
-            () => {
-                if (bus.animateState) return
-                if (bus.position) {
-                    bus.routes = []
-                    if (bus.middle.size <= 7) {
-                        calcRoutes()
-                    }
-                }
-            },
-        )
         function showPath(i: IRoute) {
             if (bus.animateState) return
             bus.activeRoute = i
         }
         async function moveAlongPath(i: IRoute) {
+            bus.animateState = false
+            bus.current = i.pointSeq[0]
             if (bus.activeRoute !== i) {
                 bus.activeRoute = i
                 await new Promise((resolve) => {
                     setTimeout(resolve, 500)
                 })
             }
-            bus.animateState = false
-            bus.current = i.pointSeq[0]
             await nextTick()
             bus.animateState = true
         }
