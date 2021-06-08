@@ -46,5 +46,11 @@ export interface logicPosition {
     discription: string
 }
 
+export interface timeListItem {
+    time: number
+    /** type=1: 班车, type=2: 公交 */
+    type: number
+}
+
 export type pointMap = Record<string, mapPoint>
 export type edgeMap = Record<string, edge>
