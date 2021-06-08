@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, nextTick } from 'vue'
 import MapView from './components/MapView.vue'
 import SearchView from './components/SearchView.vue'
 import AroundView from './components/AroundView.vue'
@@ -18,16 +18,24 @@ export default defineComponent({
         clockView,
     },
     setup() {
-        return {}
+        const searchView = ref(null as any)
+        async function updateRoutes() {
+            await nextTick()
+            searchView.value?.updateRoutes()
+        }
+        return {
+            searchView,
+            updateRoutes,
+        }
     },
 })
 </script>
 <template>
     <map-view />
-    <gm-view />
+    <gm-view @updateRoutes="updateRoutes" />
     <log-view />
     <around-view />
-    <search-view />
+    <search-view ref="searchView" />
     <clock-view />
     <navigate-view />
 </template>

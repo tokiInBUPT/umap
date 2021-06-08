@@ -1,216 +1,18 @@
 <script lang="ts">
-import { bus, currentPoint } from '@/bus'
+import { bus } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
-import { dijkstra, SA, Ha } from '@/algorithm/workerClient'
-import { mapPoint } from '@/typings/map'
 import { IRoute } from '@/typings/route'
-
+import { calcRoutes } from '@/utils/calcRoutes'
 export default defineComponent({
     setup() {
         const loading = ref(false)
-        // eslint-disable-next-line complexity
-        async function calcRoutes() {
-            loading.value = true
-            await nextTick()
-            console.log(bus.middle.size)
-            if (bus.middle.size <= 7 && bus.middle.size > 0) {
-                const wayPointList: mapPoint[] = []
-                for (let wayPoint of bus.middle) {
-                    wayPointList.push(bus.map.pointsMap[wayPoint])
-                }
-                const distanceRoute = await Ha(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    wayPointList,
-                    0,
-                    0,
-                )
-                let time = 0
-                for (const pathTimeItem of distanceRoute[3]) {
-                    time += pathTimeItem
-                }
-                const distanceRouteObj = {
-                    name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
-                        time % 60
-                    ).toFixed(0)}秒`,
-                    avgDistance: distanceRoute[0],
-                    pointSeq: distanceRoute[1],
-                    edgeSeq: distanceRoute[2],
-                    pathTime: distanceRoute[3],
-                }
-                if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
-                        time / 60
-                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
-                }
-
-                bus.routes.push(distanceRouteObj)
-            } else if (bus.middle.size > 7) {
-                const wayPointList: mapPoint[] = []
-                for (let wayPoint of bus.middle) {
-                    wayPointList.push(bus.map.pointsMap[wayPoint])
-                }
-                const distanceRoute = await SA(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    wayPointList,
-                    0,
-                    0,
-                )
-                let time = 0
-                for (const pathTimeItem of distanceRoute[3]) {
-                    time += pathTimeItem
-                }
-                const distanceRouteObj = {
-                    name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
-                        time % 60
-                    ).toFixed(0)}秒`,
-                    avgDistance: distanceRoute[0],
-                    pointSeq: distanceRoute[1],
-                    edgeSeq: distanceRoute[2],
-                    pathTime: distanceRoute[3],
-                }
-                if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
-                        time / 60
-                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
-                }
-
-                bus.routes.push(distanceRouteObj)
-            } else {
-                const wayPointList: mapPoint[] = []
-                for (let wayPoint of bus.middle) {
-                    wayPointList.push(bus.map.pointsMap[wayPoint])
-                }
-                const timeRoute = await dijkstra(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    1,
-                    0,
-                )
-                let time = 0
-                for (const pathTimeItem of timeRoute[3]) {
-                    time += pathTimeItem
-                }
-                const timeRouteObj = {
-                    name: '最短时间',
-                    description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(
-                        timeRoute[0],
-                    )}米`,
-                    avgDistance: timeRoute[0],
-                    pointSeq: timeRoute[1],
-                    edgeSeq: timeRoute[2],
-                    pathTime: timeRoute[3],
-                }
-                if (timeRoute[0] > 1000) {
-                    timeRouteObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
-                        timeRoute[0] / 1000
-                    ).toFixed(2)}千米`
-                }
-                const distanceRoute = await dijkstra(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    0,
-                    0,
-                )
-                time = 0
-                for (const pathTimeItem of distanceRoute[3]) {
-                    time += pathTimeItem
-                }
-                const distanceRouteObj = {
-                    name: '最短路程',
-                    description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(
-                        time % 60
-                    ).toFixed(0)}秒`,
-                    avgDistance: distanceRoute[0],
-                    pointSeq: distanceRoute[1],
-                    edgeSeq: distanceRoute[2],
-                    pathTime: distanceRoute[3],
-                }
-                if (distanceRoute[0] > 1000) {
-                    distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(
-                        time / 60
-                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
-                }
-                const timeRouteBike = await dijkstra(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    1,
-                    1,
-                )
-                time = 0
-                for (const pathTimeItem of timeRouteBike[3]) {
-                    time += pathTimeItem
-                }
-                const timeRouteBikeObj = {
-                    name: '最短时间(骑行)',
-                    description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(
-                        timeRouteBike[0],
-                    )}米`,
-                    avgDistance: timeRouteBike[0],
-                    pointSeq: timeRouteBike[1],
-                    edgeSeq: timeRouteBike[2],
-                    pathTime: timeRouteBike[3],
-                }
-                if (timeRouteBike[0] > 1000) {
-                    timeRouteBikeObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
-                        timeRouteBike[0] / 1000
-                    ).toFixed(2)}千米`
-                }
-                const distanceRouteBike = await dijkstra(
-                    bus.map.edgeMap,
-                    bus.map.pointsMap,
-                    currentPoint.value,
-                    bus.map.pointsMap[bus.position],
-                    0,
-                    1,
-                )
-                time = 0
-                for (const pathTimeItem of distanceRouteBike[3]) {
-                    time += pathTimeItem
-                }
-                const distanceRouteBikeObj = {
-                    name: '最短路程(骑行)',
-                    description: `约${Math.round(distanceRouteBike[0])}米, 约${(time / 60).toFixed(0)}分钟${(
-                        time % 60
-                    ).toFixed(0)}秒`,
-                    avgDistance: distanceRouteBike[0],
-                    pointSeq: distanceRouteBike[1],
-                    edgeSeq: distanceRouteBike[2],
-                    pathTime: distanceRouteBike[3],
-                }
-                if (distanceRouteBike[0] > 1000) {
-                    distanceRouteBikeObj.description = `约${(distanceRouteBike[0] / 1000).toFixed(2)}千米, 约${(
-                        time / 60
-                    ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
-                }
-                bus.routes.push(timeRouteObj)
-                bus.routes.push(distanceRouteObj)
-                bus.routes.push(timeRouteBikeObj)
-                bus.routes.push(distanceRouteBikeObj)
-            }
-            loading.value = false
-            showPath(bus.routes[0])
-        }
         watch(
             () => bus.middle,
             () => {
                 if (bus.position) {
                     bus.routes = []
                     if (bus.middle.size <= 7) {
-                        calcRoutes()
+                        updateRoutes()
                     }
                 }
             },
@@ -225,7 +27,7 @@ export default defineComponent({
                 if (bus.position) {
                     bus.routes = []
                     if (bus.middle.size <= 7) {
-                        calcRoutes()
+                        updateRoutes()
                     }
                 } else {
                     bus.middle.clear()
@@ -248,9 +50,23 @@ export default defineComponent({
             await nextTick()
             bus.animateState = true
         }
+        async function updateRoutes() {
+            if (!bus.current || !bus.position) {
+                return []
+            }
+            loading.value = true
+            bus.routes = await calcRoutes({
+                map: bus.map,
+                from: bus.current,
+                to: bus.position,
+                middle: bus.middle,
+            })
+            showPath(bus.routes[0])
+            loading.value = false
+        }
         return {
             bus,
-            calcRoutes,
+            updateRoutes,
             loading,
             showPath,
             moveAlongPath,
@@ -338,7 +154,7 @@ export default defineComponent({
                         </el-button>
                     </li>
                     <li v-if="bus.routes.length <= 0" class="not-calculated">
-                        <el-button @click="calcRoutes"> 计算路线 </el-button>
+                        <el-button @click="updateRoutes"> 计算路线 </el-button>
                     </li>
                 </ul>
             </el-card>

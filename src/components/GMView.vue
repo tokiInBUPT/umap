@@ -3,6 +3,7 @@ import { bus } from '@/bus'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+    emits: ['updateRoutes'],
     setup() {
         return bus
     },
@@ -13,7 +14,12 @@ export default defineComponent({
         <div class="gm">
             <el-form label-position="top">
                 <el-form-item label="传送">
-                    <el-select model-value="" filterable placeholder="请选择传送点" @change="current = $event">
+                    <el-select
+                        model-value=""
+                        filterable
+                        placeholder="请选择传送点"
+                        @change=";(current = $event) && $emit('updateRoutes')"
+                    >
                         <el-option v-for="item in map.points" :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
