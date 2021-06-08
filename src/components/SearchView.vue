@@ -2,7 +2,7 @@
 import { bus } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { IRoute } from '@/typings/route'
-import { calcRoutes } from '@/utils/calcRoutes'
+import { calcRoutes } from '@/algorithm/calcRoutes'
 export default defineComponent({
     setup() {
         const loading = ref(false)

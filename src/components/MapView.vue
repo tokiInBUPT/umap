@@ -1,11 +1,8 @@
 <script lang="ts">
-import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
-// @ts-ignore
-import car from '@/assets/user.png'
+import { gsap } from '@/utils/gsap'
 import { bus, clock, pushLog } from '@/bus'
-import gsap from 'gsap'
-//  @ts-ignore
-const TMap: any = window.TMap
+import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
+import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 export default defineComponent({
     setup() {
         let gsapObj: gsap.core.Timeline | null = null
@@ -26,41 +23,17 @@ export default defineComponent({
                 pitch: 10,
                 rotation: 0,
                 baseMap: {
-                    // 底图设置（参数为：VectorBaseMap对象）
-                    type: 'vector', // 类型：失量底图
+                    type: 'vector',
                     features: ['base', 'building3d'],
-                    // 仅渲染：道路及底面(base) + 2d建筑物(building2d)，以达到隐藏文字的效果
                 },
             })
-            marker = new TMap.MultiMarker({
-                map: map,
-                styles: {
-                    // 样式设置
-                    'car-down': new TMap.MarkerStyle({
-                        width: 40, // 小车图片宽度（像素）
-                        height: 40, // 高度
-                        anchor: {
-                            // 图片中心的像素位置（小车会保持车头朝前，会以中心位置进行转向）
-                            x: 20,
-                            y: 20,
-                        },
-                        faceTo: 'map', // 取’map’让小车贴于地面，faceTo取值说明请见下文图示
-                        rotate: 0, // 初始小车朝向（正北0度，逆时针一周为360度，180为正南）
-                        src: car, // 小车图片（图中小车车头向上，即正北0度）
-                    }),
-                },
-                geometries: [
-                    {
-                        // 小车marker的位置信息
-                        id: 'user', // 因MultiMarker支持包含多个点标记，因此要给小车一个id
-                        styleId: 'car-down', // 绑定样式
-                        position: new TMap.LatLng(
-                            bus.map.pointsMap[bus.current].position.lat,
-                            bus.map.pointsMap[bus.current].position.lng,
-                        ), // 初始坐标位置
-                    },
-                ],
-            })
+            marker = createUserMarker(
+                map,
+                new TMap.LatLng(
+                    bus.map.pointsMap[bus.current].position.lat,
+                    bus.map.pointsMap[bus.current].position.lng,
+                ),
+            )
             const labels: any[] = []
             let ii = 0
             for (const i of bus.map.points) {
@@ -76,29 +49,7 @@ export default defineComponent({
                     rank: ii++,
                 })
             }
-            label = new TMap.MultiLabel({
-                map: map,
-                enableCollision: true,
-                styles: {
-                    label: new TMap.LabelStyle({
-                        color: '#5e5e5e', // 颜色属性
-                        size: 15, // 文字大小属性
-                        offset: { x: 0, y: 0 }, // 文字偏移属性单位为像素
-                        angle: 0, // 文字旋转属性
-                        alignment: 'center', // 文字水平对齐属性
-                        verticalAlignment: 'middle', // 文字垂直对齐属性
-                    }),
-                },
-                geometries: labels,
-            })
-            const eventClick = function (res: any) {
-                const ress = res && res.geometry
-                console.log('click')
-                if (ress) {
-                    bus.position = ress.id
-                }
-            }
-            label.on('click', eventClick)
+            label = createLabelLayer(map, labels)
         })
         watch(
             () => bus.activeRoute,
@@ -157,57 +108,10 @@ export default defineComponent({
                         position: new TMap.LatLng(p.lat, bus.position === firstPoint.id ? p.lng + 0.00005 : p.lng),
                     })
                 }
-                routeLayer = new TMap.MultiPolyline({
-                    map, // 绘制到目标地图
-                    // 折线样式定义
-                    styles: {
-                        style_blue: new TMap.PolylineStyle({
-                            color: '#3777FF', // 线填充色
-                            width: 10, // 折线宽度
-                            borderWidth: 1, // 边线宽度
-                            borderColor: '#FFF', // 边线颜色
-                            lineCap: 'round', // 线端头方式
-                            showArrow: true,
-                            arrowOptions: {
-                                space: 70,
-                            },
-                        }),
-                    },
-                    geometries: [
-                        {
-                            styleId: 'style_blue',
-                            rainbowPaths,
-                        },
-                    ],
-                })
-                middleMarkerLayer = new TMap.MultiMarker({
-                    id: 'middle-marker-layer',
-                    map: map,
-                    styles: {
-                        start: new TMap.MarkerStyle({
-                            width: 25,
-                            height: 35,
-                            anchor: { x: 16, y: 32 },
-                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/start.png',
-                        }),
-                        end: new TMap.MarkerStyle({
-                            width: 25,
-                            height: 35,
-                            anchor: { x: 16, y: 32 },
-                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/end.png',
-                        }),
-                        middle: new TMap.MarkerStyle({
-                            width: 25,
-                            height: 35,
-                            anchor: { x: 16, y: 32 },
-                            src: 'https://mapapi.qq.com/web/lbs/javascriptGL/demo/img/markerDefault.png',
-                        }),
-                    },
-                    geometries: points,
-                })
+                routeLayer = createRainbowPath(map, rainbowPaths)
+                middleMarkerLayer = createRouteMarker(map, points)
                 let bounds = new TMap.LatLngBounds()
                 route.pointSeq.forEach(function (item) {
-                    // 若坐标点不在范围内，扩大bounds范围
                     if (
                         bounds.isEmpty() ||
                         !bounds.contains(
@@ -219,9 +123,8 @@ export default defineComponent({
                         )
                     }
                 })
-                // 设置地图可视范围
                 map.fitBounds(bounds, {
-                    padding: 200, // 自适应边距
+                    padding: 150,
                 })
             },
         )
@@ -239,7 +142,7 @@ export default defineComponent({
                     marker.updateGeometries([
                         {
                             id: 'user',
-                            styleId: 'car-down', // 绑定样式
+                            styleId: 'userPNG', // 绑定样式
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
@@ -265,7 +168,7 @@ export default defineComponent({
                         marker.updateGeometries([
                             {
                                 id: 'user',
-                                styleId: 'car-down',
+                                styleId: 'userPNG',
                                 position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                                 properties: {
                                     $angle: tn.angle,
@@ -292,7 +195,7 @@ export default defineComponent({
                 marker.updateGeometries([
                     {
                         id: 'user',
-                        styleId: 'car-down',
+                        styleId: 'userPNG',
                         position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                     },
                 ])
@@ -347,7 +250,7 @@ export default defineComponent({
                     marker.updateGeometries([
                         {
                             id: 'user',
-                            styleId: 'car-down', // 绑定样式
+                            styleId: 'userPNG', // 绑定样式
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
@@ -370,6 +273,7 @@ export default defineComponent({
         )
         return {
             mapEl,
+            label,
         }
     },
 })
