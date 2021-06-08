@@ -1,24 +1,38 @@
 <script lang="ts">
-import { bus } from '@/bus'
-import { defineComponent } from 'vue'
+import { bus, clock } from '@/bus'
+import { computed, defineComponent } from 'vue'
+import { formatTimeR } from '@/utils/clock'
 
 export default defineComponent({
     setup() {
-        return bus
+        const timeUsed = computed(() => {
+            if (!bus.animateState) return '导航未开始'
+            const used = formatTimeR(clock.clockOffset)
+            const remain = formatTimeR(bus.animateInfo.totalTime - clock.clockOffset)
+            return `用时${used} 预计还需${remain}`
+        })
+        return {
+            bus,
+            clock,
+            timeUsed,
+        }
     },
 })
 </script>
 <template>
-    <el-card v-show="animateState" class="navigateView">
+    <el-card v-show="bus.animateState" class="navigateView">
         <div class="bigdesc">
-            前方 {{ map.pointsMap[animateInfo.next] ? map.pointsMap[animateInfo.next].name : '未知点' }}
+            前方 {{ bus.map.pointsMap[bus.animateInfo.next] ? bus.map.pointsMap[bus.animateInfo.next].name : '未知点' }}
         </div>
-        <div class="timestat">用时30秒 预计还需9分钟</div>
+        <div class="timestat">{{ timeUsed }}</div>
         <div class="actions">
-            <el-button v-if="!animateInfo.paused" @click="animateInfo.paused = true">
+            <el-button v-if="!bus.animateInfo.paused" @click="bus.animateInfo.paused = true">
                 <fa-icon icon="pause" /> 暂停 </el-button
-            ><el-button v-else @click="animateInfo.paused = false"> <fa-icon icon="play" /> 继续 </el-button
-            ><el-button style="margin: 0" @click="animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
+            ><el-button v-else @click="bus.animateInfo.paused = false"> <fa-icon icon="play" /> 继续 </el-button
+            ><el-button style="margin: 0" @click="bus.animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
+        </div>
+        <div v-if="bus.animateInfo.totalTime > 0" class="progressBar">
+            <div class="pginn" :style="{ width: `${(clock.clockOffset / bus.animateInfo.totalTime) * 100}%` }"></div>
         </div>
     </el-card>
 </template>
@@ -64,6 +78,18 @@ export default defineComponent({
         font-size: 14px;
         color: #777;
         padding-left: 10px;
+    }
+    .progressBar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: #eee;
+        .pginn {
+            height: 5px;
+            background: #409eff;
+        }
     }
 }
 </style>

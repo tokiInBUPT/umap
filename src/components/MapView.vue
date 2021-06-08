@@ -229,6 +229,7 @@ export default defineComponent({
             () => bus.animateState,
             async (v) => {
                 console.log('animateState changed')
+                bus.animateInfo.totalTime = 0
                 if (!v) {
                     if (gsapObj) {
                         gsapObj.kill()
@@ -294,13 +295,12 @@ export default defineComponent({
                         position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                     },
                 ])
-                let lastOffset = 0
                 for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
                     const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
                     const t0 = bus.activeRoute.pathTime[i]
-                    lastOffset += t0
+                    bus.animateInfo.totalTime += t0
                     tl.to(tn, {
                         lat: p1.position.lat * 2e16,
                         lng: p1.position.lng * 2e16,
@@ -325,7 +325,7 @@ export default defineComponent({
                             clock.clockOffset = currentOffset
                             clock.lastOffsetUpdate = performance.now()
                         },
-                        onStartParams: [lastOffset - t0],
+                        onStartParams: [bus.animateInfo.totalTime - t0],
                     })
                 }
                 gsapObj = tl
@@ -358,6 +358,7 @@ export default defineComponent({
             () => bus.animateInfo.paused,
             async (v) => {
                 if (!gsapObj) return
+                clock.lastOffsetUpdate = performance.now()
                 if (v) {
                     gsapObj.pause()
                 } else {

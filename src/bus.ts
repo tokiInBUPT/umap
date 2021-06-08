@@ -12,6 +12,7 @@ import logic_position from '@/data/logicPosition.json'
 import benbu_edges from '@/data/benbu_edge_06012334.json'
 import { IRoute } from './typings/route'
 import { logicPosition } from './algorithm/typing'
+import { formatTime } from './utils/clock'
 
 export const bus = reactive({
     type: '',
@@ -37,7 +38,6 @@ export const bus = reactive({
         paused: false,
         current: '',
         next: '',
-        currentTime: 0,
         totalTime: 0,
     },
     routes: [] as IRoute[],
@@ -88,14 +88,6 @@ const updateClock = () => {
     requestAnimationFrame(updateClock)
 }
 requestAnimationFrame(updateClock)
-function formatTime(value: number) {
-    const result = value % (3600 * 24)
-    const h = Math.floor(result / 3600) < 10 ? '0' + Math.floor(result / 3600) : Math.floor(result / 3600)
-    const m =
-        Math.floor((result / 60) % 60) < 10 ? '0' + Math.floor((result / 60) % 60) : Math.floor((result / 60) % 60)
-    const s = Math.floor(result % 60) < 10 ? '0' + Math.floor(result % 60) : Math.floor(result % 60)
-    return `${h}:${m}:${s}`
-}
 export const timeText = computed(() => {
     return formatTime(clock.clockBase + clock.clockOffset)
 })
