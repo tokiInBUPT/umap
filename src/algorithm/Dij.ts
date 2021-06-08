@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 /* eslint-disable max-params */
-import { mapPoint, edgeMap, pointMap, neighbor } from '../typings/map'
+import { mapPoint, edgeMap, pointMap, neighbor, TRANSPORT } from '../typings/map'
 import { speed } from '../config'
 
 /**
@@ -60,7 +60,7 @@ export function dijkstra({
             console.log(myEdgeMap)
             console.log(next.edgeId)
         }
-        if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+        if (timeOrDis && myEdgeMap[next.edgeId].type === TRANSPORT.BIKE) {
             distance[next.toPointId] =
                 distance[startPoint.id] +
                 ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
@@ -104,7 +104,7 @@ export function dijkstra({
                 console.log(next.edgeId)
             }
             if (distance[next.toPointId] === -1) {
-                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                if (timeOrDis && myEdgeMap[next.edgeId].type === TRANSPORT.BIKE) {
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
@@ -122,12 +122,12 @@ export function dijkstra({
                 }
             } else if (
                 timeOrDis &&
-                myEdgeMap[next.edgeId].type === 2 &&
+                myEdgeMap[next.edgeId].type === TRANSPORT.BIKE &&
                 distance[next.toPointId] >
                     distance[minNum] +
                         myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
             ) {
-                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                if (timeOrDis && myEdgeMap[next.edgeId].type === TRANSPORT.BIKE) {
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
@@ -148,7 +148,7 @@ export function dijkstra({
                 distance[minNum] +
                     myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)
             ) {
-                if (timeOrDis && myEdgeMap[next.edgeId].type === 2) {
+                if (timeOrDis && myEdgeMap[next.edgeId].type === TRANSPORT.BIKE) {
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
@@ -174,9 +174,9 @@ export function dijkstra({
     let e
     while ((e = prev[current]) !== null) {
         points.splice(0, 0, current)
-        if (myEdgeMap[e.edge].type === 1) {
+        if (myEdgeMap[e.edge].type === TRANSPORT.WALK) {
             pathTime.splice(0, 0, (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / speed.walk)
-        } else if (myEdgeMap[e.edge].type === 2) {
+        } else if (myEdgeMap[e.edge].type === TRANSPORT.BIKE) {
             pathTime.splice(0, 0, (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / speed.bike)
         } else {
             pathTime.splice(0, 0, (myEdgeMap[e.edge].length * (1 + myEdgeMap[e.edge].congestionDegree)) / speed.bus)

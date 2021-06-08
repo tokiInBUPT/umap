@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-import { mapPoint, edgeMap, pointMap } from '../typings/map'
+import { mapPoint, edgeMap, pointMap, TRANSPORT } from '../typings/map'
 import { dijkstra } from './Dij_Ha'
 import { dijkstra as dij_raw } from './Dij'
 import { speed } from '../config'
@@ -136,11 +136,11 @@ export function SA({
         answer_path = answer_path.concat(memory[path[i].id][path[i + 1].id][2])
     }
     for (const pathItem of answer_path) {
-        if (myEdgeMap[pathItem].type === 1) {
+        if (myEdgeMap[pathItem].type === TRANSPORT.WALK) {
             answer_path_time.push(
                 (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.walk,
             )
-        } else if (myEdgeMap[pathItem].type === 2) {
+        } else if (myEdgeMap[pathItem].type === TRANSPORT.BIKE) {
             answer_path_time.push(
                 (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.bike,
             )

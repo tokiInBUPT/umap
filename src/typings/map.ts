@@ -19,6 +19,12 @@ export interface mapPoint {
     neighborBike: neighbor[]
 }
 
+export enum TRANSPORT {
+    WALK = 1,
+    BIKE = 2,
+    BUS = 3,
+}
+
 export interface edge {
     id: string
     length: number
@@ -52,6 +58,11 @@ export interface logicPosition {
     id: string
     name: string
     discription: string
+}
+
+export enum busType {
+    SCHOOLBUS = 1,
+    PUBLICBUS = 2,
 }
 
 export interface timeListItem {
