@@ -11,5 +11,9 @@ export function formatTimeR(value: number) {
     const h = Math.floor(result / 3600)
     const m = Math.floor((result / 60) % 60)
     const s = Math.floor(result % 60)
-    return `${h ? `${h}小时` : ''}${m ? `${m}分` : ''}${s ? `${s}秒` : ''}`
+    return (
+        (h ? `${h.toString().padStart(2, '0')}时` : '') +
+        (h || m ? `${m.toString().padStart(2, '0')}分` : '') +
+        `${s.toString().padStart(2, '0')}秒`
+    )
 }

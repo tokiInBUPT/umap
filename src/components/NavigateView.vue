@@ -85,9 +85,9 @@ export default defineComponent({
         }
     }
     .bigdesc {
-        font-size: 26px;
-        padding-top: 15px;
-        padding-bottom: 3px;
+        font-size: 18px;
+        padding-top: 18px;
+        padding-bottom: 6px;
         padding-left: 10px;
     }
 
