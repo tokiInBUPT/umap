@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 /* eslint-disable max-params */
-import { bus } from '@/bus'
+import { speed } from '../config'
 import { mapPoint, edgeMap, pointMap, neighbor } from '../typings/map'
 
 /**
@@ -57,8 +57,8 @@ export function dijkstra(
             distance[next.toPointId] =
                 distance[startPoint.id] +
                 ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
-                    bus.speed.bike) *
-                    bus.speed.walk
+                    speed.bike) *
+                    speed.walk
         } else {
             distance[next.toPointId] =
                 distance[startPoint.id] +
@@ -101,8 +101,8 @@ export function dijkstra(
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
-                            bus.speed.bike) *
-                            bus.speed.walk
+                            speed.bike) *
+                            speed.walk
                 } else {
                     distance[next.toPointId] =
                         distance[minNum] +
@@ -124,8 +124,8 @@ export function dijkstra(
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
-                            bus.speed.bike) *
-                            bus.speed.walk
+                            speed.bike) *
+                            speed.walk
                 } else {
                     distance[next.toPointId] =
                         distance[minNum] +
@@ -145,8 +145,8 @@ export function dijkstra(
                     distance[next.toPointId] =
                         distance[minNum] +
                         ((myEdgeMap[next.edgeId].length * (1 + myEdgeMap[next.edgeId].congestionDegree * timeOrDis)) /
-                            bus.speed.bike) *
-                            bus.speed.walk
+                            speed.bike) *
+                            speed.walk
                 } else {
                     distance[next.toPointId] =
                         distance[minNum] +

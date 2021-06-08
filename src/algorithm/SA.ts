@@ -2,7 +2,7 @@
 import { mapPoint, edgeMap, pointMap } from '../typings/map'
 import { dijkstra } from './Dij_Ha'
 import { dijkstra as dij_raw } from './Dij'
-import { bus } from '@/bus'
+import { speed } from '../config'
 
 const T0 = 50000.0 // 初始温度
 const T_end = 1e-4
@@ -138,16 +138,14 @@ export function SA({
     for (const pathItem of answer_path) {
         if (myEdgeMap[pathItem].type === 1) {
             answer_path_time.push(
-                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.walk,
+                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.walk,
             )
         } else if (myEdgeMap[pathItem].type === 2) {
             answer_path_time.push(
-                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bike,
+                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.bike,
             )
         } else {
-            answer_path_time.push(
-                (myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bus,
-            )
+            answer_path_time.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.bus)
         }
     }
 

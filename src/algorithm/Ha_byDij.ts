@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-import { bus } from '@/bus'
+import { speed } from '../config'
 import { mapPoint, edgeMap, pointMap } from '../typings/map'
 import { dijkstra } from './Dij_Ha'
 /**
@@ -97,11 +97,11 @@ export function Ha({
     minPoints.splice(0, 0, startPoint.id)
     for (const pathItem of minPath) {
         if (myEdgeMap[pathItem].type === 1) {
-            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.walk)
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.walk)
         } else if (myEdgeMap[pathItem].type === 2) {
-            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bike)
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.bike)
         } else {
-            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / bus.speed.bus)
+            minPathTime.push((myEdgeMap[pathItem].length * (1 + myEdgeMap[pathItem].congestionDegree)) / speed.bus)
         }
     }
     console.log(minPathTime)
