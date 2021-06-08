@@ -4,7 +4,7 @@ declare module '*.vue' {
     const component: DefineComponent<{}, {}, any>
     export default component
 }
-declare module 'worker-loader!*' {
+declare module 'worker-loader*' {
     class WebpackWorker extends Worker {
         constructor()
     }

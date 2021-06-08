@@ -1,11 +1,39 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(fas, far, fab)
-createApp(App).component('fa-icon', FontAwesomeIcon).use(ElementPlus).mount('#app')
+import {
+    ElButton,
+    ElSelect,
+    ElOption,
+    ElForm,
+    ElFormItem,
+    ElSlider,
+    ElInput,
+    ElPopover,
+    ElCard,
+    ElTag,
+    ElEmpty,
+    ElLoading,
+    ElIcon,
+} from 'element-plus'
+import { faDirections, faMapMarkedAlt, faFileDownload, faPrint } from '@fortawesome/free-solid-svg-icons'
+import { faPauseCircle, faPlayCircle, faTimesCircle } from '@fortawesome/free-regular-svg-icons'
+library.add(faDirections, faMapMarkedAlt, faFileDownload, faPrint, faPauseCircle, faPlayCircle, faTimesCircle)
+
+const app = createApp(App)
+app.component(ElButton.name, ElButton)
+    .component(ElSelect.name, ElSelect)
+    .component(ElOption.name, ElOption)
+    .component(ElInput.name, ElInput)
+    .component(ElForm.name, ElForm)
+    .component(ElFormItem.name, ElFormItem)
+    .component(ElSlider.name, ElSlider)
+    .component(ElPopover.name, ElPopover)
+    .component(ElCard.name, ElCard)
+    .component(ElTag.name, ElTag)
+    .component(ElEmpty.name, ElEmpty)
+    .component(ElIcon.name, ElIcon)
+app.use(ElLoading)
+app.component('FaIcon', FontAwesomeIcon)
+app.mount('#app')

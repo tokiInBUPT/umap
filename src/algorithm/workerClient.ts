@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
 import { edgeMap, pointMap, mapPoint } from '@/typings/map'
-import Worker from 'worker-loader!./worker'
+import Worker from 'worker-loader?inline=no-fallback!./worker'
 import { RpcProvider } from 'worker-rpc'
 const worker = new Worker()
 const rpcProvider = new RpcProvider((message, transfer) => {
