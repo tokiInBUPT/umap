@@ -69,3 +69,22 @@ for (const i of bus.map.edges) {
 export const currentPoint = computed(() => {
     return bus.map.pointsMap[bus.current]
 })
+
+export const clock = reactive({
+    clockBase: 3600 * 23,
+    clockOffset: 0,
+    lastBaseUpdate: performance.now(),
+    lastOffsetUpdate: performance.now(),
+})
+const updateClock = () => {
+    if (bus.animateState) {
+        requestAnimationFrame(updateClock)
+        return
+    }
+    const now = performance.now()
+    clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
+    clock.clockOffset = clock.clockOffset % (3600 * 24)
+    clock.lastOffsetUpdate = now
+    requestAnimationFrame(updateClock)
+}
+requestAnimationFrame(updateClock)

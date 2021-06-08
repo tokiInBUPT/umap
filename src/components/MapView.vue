@@ -2,7 +2,7 @@
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 // @ts-ignore
 import car from '@/assets/user.png'
-import { bus } from '@/bus'
+import { bus, clock } from '@/bus'
 import gsap from 'gsap'
 //  @ts-ignore
 const TMap: any = window.TMap
@@ -229,6 +229,9 @@ export default defineComponent({
             () => bus.animateState,
             async (v) => {
                 console.log('animateState changed')
+                clock.clockBase += clock.clockOffset
+                clock.clockBase = clock.clockBase % (3600 * 24)
+                clock.clockOffset = 0
                 if (!v) {
                     if (gsapObj) {
                         gsapObj.kill()
@@ -266,6 +269,10 @@ export default defineComponent({
                             },
                         ])
                         map._changeFPS()
+                        const now = performance.now()
+                        clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
+                        clock.clockOffset = clock.clockOffset % (3600 * 24)
+                        clock.lastOffsetUpdate = now
                     },
                     // @ts-ignore
                     async onComplete() {
@@ -285,6 +292,7 @@ export default defineComponent({
                         position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                     },
                 ])
+                let lastOffset = 0
                 for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
                     const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
@@ -313,8 +321,10 @@ export default defineComponent({
                                     Math.cos(p1.position.lat) *
                                     Math.cos(p1.position.lng - p0.position.lng)
                             tn.angle = (180 * Math.atan2(y, x)) / Math.PI
+                            clock.clockOffset = lastOffset
                         },
                     })
+                    lastOffset += t0
                 }
                 gsapObj = tl
             },

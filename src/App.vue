@@ -6,6 +6,7 @@ import AroundView from './components/AroundView.vue'
 import NavigateView from './components/NavigateView.vue'
 import gmView from './components/GMView.vue'
 import logView from './components/LogView.vue'
+import clockView from './components/ClockView.vue'
 export default defineComponent({
     components: {
         MapView,
@@ -14,6 +15,7 @@ export default defineComponent({
         NavigateView,
         gmView,
         logView,
+        clockView,
     },
     setup() {
         return {}
@@ -26,6 +28,7 @@ export default defineComponent({
     <log-view />
     <around-view />
     <search-view />
+    <clock-view />
     <navigate-view />
 </template>
 
