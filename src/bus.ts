@@ -37,6 +37,7 @@ export const bus = reactive({
         paused: false,
         current: '',
         next: '',
+        edge: '',
         totalTime: 0,
     },
     routes: [] as IRoute[],

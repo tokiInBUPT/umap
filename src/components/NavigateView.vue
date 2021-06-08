@@ -2,6 +2,7 @@
 import { bus, clock } from '@/bus'
 import { computed, defineComponent } from 'vue'
 import { formatTimeR } from '@/utils/clock'
+import { TRANSPORT } from '@/typings/map'
 
 export default defineComponent({
     setup() {
@@ -11,10 +12,22 @@ export default defineComponent({
             const remain = formatTimeR(bus.animateInfo.totalTime - clock.clockOffset)
             return `用时${used} 预计还需${remain}`
         })
+        const frontText = computed(() => {
+            if (!bus.animateState || !bus.map.edgeMap[bus.animateInfo.edge]) return '前方到'
+            switch (bus.map.edgeMap[bus.animateInfo.edge].type) {
+                case TRANSPORT.BUS:
+                    return '乘车至'
+                case TRANSPORT.BIKE:
+                    return '骑行至'
+                default:
+                    return '步行至'
+            }
+        })
         return {
             bus,
             clock,
             timeUsed,
+            frontText,
         }
     },
 })
@@ -22,7 +35,8 @@ export default defineComponent({
 <template>
     <el-card v-show="bus.animateState" class="navigateView">
         <div class="bigdesc">
-            前方 {{ bus.map.pointsMap[bus.animateInfo.next] ? bus.map.pointsMap[bus.animateInfo.next].name : '未知点' }}
+            {{ frontText }}
+            {{ bus.map.pointsMap[bus.animateInfo.next] ? bus.map.pointsMap[bus.animateInfo.next].name : '未知点' }}
         </div>
         <div class="timestat">{{ timeUsed }}</div>
         <div class="actions">

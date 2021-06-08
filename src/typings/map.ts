@@ -31,7 +31,7 @@ export interface edge {
     /** range: 0-1 */
     congestionDegree: number
     /** walk: 1, bike: 2, bus: 3 */
-    type: number
+    type: TRANSPORT
     time: number
 }
 

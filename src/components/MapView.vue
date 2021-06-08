@@ -316,6 +316,7 @@ export default defineComponent({
                             bus.current = p0.id
                             bus.animateInfo.current = p0.id
                             bus.animateInfo.next = p1.id
+                            bus.animateInfo.edge = e0.id
                             const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
                             const x =
                                 Math.cos(p0.position.lat) * Math.sin(p1.position.lat) -
