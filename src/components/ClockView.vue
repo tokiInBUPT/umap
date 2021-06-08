@@ -1,27 +1,33 @@
 <script lang="ts">
-import { clock } from '@/bus'
-import { computed, defineComponent } from 'vue'
-function formatTime(value: number) {
-    const result = value % (3600 * 24)
-    const h = Math.floor(result / 3600) < 10 ? '0' + Math.floor(result / 3600) : Math.floor(result / 3600)
-    const m =
-        Math.floor((result / 60) % 60) < 10 ? '0' + Math.floor((result / 60) % 60) : Math.floor((result / 60) % 60)
-    const s = Math.floor(result % 60) < 10 ? '0' + Math.floor(result % 60) : Math.floor(result % 60)
-    return `${h}:${m}:${s}`
-}
+import { clock, timeText } from '@/bus'
+import { computed, defineComponent, onMounted, Ref, ref, watch } from 'vue'
+
 export default defineComponent({
     setup() {
-        const timeText = computed(() => {
-            return formatTime(clock.clockBase + clock.clockOffset)
+        const canvas: Ref<null | HTMLCanvasElement> = ref(null)
+        onMounted(() => {
+            if (!canvas.value) return
+            const ctx = canvas.value.getContext('2d')
+            if (!ctx) return
+            ctx.strokeStyle = '#000'
+            ctx.font = '45px Consolas'
+            ctx.fillText('00:00:00', 0, 40)
+        })
+        watch([() => clock.clockBase, () => clock.clockOffset], () => {
+            if (!canvas.value) return
+            const ctx = canvas.value.getContext('2d')
+            if (!ctx) return
+            ctx.clearRect(0, 0, 200, 50)
+            ctx.fillText(timeText.value, 0, 40)
         })
         return {
-            timeText,
+            canvas,
         }
     },
 })
 </script>
 <template>
-    <div class="clock">{{ timeText }}</div>
+    <canvas ref="canvas" class="clock" width="200" height="50"></canvas>
 </template>
 
 <style lang="scss" scoped>
@@ -33,5 +39,7 @@ export default defineComponent({
     font-size: 22px;
     font-family: Consolas, monospace;
     opacity: 0.5;
+    width: 100px;
+    height: 25px;
 }
 </style>

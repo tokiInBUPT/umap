@@ -2,7 +2,7 @@
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 // @ts-ignore
 import car from '@/assets/user.png'
-import { bus, clock } from '@/bus'
+import { bus, clock, pushLog } from '@/bus'
 import gsap from 'gsap'
 //  @ts-ignore
 const TMap: any = window.TMap
@@ -229,9 +229,6 @@ export default defineComponent({
             () => bus.animateState,
             async (v) => {
                 console.log('animateState changed')
-                clock.clockBase += clock.clockOffset
-                clock.clockBase = clock.clockBase % (3600 * 24)
-                clock.clockOffset = 0
                 if (!v) {
                     if (gsapObj) {
                         gsapObj.kill()
@@ -257,6 +254,11 @@ export default defineComponent({
                     smoothChildTiming: true,
                     autoRemoveChildren: true,
                     yoyo: false,
+                    onStart() {
+                        clock.clockBase += clock.clockOffset
+                        clock.clockBase = clock.clockBase % (3600 * 24)
+                        clock.clockOffset = 0
+                    },
                     onUpdate() {
                         marker.updateGeometries([
                             {
@@ -276,7 +278,7 @@ export default defineComponent({
                     },
                     // @ts-ignore
                     async onComplete() {
-                        bus.log.push(`导航结束`)
+                        pushLog(`导航结束`)
                         bus.current = bus.animateInfo.next
                         map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
                         await nextTick()
@@ -298,18 +300,17 @@ export default defineComponent({
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
                     const t0 = bus.activeRoute.pathTime[i]
+                    lastOffset += t0
                     tl.to(tn, {
                         lat: p1.position.lat * 2e16,
                         lng: p1.position.lng * 2e16,
                         ease: 'linear',
                         duration: t0,
-                        onStart: () => {
+                        onStart: (currentOffset: number) => {
                             if (i === 0) {
-                                bus.log.push(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                                pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
                             } else {
-                                bus.log.push(
-                                    `到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`,
-                                )
+                                pushLog(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
                             }
                             bus.current = p0.id
                             bus.animateInfo.current = p0.id
@@ -321,10 +322,11 @@ export default defineComponent({
                                     Math.cos(p1.position.lat) *
                                     Math.cos(p1.position.lng - p0.position.lng)
                             tn.angle = (180 * Math.atan2(y, x)) / Math.PI
-                            clock.clockOffset = lastOffset
+                            clock.clockOffset = currentOffset
+                            clock.lastOffsetUpdate = performance.now()
                         },
+                        onStartParams: [lastOffset - t0],
                     })
-                    lastOffset += t0
                 }
                 gsapObj = tl
             },
