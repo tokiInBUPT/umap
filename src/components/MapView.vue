@@ -230,6 +230,7 @@ export default defineComponent({
             async (v) => {
                 console.log('animateState changed')
                 bus.animateInfo.totalTime = 0
+                bus.animateInfo.paused = false
                 if (!v) {
                     if (gsapObj) {
                         gsapObj.kill()
