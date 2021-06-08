@@ -27,9 +27,12 @@ export default defineComponent({
         <div class="timestat">{{ timeUsed }}</div>
         <div class="actions">
             <el-button v-if="!bus.animateInfo.paused" @click="bus.animateInfo.paused = true">
-                <fa-icon icon="pause" /> 暂停 </el-button
-            ><el-button v-else @click="bus.animateInfo.paused = false"> <fa-icon icon="play" /> 继续 </el-button
-            ><el-button style="margin: 0" @click="bus.animateState = false"> <fa-icon icon="times" /> 取消 </el-button>
+                <fa-icon :icon="['far', 'pause-circle']" /> 暂停 </el-button
+            ><el-button v-else @click="bus.animateInfo.paused = false">
+                <fa-icon :icon="['far', 'play-circle']" /> 继续 </el-button
+            ><el-button style="margin: 0" @click="bus.animateState = false">
+                <fa-icon :icon="['far', 'times-circle']" /> 取消
+            </el-button>
         </div>
         <div v-if="bus.animateInfo.totalTime > 0" class="progressBar">
             <div class="pginn" :style="{ width: `${(clock.clockOffset / bus.animateInfo.totalTime) * 100}%` }"></div>
