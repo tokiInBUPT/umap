@@ -4,7 +4,8 @@ import { bus, clock, pushLog } from '@/bus'
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 export default defineComponent({
-    setup() {
+    emits: ['ready'],
+    setup(props, { emit }) {
         let gsapObj: gsap.core.Timeline | null = null
         const currentPoint = computed(() => {
             return bus.map.pointsMap[bus.current]
@@ -27,6 +28,11 @@ export default defineComponent({
                     features: ['base', 'building3d'],
                 },
             })
+            const mapReady = () => {
+                emit('ready')
+                map.off('tilesloaded', mapReady)
+            }
+            map.on('tilesloaded', mapReady)
             marker = createUserMarker(
                 map,
                 new TMap.LatLng(

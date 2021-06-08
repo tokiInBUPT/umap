@@ -23,7 +23,12 @@ export default defineComponent({
             await nextTick()
             searchView.value?.updateRoutes()
         }
+        function onReady() {
+            document.getElementById('loader')?.classList.add('hide')
+            document.getElementById('app')?.classList.remove('hide')
+        }
         return {
+            onReady,
             searchView,
             updateRoutes,
         }
@@ -31,7 +36,7 @@ export default defineComponent({
 })
 </script>
 <template>
-    <map-view />
+    <map-view @ready="onReady" />
     <gm-view @updateRoutes="updateRoutes" />
     <log-view />
     <around-view />

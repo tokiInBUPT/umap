@@ -4,18 +4,161 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-        <script src="https://map.qq.com/api/gljs?v=1.exp&key=UFVBZ-2X7KX-JJI4O-Z25B4-CCRV3-BIBME&libraries=tools"></script>
         <title><%= htmlWebpackPlugin.options.title %></title>
+        <style>
+            .cssload-loader {
+                width: 47px;
+                height: 47px;
+                position: absolute;
+                left: 50%;
+                transform: translate3d(-50%, -50%, 0);
+                -o-transform: translate3d(-50%, -50%, 0);
+                -ms-transform: translate3d(-50%, -50%, 0);
+                -webkit-transform: translate3d(-50%, -50%, 0);
+                -moz-transform: translate3d(-50%, -50%, 0);
+                perspective: 1200;
+                -o-perspective: 1200;
+                -ms-perspective: 1200;
+                -webkit-perspective: 1200;
+                -moz-perspective: 1200;
+            }
+
+            .cssload-flipper {
+                position: relative;
+                display: block;
+                height: inherit;
+                width: inherit;
+                animation: cssload-flip 1.14s infinite ease-in-out;
+                -o-animation: cssload-flip 1.14s infinite ease-in-out;
+                -ms-animation: cssload-flip 1.14s infinite ease-in-out;
+                -webkit-animation: cssload-flip 1.14s infinite ease-in-out;
+                -moz-animation: cssload-flip 1.14s infinite ease-in-out;
+                transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+            }
+
+            .cssload-front,
+            .cssload-back {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                background-color: rgb(64, 158, 255);
+                height: 100%;
+                width: 100%;
+                backface-visibility: hidden;
+            }
+
+            .cssload-back {
+                background-color: rgb(0, 100, 199);
+                z-index: 800;
+                transform: rotateY(-180deg);
+                -o-transform: rotateY(-180deg);
+                -ms-transform: rotateY(-180deg);
+                -webkit-transform: rotateY(-180deg);
+                -moz-transform: rotateY(-180deg);
+            }
+
+            @keyframes cssload-flip {
+                0% {
+                    transform: perspective(225px) rotateX(0deg) rotateY(0deg);
+                }
+                50% {
+                    transform: perspective(225px) rotateX(-180.1deg) rotateY(0deg);
+                }
+                100% {
+                    transform: perspective(225px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+            }
+
+            @-o-keyframes cssload-flip {
+                0% {
+                    -o-transform: perspective(225px) rotateX(0deg) rotateY(0deg);
+                }
+                50% {
+                    -o-transform: perspective(225px) rotateX(-180.1deg) rotateY(0deg);
+                }
+                100% {
+                    -o-transform: perspective(225px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+            }
+
+            @-ms-keyframes cssload-flip {
+                0% {
+                    -ms-transform: perspective(225px) rotateX(0deg) rotateY(0deg);
+                }
+                50% {
+                    -ms-transform: perspective(225px) rotateX(-180.1deg) rotateY(0deg);
+                }
+                100% {
+                    -ms-transform: perspective(225px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+            }
+
+            @-webkit-keyframes cssload-flip {
+                0% {
+                    -webkit-transform: perspective(225px) rotateX(0deg) rotateY(0deg);
+                }
+                50% {
+                    -webkit-transform: perspective(225px) rotateX(-180.1deg) rotateY(0deg);
+                }
+                100% {
+                    -webkit-transform: perspective(225px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+            }
+
+            @-moz-keyframes cssload-flip {
+                0% {
+                    -moz-transform: perspective(225px) rotateX(0deg) rotateY(0deg);
+                }
+                50% {
+                    -moz-transform: perspective(225px) rotateX(-180.1deg) rotateY(0deg);
+                }
+                100% {
+                    -moz-transform: perspective(225px) rotateX(-180deg) rotateY(-179.9deg);
+                }
+            }
+            strong.noscript:before {
+                content: '噢我的老天爷，看起来你没有启用神奇的JavaScript！它实在太不可思议了，以至于我们的应用没有它完全没办法工作。老伙计，我以上帝的名义发誓，如果你现在启用它，我们的应用会像石头堆里的黄金一样显眼！';
+            }
+            #app {
+                transition: opacity 0.2s;
+            }
+            #app.hide {
+                opacity: 0;
+                pointer-events: none;
+            }
+            #loader {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                text-align: center;
+                transition: all 0.2s;
+            }
+            #loader.hide {
+                opacity: 0;
+                pointer-events: none;
+            }
+        </style>
     </head>
     <body>
         <noscript>
-            <strong
-                >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript
-                enabled. Please enable it to continue.</strong
-            >
+            <strong class="noscript"></strong>
         </noscript>
-        <div id="app"></div>
+        <div id="loader">
+            <div class="cssload-loader">
+                <div class="cssload-flipper">
+                    <div class="cssload-front"></div>
+                    <div class="cssload-back"></div>
+                </div>
+            </div>
+        </div>
+        <script src="https://map.qq.com/api/gljs?v=1.exp&key=UFVBZ-2X7KX-JJI4O-Z25B4-CCRV3-BIBME&libraries=tools"></script>
+        <div id="app" class="hide"></div>
         <!-- built files will be auto injected -->
     </body>
 </html>
