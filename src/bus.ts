@@ -14,9 +14,11 @@ import { IRoute } from './typings/route'
 import { logicPosition } from './algorithm/typing'
 import { formatTime } from './utils/clock'
 
+import * as config from './config'
+
 export const bus = reactive({
     type: '',
-    current: 'd08cf367-be23-4c1d-a256-db4d8274ad60',
+    current: config.startPoint,
     position: '',
     middle: new Set<string>(),
     map: {
@@ -27,10 +29,8 @@ export const bus = reactive({
         logics: logic_position as logicPosition[],
     },
     speed: {
-        walk: 1.4,
-        bike: 5,
-        bus: 16,
-        timeScale: 60,
+        ...config.speed,
+        timeScale: config.defaultTimeScale,
     },
     activeRoute: null as IRoute | null,
     animateState: false,
@@ -41,20 +41,6 @@ export const bus = reactive({
         totalTime: 0,
     },
     routes: [] as IRoute[],
-    routes_: [
-        {
-            name: '最短距离',
-            desc: '约100米',
-        },
-        {
-            name: '最短时间',
-            desc: '约十分钟',
-        },
-        {
-            name: '骑车最快',
-            desc: '约五分钟',
-        },
-    ],
     restaurantPersonCount: [10, 11, 15, 20],
     log: [] as string[],
 })
@@ -71,7 +57,7 @@ export const currentPoint = computed(() => {
 })
 
 export const clock = reactive({
-    clockBase: 3600 * 23,
+    clockBase: config.clockBase,
     clockOffset: 0,
     lastBaseUpdate: performance.now(),
     lastOffsetUpdate: performance.now(),
