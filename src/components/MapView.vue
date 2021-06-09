@@ -165,6 +165,7 @@ export default defineComponent({
                     lng: firstPoint.position.lng * 2e16,
                     angle: 0,
                 }
+                gsap.ticker.lagSmoothing(0)
                 const tl = gsap.timeline({
                     smoothChildTiming: true,
                     autoRemoveChildren: true,

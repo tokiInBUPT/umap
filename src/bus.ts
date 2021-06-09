@@ -70,12 +70,11 @@ export const clock = reactive({
     lastBaseUpdate: performance.now(),
     lastOffsetUpdate: performance.now(),
 })
-const updateClock = () => {
+const updateClock = (now: DOMHighResTimeStamp) => {
     if (bus.animateState) {
         requestAnimationFrame(updateClock)
         return
     }
-    const now = performance.now()
     clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
     clock.clockOffset = clock.clockOffset % (3600 * 24)
     clock.lastOffsetUpdate = now
