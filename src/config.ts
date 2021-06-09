@@ -10,4 +10,4 @@ export const speed = {
     bus: 16,
 }
 
-export const busTimeDIf = 45
+export const busTimeDIf = 15 * 60

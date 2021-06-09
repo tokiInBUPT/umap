@@ -313,6 +313,9 @@ export default defineComponent({
                             {
                                 duration: t1,
                                 onStart(currentOffset: number) {
+                                    if (i === 0) {
+                                        pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                                    }
                                     bus.current = p0.id
                                     bus.animateInfo.current = p0.id
                                     bus.animateInfo.next = p1.id
@@ -320,6 +323,11 @@ export default defineComponent({
                                     bus.animateInfo.type = busToGo.type
                                     clock.clockOffset = currentOffset
                                     clock.lastOffsetUpdate = performance.now()
+                                    if (bus.animateInfo.type === 1) {
+                                        pushLog(`等校车至${p1.name}`)
+                                    } else {
+                                        pushLog(`等公交至${p1.name}`)
+                                    }
                                 },
                                 onStartParams: [bus.animateInfo.totalTime - t1],
                             },
@@ -332,7 +340,7 @@ export default defineComponent({
                         ease: 'linear',
                         duration: t0,
                         onStart: (currentOffset: number) => {
-                            if (i === 0) {
+                            if (i === 0 && bus.activeRoute && bus.activeRoute.edgeSeq[i] !== 'benbu_to_shahe') {
                                 pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
                             } else {
                                 pushLog(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
@@ -346,6 +354,11 @@ export default defineComponent({
                                 bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe' &&
                                 (bus.animateInfo.type === 1 || bus.animateInfo.type === 2)
                             ) {
+                                if (bus.animateInfo.type === 1) {
+                                    pushLog(`乘校车至${p1.name}`)
+                                } else {
+                                    pushLog(`乘公交至${p1.name}`)
+                                }
                                 bus.animateInfo.type += 2
                             } else {
                                 bus.animateInfo.type = 0
