@@ -243,7 +243,7 @@ export default defineComponent({
                                 }
                             }
                         }
-                        let t1
+                        let t1 = 0
                         if (busToGo.time === -1) {
                             busToGo = bus.map.busTimeList[0]
                             t1 =
@@ -256,7 +256,6 @@ export default defineComponent({
                         if (busToGo.type === 2) {
                             t1 += busTimeDIf
                         }
-                        bus.animateInfo.totalTime += t0
                         bus.animateInfo.totalTime += t1
                         tl.to(
                             {},
@@ -271,10 +270,11 @@ export default defineComponent({
                                     clock.clockOffset = currentOffset
                                     clock.lastOffsetUpdate = performance.now()
                                 },
-                                onStartParams: [bus.animateInfo.totalTime - t1 - t0],
+                                onStartParams: [bus.animateInfo.totalTime - t1],
                             },
                         )
                     }
+                    bus.animateInfo.totalTime += t0
                     tl.to(tn, {
                         lat: p1.position.lat * 2e16,
                         lng: p1.position.lng * 2e16,
