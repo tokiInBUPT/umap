@@ -1,5 +1,5 @@
 import { computed, reactive } from 'vue'
-import { mapPoint, edge, logicPosition } from './typings/map'
+import { mapPoint, edge, logicPosition, timeListItem } from './typings/map'
 // @ts-ignore
 import shahe_points from '@/data/shahe_point_06012334.json'
 // @ts-ignore
@@ -8,6 +8,8 @@ import shahe_edges from '@/data/shahe_edge_06012334.json'
 import benbu_points from '@/data/benbu_point_06012334.json'
 // @ts-ignore
 import logic_position from '@/data/logicPosition.json'
+// @ts-ignore
+import busTimeList from '@/data/bus_time.json'
 // @ts-ignore
 import benbu_edges from '@/data/benbu_edge_06012334.json'
 import { IRoute } from './typings/route'
@@ -26,6 +28,7 @@ export const bus = reactive({
         edges: [...shahe_edges, ...benbu_edges] as edge[],
         edgeMap: {} as Record<string, edge>,
         logics: logic_position as logicPosition[],
+        busTimeList: [...busTimeList] as timeListItem[],
     },
     speed: {
         ...config.speed,
@@ -39,6 +42,7 @@ export const bus = reactive({
         next: '',
         edge: '',
         totalTime: 0,
+        type: 0,
     },
     routes: [] as IRoute[],
     restaurantPersonCount: [10, 11, 15, 20],
