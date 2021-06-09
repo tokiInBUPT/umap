@@ -2,11 +2,13 @@
 import { bus } from '@/bus'
 import { defineComponent, ref } from 'vue'
 import { dijkstra } from '../algorithm/Dij_Ha'
+import { genTmpPoint } from '@/algorithm/genTmpPoint'
 
 export default defineComponent({
     setup() {
         let pointsAround = ref([] as [string, number][])
         function searchAround() {
+            genTmpPoint()
             const answer = dijkstra(
                 bus.map.edgeMap,
                 bus.map.pointsMap,
@@ -29,8 +31,6 @@ export default defineComponent({
             const pointAround: [string, number][] = []
             for (let i = 0; i < (memory.length < 5 ? memory.length : 5); i++) {
                 pointAround.push(memory[i])
-                console.log(bus.map.pointsMap[memory[i][0]].name)
-                console.log(memory[i][1])
             }
             pointsAround.value = pointAround
         }

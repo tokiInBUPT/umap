@@ -5,6 +5,7 @@ import { formatTimeR } from '@/utils/clock'
 import { TRANSPORT } from '@/typings/map'
 
 export default defineComponent({
+    emits: ['updateRoutes'],
     setup() {
         const timeUsed = computed(() => {
             if (!bus.animateState) return '导航未开始'
@@ -54,7 +55,7 @@ export default defineComponent({
                 <fa-icon :icon="['far', 'pause-circle']" /> 暂停 </el-button
             ><el-button v-else @click="bus.animateInfo.paused = false">
                 <fa-icon :icon="['far', 'play-circle']" /> 继续 </el-button
-            ><el-button style="margin: 0" @click="bus.animateState = false">
+            ><el-button style="margin: 0" @click=";(bus.animateState = false), $emit('updateRoutes')">
                 <fa-icon :icon="['far', 'times-circle']" /> 取消
             </el-button>
         </div>

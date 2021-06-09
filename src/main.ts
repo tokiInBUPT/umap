@@ -17,9 +17,24 @@ import {
     ElLoading,
     ElIcon,
 } from 'element-plus'
-import { faDirections, faMapMarkedAlt, faFileDownload, faPrint } from '@fortawesome/free-solid-svg-icons'
+import {
+    faDirections,
+    faMapMarkerAlt,
+    faMapMarkedAlt,
+    faFileDownload,
+    faPrint,
+} from '@fortawesome/free-solid-svg-icons'
 import { faPauseCircle, faPlayCircle, faTimesCircle } from '@fortawesome/free-regular-svg-icons'
-library.add(faDirections, faMapMarkedAlt, faFileDownload, faPrint, faPauseCircle, faPlayCircle, faTimesCircle)
+library.add(
+    faDirections,
+    faMapMarkerAlt,
+    faMapMarkedAlt,
+    faFileDownload,
+    faPrint,
+    faPauseCircle,
+    faPlayCircle,
+    faTimesCircle,
+)
 
 const app = createApp(App)
 app.component(ElButton.name, ElButton)
