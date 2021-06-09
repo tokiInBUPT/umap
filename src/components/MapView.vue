@@ -5,6 +5,7 @@ import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 import { busTimeDIf } from '@/config'
 import { genTmpPoint } from '@/algorithm/genTmpPoint'
+import { formatTime } from '@/utils/clock'
 export default defineComponent({
     emits: ['ready'],
     setup(props, { emit }) {
@@ -264,7 +265,7 @@ export default defineComponent({
                     const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
-                    const t0 = bus.activeRoute.pathTime[i]
+                    let t0 = bus.activeRoute.pathTime[i]
                     if (bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe') {
                         bus.map.busTimeList.sort(function (a, b) {
                             return a.time - b.time
@@ -305,7 +306,7 @@ export default defineComponent({
                             t1 = busToGo.time - (clock.clockBase + clock.clockOffset + bus.animateInfo.totalTime)
                         }
                         if (busToGo.type === 2) {
-                            t1 += busTimeDIf
+                            t0 += busTimeDIf
                         }
                         bus.animateInfo.totalTime += t1
                         tl.to(
@@ -324,9 +325,9 @@ export default defineComponent({
                                     clock.clockOffset = currentOffset
                                     clock.lastOffsetUpdate = performance.now()
                                     if (bus.animateInfo.type === 1) {
-                                        pushLog(`等校车至${p1.name}`)
+                                        pushLog(`等校车至${formatTime(busToGo.time)}, 前往${p1.name}`)
                                     } else {
-                                        pushLog(`等公交至${p1.name}`)
+                                        pushLog(`等公交至${formatTime(busToGo.time)}, 前往${p1.name}`)
                                     }
                                 },
                                 onStartParams: [bus.animateInfo.totalTime - t1],
