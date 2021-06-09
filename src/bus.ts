@@ -41,7 +41,7 @@ export const bus = reactive({
         totalTime: 0,
     },
     routes: [] as IRoute[],
-    restaurantPersonCount: [10, 11, 15, 20],
+    restaurantPersonCount: [10, 11, 15, 20, 25, 30],
     log: [] as string[],
 })
 for (const i of bus.map.points) {
@@ -54,6 +54,10 @@ for (const i of bus.map.edges) {
 }
 export const currentPoint = computed(() => {
     return bus.map.pointsMap[bus.current]
+})
+
+export const realPosition = computed(() => {
+    return bus.position.split('@')[0]
 })
 
 export const clock = reactive({

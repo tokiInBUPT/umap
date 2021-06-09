@@ -6,6 +6,7 @@ export interface neighbor {
 export interface logicPosition {
     id: string
     name: string
+    points: string[] | undefined
 }
 
 export interface mapPoint {

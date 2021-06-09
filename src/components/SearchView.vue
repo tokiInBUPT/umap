@@ -1,5 +1,5 @@
 <script lang="ts">
-import { bus } from '@/bus'
+import { bus, realPosition } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { IRoute } from '@/typings/route'
 import { calcRoutes } from '@/algorithm/calcRoutes'
@@ -25,11 +25,20 @@ export default defineComponent({
             () => {
                 bus.activeRoute = null
                 if (bus.position) {
+                    if (bus.position.indexOf('@') === 0) {
+                        // 食堂负载均衡
+                        const lp = bus.map.logics.find((e) => e.id === bus.position)
+                        const points = lp && lp.points ? lp.points : []
+                        const count = bus.restaurantPersonCount
+                        const key = count.indexOf(Math.min(...count))
+                        const toPos = points[key] || ''
+                        bus.position = toPos
+                        return
+                    }
                     bus.routes = []
                     if (bus.middle.size <= 7) {
                         updateRoutes()
                     }
-                } else {
                     bus.middle.clear()
                 }
             },
@@ -58,7 +67,7 @@ export default defineComponent({
             bus.routes = await calcRoutes({
                 map: bus.map,
                 from: bus.current,
-                to: bus.position,
+                to: realPosition.value,
                 middle: bus.middle,
             })
             showPath(bus.routes[0])

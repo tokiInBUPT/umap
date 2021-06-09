@@ -1,6 +1,6 @@
 <script lang="ts">
 import { gsap } from '@/utils/gsap'
-import { bus, clock, pushLog } from '@/bus'
+import { bus, clock, pushLog, realPosition } from '@/bus'
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 export default defineComponent({
@@ -107,11 +107,14 @@ export default defineComponent({
                     })
                 }
                 {
-                    const p = bus.map.pointsMap[bus.position].position
+                    const p = bus.map.pointsMap[realPosition.value].position
                     points.push({
-                        id: bus.position + (bus.position === firstPoint.id ? 'e' : ''),
+                        id: realPosition.value + (realPosition.value === firstPoint.id ? 'e' : ''),
                         styleId: 'end',
-                        position: new TMap.LatLng(p.lat, bus.position === firstPoint.id ? p.lng + 0.00005 : p.lng),
+                        position: new TMap.LatLng(
+                            p.lat,
+                            realPosition.value === firstPoint.id ? p.lng + 0.00005 : p.lng,
+                        ),
                     })
                 }
                 routeLayer = createRainbowPath(map, rainbowPaths)
