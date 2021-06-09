@@ -9,3 +9,5 @@ export const speed = {
     bike: 5,
     bus: 16,
 }
+
+export const busTimeDIf = 45

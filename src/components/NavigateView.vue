@@ -14,8 +14,18 @@ export default defineComponent({
         })
         const frontText = computed(() => {
             if (!bus.animateState || !bus.map.edgeMap[bus.animateInfo.edge]) return '前方到'
+            if (bus.animateInfo.type === 1) {
+                return '等校车至'
+            } else if (bus.animateInfo.type === 2) {
+                return '等公交至'
+            }
             switch (bus.map.edgeMap[bus.animateInfo.edge].type) {
                 case TRANSPORT.BUS:
+                    if (bus.animateInfo.type === 3) {
+                        return '乘校车至'
+                    } else if (bus.animateInfo.type === 4) {
+                        return '乘公交至'
+                    }
                     return '乘车至'
                 case TRANSPORT.BIKE:
                     return '骑行至'

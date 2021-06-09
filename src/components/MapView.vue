@@ -3,6 +3,7 @@ import { gsap } from '@/utils/gsap'
 import { bus, clock, pushLog, realPosition } from '@/bus'
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
+import { busTimeDIf } from '@/config'
 export default defineComponent({
     emits: ['ready'],
     setup(props, { emit }) {
@@ -213,7 +214,67 @@ export default defineComponent({
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
                     const t0 = bus.activeRoute.pathTime[i]
-                    bus.animateInfo.totalTime += t0
+                    if (bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe') {
+                        bus.map.busTimeList.sort(function (a, b) {
+                            return a.time - b.time
+                        })
+                        let busToGo: {
+                            time: number
+                            type: number
+                        } = {
+                            time: -1,
+                            type: -1,
+                        }
+                        let flag = true
+                        for (let i of bus.map.busTimeList) {
+                            if (i.time > clock.clockBase + clock.clockOffset + bus.animateInfo.totalTime) {
+                                if (i.type === 1 && flag) {
+                                    busToGo = i
+                                    break
+                                } else if (flag) {
+                                    busToGo = i
+                                    flag = false
+                                } else if (i.type === 1) {
+                                    // eslint-disable-next-line max-depth
+                                    if (i.time - busToGo.time < busTimeDIf) {
+                                        busToGo = i
+                                        break
+                                    }
+                                }
+                            }
+                        }
+                        let t1
+                        if (busToGo.time === -1) {
+                            busToGo = bus.map.busTimeList[0]
+                            t1 =
+                                24 * 3600 -
+                                (clock.clockBase + clock.clockOffset + bus.animateInfo.totalTime) +
+                                busToGo.time
+                        } else {
+                            t1 = busToGo.time - (clock.clockBase + clock.clockOffset + bus.animateInfo.totalTime)
+                        }
+                        if (busToGo.type === 2) {
+                            t1 += busTimeDIf
+                        }
+                        bus.animateInfo.totalTime += t0
+                        bus.animateInfo.totalTime += t1
+                        tl.to(
+                            {},
+                            {
+                                duration: t1,
+                                onStart(currentOffset: number) {
+                                    bus.current = p0.id
+                                    bus.animateInfo.current = p0.id
+                                    bus.animateInfo.next = p1.id
+                                    bus.animateInfo.edge = e0.id
+                                    bus.animateInfo.type = busToGo.type
+                                    clock.clockOffset = currentOffset
+                                    clock.lastOffsetUpdate = performance.now()
+                                },
+                                onStartParams: [bus.animateInfo.totalTime - t1 - t0],
+                            },
+                        )
+                    }
                     tl.to(tn, {
                         lat: p1.position.lat * 2e16,
                         lng: p1.position.lng * 2e16,
@@ -229,6 +290,15 @@ export default defineComponent({
                             bus.animateInfo.current = p0.id
                             bus.animateInfo.next = p1.id
                             bus.animateInfo.edge = e0.id
+                            if (
+                                bus.activeRoute &&
+                                bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe' &&
+                                (bus.animateInfo.type === 1 || bus.animateInfo.type === 2)
+                            ) {
+                                bus.animateInfo.type += 2
+                            } else {
+                                bus.animateInfo.type = 0
+                            }
                             const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
                             const x =
                                 Math.cos(p0.position.lat) * Math.sin(p1.position.lat) -
