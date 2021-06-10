@@ -1,12 +1,12 @@
 <script lang="ts">
-import { bus } from '@/bus'
+import { log } from '@/modules/log'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 
 export default defineComponent({
     setup() {
         const logbox = ref(null)
         watch(
-            () => bus.log,
+            () => log,
             async () => {
                 if (!logbox.value) return
                 await nextTick()
@@ -18,14 +18,14 @@ export default defineComponent({
             },
         )
         function exportFile() {
-            const p = bus.log.join('\r\n')
+            const p = log.join('\r\n')
             const a = document.createElement('a')
             a.href = `data:text/plain,${p}`
             a.download = 'Log.txt'
             a.click()
         }
         return {
-            bus,
+            log,
             logbox,
             exportFile,
         }
@@ -35,9 +35,9 @@ export default defineComponent({
 <template>
     <el-popover placement="left" title="日志管理" :width="500" trigger="click">
         <div class="log">
-            <el-empty v-show="bus.log.length <= 0" description="暂无日志"></el-empty>
-            <ul v-show="bus.log.length > 0" ref="logbox" class="logbox">
-                <li v-for="(i, a) in bus.log" :key="a">
+            <el-empty v-show="log.length <= 0" description="暂无日志"></el-empty>
+            <ul v-show="log.length > 0" ref="logbox" class="logbox">
+                <li v-for="(i, a) in log" :key="a">
                     {{ i }}
                 </li>
             </ul>

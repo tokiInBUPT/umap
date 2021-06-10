@@ -13,7 +13,6 @@ import busTimeList from '@/data/bus_time.json'
 // @ts-ignore
 import benbu_edges from '@/data/benbu_edge_06012334.json'
 import { IRoute } from './typings/route'
-import { formatTime } from './utils/clock'
 
 import * as config from './config'
 
@@ -75,28 +74,3 @@ export const currentPoint = computed(() => {
 export const realPosition = computed(() => {
     return bus.position.split('@')[0]
 })
-
-export const clock = reactive({
-    clockBase: config.clockBase,
-    clockOffset: 0,
-    lastBaseUpdate: performance.now(),
-    lastOffsetUpdate: performance.now(),
-})
-const updateClock = (now: DOMHighResTimeStamp) => {
-    if (bus.animateState) {
-        requestAnimationFrame(updateClock)
-        return
-    }
-    clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
-    clock.clockOffset = clock.clockOffset % (3600 * 24)
-    clock.lastOffsetUpdate = now
-    requestAnimationFrame(updateClock)
-}
-requestAnimationFrame(updateClock)
-export const timeText = computed(() => {
-    return formatTime(clock.clockBase + clock.clockOffset)
-})
-
-export function pushLog(str: string) {
-    bus.log.push(`[${timeText.value}] ${str}`)
-}

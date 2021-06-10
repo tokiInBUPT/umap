@@ -1,6 +1,8 @@
 <script lang="ts">
 import { gsap } from '@/utils/gsap'
-import { bus, clock, pushLog, realPosition } from '@/bus'
+import { bus, realPosition } from '@/bus'
+import { clock } from '@/modules/clock'
+import { pushLog } from '@/modules/log'
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 import { busTimeDIf } from '@/config'

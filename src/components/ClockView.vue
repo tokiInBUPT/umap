@@ -1,5 +1,5 @@
 <script lang="ts">
-import { clock, timeText } from '@/bus'
+import { clock, timeText } from '@/modules/clock'
 import { defineComponent, onMounted, Ref, ref, watch } from 'vue'
 
 export default defineComponent({

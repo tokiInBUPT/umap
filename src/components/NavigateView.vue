@@ -1,5 +1,6 @@
 <script lang="ts">
-import { bus, clock } from '@/bus'
+import { bus } from '@/bus'
+import { clock } from '@/modules/clock'
 import { computed, defineComponent } from 'vue'
 import { formatTimeR } from '@/utils/clock'
 import { TRANSPORT } from '@/typings/map'
