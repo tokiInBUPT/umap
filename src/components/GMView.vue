@@ -27,17 +27,23 @@ export default defineComponent({
                 <el-form-item label="时间倍率">
                     <el-slider v-model="speed.timeScale" :min="10" :max="200" show-input></el-slider>
                 </el-form-item>
-                <el-form-item label="食堂1人数">
-                    <el-slider v-model="restaurantPersonCount[0]" :max="20" show-input></el-slider>
+                <el-form-item label="学一食堂人数">
+                    <el-slider v-model="restaurantPersonCount[0]" :max="50" show-input></el-slider>
                 </el-form-item>
-                <el-form-item label="食堂2人数">
-                    <el-slider v-model="restaurantPersonCount[1]" :max="20" show-input></el-slider>
+                <el-form-item label="学三食堂人数">
+                    <el-slider v-model="restaurantPersonCount[1]" :max="50" show-input></el-slider>
                 </el-form-item>
-                <el-form-item label="食堂3人数">
-                    <el-slider v-model="restaurantPersonCount[2]" :max="20" show-input></el-slider>
+                <el-form-item label="教二食堂人数">
+                    <el-slider v-model="restaurantPersonCount[2]" :max="50" show-input></el-slider>
                 </el-form-item>
-                <el-form-item label="食堂4人数">
-                    <el-slider v-model="restaurantPersonCount[3]" :max="20" show-input></el-slider>
+                <el-form-item label="教三食堂人数">
+                    <el-slider v-model="restaurantPersonCount[3]" :max="50" show-input></el-slider>
+                </el-form-item>
+                <el-form-item label="教四食堂人数">
+                    <el-slider v-model="restaurantPersonCount[4]" :max="50" show-input></el-slider>
+                </el-form-item>
+                <el-form-item label="教五食堂人数">
+                    <el-slider v-model="restaurantPersonCount[5]" :max="50" show-input></el-slider>
                 </el-form-item>
             </el-form>
         </div>

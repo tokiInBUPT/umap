@@ -2,11 +2,15 @@
 import { bus } from '@/bus'
 import { defineComponent, ref } from 'vue'
 import { dijkstra } from '../algorithm/Dij_Ha'
+import { genTmpPoint } from '@/algorithm/genTmpPoint'
 
 export default defineComponent({
     setup() {
         let pointsAround = ref([] as [string, number][])
         function searchAround() {
+            if (bus.activeRoute && bus.activeRoute.pointSeq[0] !== 'tmp-point') {
+                genTmpPoint()
+            }
             const answer = dijkstra(
                 bus.map.edgeMap,
                 bus.map.pointsMap,
@@ -29,8 +33,6 @@ export default defineComponent({
             const pointAround: [string, number][] = []
             for (let i = 0; i < (memory.length < 5 ? memory.length : 5); i++) {
                 pointAround.push(memory[i])
-                console.log(bus.map.pointsMap[memory[i][0]].name)
-                console.log(memory[i][1])
             }
             pointsAround.value = pointAround
         }
@@ -53,7 +55,14 @@ export default defineComponent({
                 <div class="title">{{ bus.map.pointsMap[i[0]].name }}</div>
                 <div class="desc">{{ Math.round(i[1]) }}m</div>
                 <div class="action">
-                    <el-button circle class="set-button" @click=";(showPopover = false) || (bus.position = i[0])">
+                    <el-button
+                        circle
+                        class="set-button"
+                        @click="
+                            ;(showPopover = false) ||
+                                ((!bus.animateState || bus.animateInfo.pause) && (bus.position = i[0]))
+                        "
+                    >
                         <fa-icon icon="directions" />
                     </el-button>
                 </div>

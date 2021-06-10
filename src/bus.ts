@@ -25,7 +25,12 @@ const M_CONFIG = ((<any>window)._M_CONFIG || {}) as {
 export const bus = reactive({
     type: '',
     current: config.startPoint,
+    hasTmpPoint: false,
     position: '',
+    currentPosition: {
+        lat: 0,
+        lng: 0,
+    },
     middle: new Set<string>(),
     map: {
         points: [...shahe_points, ...benbu_points] as mapPoint[],
@@ -57,6 +62,8 @@ for (const i of bus.map.points) {
     // @ts-ignore
     bus.map.pointsMap[i.id] = i
 }
+bus.currentPosition.lat = bus.map.pointsMap[config.startPoint].position.lat
+bus.currentPosition.lng = bus.map.pointsMap[config.startPoint].position.lng
 for (const i of bus.map.edges) {
     // @ts-ignore
     bus.map.edgeMap[i.id] = i

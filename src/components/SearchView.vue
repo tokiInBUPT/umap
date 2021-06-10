@@ -22,9 +22,13 @@ export default defineComponent({
         )
         watch(
             () => bus.position,
-            () => {
-                bus.activeRoute = null
+            async () => {
                 if (bus.position) {
+                    if (bus.animateState && bus.animateInfo.paused === false) return
+                    if (bus.animateInfo.paused) {
+                        bus.animateState = false
+                    }
+                    bus.activeRoute = null
                     if (bus.position.indexOf('@') === 0) {
                         // 食堂负载均衡
                         const lp = bus.map.logics.find((e) => e.id === bus.position)
@@ -40,6 +44,8 @@ export default defineComponent({
                         updateRoutes()
                     }
                     bus.middle.clear()
+                } else {
+                    bus.animateState = false
                 }
             },
         )
@@ -49,6 +55,8 @@ export default defineComponent({
         }
         async function moveAlongPath(i: IRoute) {
             bus.animateState = false
+            await nextTick()
+            await nextTick()
             bus.current = i.pointSeq[0]
             if (bus.activeRoute !== i) {
                 bus.activeRoute = i

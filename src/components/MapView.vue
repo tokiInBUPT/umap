@@ -4,6 +4,8 @@ import { bus, clock, pushLog, realPosition } from '@/bus'
 import { defineComponent, ref, watch, computed, onMounted, nextTick } from 'vue'
 import { TMap, createRainbowPath, createRouteMarker, createUserMarker, createLabelLayer } from '@/utils/mapHelper'
 import { busTimeDIf } from '@/config'
+import { genTmpPoint } from '@/algorithm/genTmpPoint'
+import { formatTime } from '@/utils/clock'
 export default defineComponent({
     emits: ['ready'],
     setup(props, { emit }) {
@@ -43,18 +45,21 @@ export default defineComponent({
             )
             const labels: any[] = []
             let ii = 0
-            for (const i of bus.map.points) {
-                if (i.name.includes('路口')) {
-                    continue
+            for (const i in bus.map.pointsMap) {
+                if (bus.map.pointsMap.hasOwnProperty(i)) {
+                    const j = bus.map.pointsMap[i]
+                    if (j.name.includes('路口')) {
+                        continue
+                    }
+                    labels.push({
+                        id: j.id,
+                        position: new TMap.LatLng(j.position.lat, j.position.lng),
+                        styleId: 'label',
+                        content: j.name,
+                        properties: {},
+                        rank: ii++,
+                    })
                 }
-                labels.push({
-                    id: i.id,
-                    position: new TMap.LatLng(i.position.lat, i.position.lng),
-                    styleId: 'label',
-                    content: i.name,
-                    properties: {},
-                    rank: ii++,
-                })
             }
             label = createLabelLayer(map, labels)
         })
@@ -149,15 +154,11 @@ export default defineComponent({
                         gsapObj.kill()
                         gsapObj = null
                     }
-                    marker.updateGeometries([
-                        {
-                            id: 'user',
-                            styleId: 'userPNG', // 绑定样式
-                            position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
-                        },
-                    ])
+                    genTmpPoint()
+                    bus.activeRoute = null
                     return
                 }
+                bus.animateInfo.paused = false
                 if (!bus.activeRoute) return
                 const firstPoint = bus.map.pointsMap[bus.activeRoute.pointSeq[0]]
                 const tn = {
@@ -186,6 +187,8 @@ export default defineComponent({
                                 },
                             },
                         ])
+                        bus.currentPosition.lat = tn.lat / 2e16
+                        bus.currentPosition.lng = tn.lng / 2e16
                         map._changeFPS()
                         const now = performance.now()
                         clock.clockOffset += ((now - clock.lastOffsetUpdate) / 1000) * bus.speed.timeScale
@@ -200,6 +203,52 @@ export default defineComponent({
                         await nextTick()
                         bus.animateState = false
                         bus.animateInfo.paused = false
+                        if (bus.hasTmpPoint) {
+                            bus.map.points.splice(bus.map.points.indexOf(bus.map.pointsMap['tmp-point']), 1)
+                            delete bus.map.pointsMap['tmp-point']
+                            bus.map.edges.splice(bus.map.edges.indexOf(bus.map.edgeMap['tmp-edge-1']), 1)
+                            delete bus.map.edgeMap['tmp-edge-1']
+                            bus.map.edges.splice(bus.map.edges.indexOf(bus.map.edgeMap['tmp-edge-2']), 1)
+                            delete bus.map.edgeMap['tmp-edge-2']
+                            if (bus.map.edgeMap['tmp-edge-3']) {
+                                bus.map.edges.splice(bus.map.edges.indexOf(bus.map.edgeMap['tmp-edge-3']), 1)
+                                delete bus.map.edgeMap['tmp-edge-3']
+                                bus.map.edges.splice(bus.map.edges.indexOf(bus.map.edgeMap['tmp-edge-4']), 1)
+                                delete bus.map.edgeMap['tmp-edge-4']
+                            }
+                            bus.hasTmpPoint = false
+                            for (let i in bus.map.pointsMap) {
+                                if (bus.map.pointsMap.hasOwnProperty(i)) {
+                                    const j = bus.map.pointsMap[i]
+                                    for (let k of j.neighborWalk) {
+                                        if (k.toPointId === 'tmp-point') {
+                                            bus.map.pointsMap[i].neighborWalk.splice(
+                                                bus.map.pointsMap[i].neighborWalk.indexOf(k),
+                                            )
+                                        }
+                                    }
+                                    for (let k of j.neighborBike) {
+                                        if (k.toPointId === 'tmp-point') {
+                                            bus.map.pointsMap[i].neighborBike.splice(
+                                                bus.map.pointsMap[i].neighborBike.indexOf(k),
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            for (let i of bus.map.points) {
+                                for (let k of i.neighborWalk) {
+                                    if (k.toPointId === 'tmp-point') {
+                                        i.neighborWalk.splice(i.neighborWalk.indexOf(k))
+                                    }
+                                }
+                                for (let k of i.neighborBike) {
+                                    if (k.toPointId === 'tmp-point') {
+                                        i.neighborBike.splice(i.neighborBike.indexOf(k))
+                                    }
+                                }
+                            }
+                        }
                     },
                 })
                 tl.timeScale(bus.speed.timeScale)
@@ -210,11 +259,13 @@ export default defineComponent({
                         position: new TMap.LatLng(tn.lat / 2e16, tn.lng / 2e16),
                     },
                 ])
+                bus.currentPosition.lat = tn.lat / 2e16
+                bus.currentPosition.lng = tn.lng / 2e16
                 for (let i = 0; i < bus.activeRoute.edgeSeq.length; i++) {
                     const p0 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 0]]
                     const p1 = bus.map.pointsMap[bus.activeRoute.pointSeq[i + 1]]
                     const e0 = bus.map.edgeMap[bus.activeRoute.edgeSeq[i]]
-                    const t0 = bus.activeRoute.pathTime[i]
+                    let t0 = bus.activeRoute.pathTime[i]
                     if (bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe') {
                         bus.map.busTimeList.sort(function (a, b) {
                             return a.time - b.time
@@ -255,7 +306,7 @@ export default defineComponent({
                             t1 = busToGo.time - (clock.clockBase + clock.clockOffset + bus.animateInfo.totalTime)
                         }
                         if (busToGo.type === 2) {
-                            t1 += busTimeDIf
+                            t0 += busTimeDIf
                         }
                         bus.animateInfo.totalTime += t1
                         tl.to(
@@ -263,6 +314,9 @@ export default defineComponent({
                             {
                                 duration: t1,
                                 onStart(currentOffset: number) {
+                                    if (i === 0) {
+                                        pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                                    }
                                     bus.current = p0.id
                                     bus.animateInfo.current = p0.id
                                     bus.animateInfo.next = p1.id
@@ -270,6 +324,11 @@ export default defineComponent({
                                     bus.animateInfo.type = busToGo.type
                                     clock.clockOffset = currentOffset
                                     clock.lastOffsetUpdate = performance.now()
+                                    if (bus.animateInfo.type === 1) {
+                                        pushLog(`等校车至${formatTime(busToGo.time)}, 前往${p1.name}`)
+                                    } else {
+                                        pushLog(`等公交至${formatTime(busToGo.time)}, 前往${p1.name}`)
+                                    }
                                 },
                                 onStartParams: [bus.animateInfo.totalTime - t1],
                             },
@@ -282,11 +341,6 @@ export default defineComponent({
                         ease: 'linear',
                         duration: t0,
                         onStart: (currentOffset: number) => {
-                            if (i === 0) {
-                                pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                            } else {
-                                pushLog(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                            }
                             bus.current = p0.id
                             bus.animateInfo.current = p0.id
                             bus.animateInfo.next = p1.id
@@ -296,9 +350,20 @@ export default defineComponent({
                                 bus.activeRoute.edgeSeq[i] === 'benbu_to_shahe' &&
                                 (bus.animateInfo.type === 1 || bus.animateInfo.type === 2)
                             ) {
+                                if (bus.animateInfo.type === 1) {
+                                    pushLog(`乘校车至${p1.name}`)
+                                } else {
+                                    pushLog(`乘公交至${p1.name}`)
+                                }
                                 bus.animateInfo.type += 2
                             } else {
-                                bus.animateInfo.type = 0
+                                if (i === 0 && bus.activeRoute && bus.activeRoute.edgeSeq[i] !== 'benbu_to_shahe') {
+                                    pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                                } else {
+                                    pushLog(
+                                        `到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`,
+                                    )
+                                }
                             }
                             const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
                             const x =
@@ -325,7 +390,7 @@ export default defineComponent({
         watch(
             () => bus.current,
             () => {
-                if (bus.animateState) return
+                if (bus.animateState && bus.animateInfo.paused === false) return
                 marker &&
                     marker.updateGeometries([
                         {
@@ -334,6 +399,8 @@ export default defineComponent({
                             position: new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng), // 初始坐标位置
                         },
                     ])
+                bus.currentPosition.lat = currentPoint.value.position.lat
+                bus.currentPosition.lng = currentPoint.value.position.lng
                 if (!bus.activeRoute) {
                     map.panTo(new TMap.LatLng(currentPoint.value.position.lat, currentPoint.value.position.lng))
                 }
@@ -346,6 +413,9 @@ export default defineComponent({
                 clock.lastOffsetUpdate = performance.now()
                 if (v) {
                     gsapObj.pause()
+                    if (bus.activeRoute && bus.activeRoute.pointSeq[0] !== 'tmp-point') {
+                        genTmpPoint()
+                    }
                 } else {
                     gsapObj.resume()
                 }
@@ -354,6 +424,7 @@ export default defineComponent({
         return {
             mapEl,
             label,
+            marker,
         }
     },
 })
