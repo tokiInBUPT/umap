@@ -26,6 +26,7 @@ export const bus = reactive({
     current: config.startPoint,
     hasTmpPoint: false,
     position: '',
+    aroundLimit: 200,
     currentPosition: {
         lat: 0,
         lng: 0,

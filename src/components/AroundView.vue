@@ -31,7 +31,7 @@ export default defineComponent({
                 return a[1] - b[1]
             })
             const pointAround: [string, number][] = []
-            for (let i = 0; i < (memory.length < 5 ? memory.length : 5); i++) {
+            for (let i = 0; memory[i][1] < bus.aroundLimit; i++) {
                 pointAround.push(memory[i])
             }
             pointsAround.value = pointAround
@@ -51,22 +51,24 @@ export default defineComponent({
         @show="searchAround"
     >
         <ul class="around">
-            <li v-for="i in pointsAround" :key="i[0]">
-                <div class="title">{{ bus.map.pointsMap[i[0]].name }}</div>
-                <div class="desc">{{ Math.round(i[1]) }}m</div>
-                <div class="action">
-                    <el-button
-                        circle
-                        class="set-button"
-                        @click="
-                            ;(showPopover = false) ||
-                                ((!bus.animateState || bus.animateInfo.pause) && (bus.position = i[0]))
-                        "
-                    >
-                        <fa-icon icon="directions" />
-                    </el-button>
-                </div>
-            </li>
+            <div class="around-list">
+                <li v-for="i in pointsAround" :key="i[0]">
+                    <div class="title">{{ bus.map.pointsMap[i[0]].name }}</div>
+                    <div class="desc">{{ Math.round(i[1]) }}m</div>
+                    <div class="action">
+                        <el-button
+                            circle
+                            class="set-button"
+                            @click="
+                                ;(showPopover = false) ||
+                                    ((!bus.animateState || bus.animateInfo.pause) && (bus.position = i[0]))
+                            "
+                        >
+                            <fa-icon icon="directions" />
+                        </el-button>
+                    </div>
+                </li>
+            </div>
         </ul>
         <template #reference>
             <el-button class="float-around">
@@ -110,6 +112,10 @@ export default defineComponent({
     .title {
         font-size: 17px;
         padding-bottom: 2px;
+    }
+    .around-list {
+        max-height: calc(100vh - 460px);
+        overflow: auto;
     }
 }
 </style>

@@ -27,6 +27,9 @@ export default defineComponent({
                 <el-form-item label="时间倍率">
                     <el-slider v-model="speed.timeScale" :min="10" :max="200" show-input></el-slider>
                 </el-form-item>
+                <el-form-item label="查询范围(m)">
+                    <el-slider v-model="aroundLimit" :min="10" :max="10000" show-input></el-slider>
+                </el-form-item>
                 <el-form-item label="学一食堂人数">
                     <el-slider v-model="restaurantPersonCount[0]" :max="50" show-input></el-slider>
                 </el-form-item>
