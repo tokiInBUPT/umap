@@ -31,7 +31,7 @@ export default defineComponent({
                 return a[1] - b[1]
             })
             const pointAround: [string, number][] = []
-            for (let i = 0; memory[i][1] < bus.aroundLimit; i++) {
+            for (let i = 0; i < memory.length && memory[i][1] < bus.aroundLimit; i++) {
                 pointAround.push(memory[i])
             }
             pointsAround.value = pointAround
