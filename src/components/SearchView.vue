@@ -44,6 +44,8 @@ export default defineComponent({
                         updateRoutes()
                     }
                     bus.middle.clear()
+                } else {
+                    bus.animateState = false
                 }
             },
         )
