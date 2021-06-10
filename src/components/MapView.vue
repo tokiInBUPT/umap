@@ -341,11 +341,6 @@ export default defineComponent({
                         ease: 'linear',
                         duration: t0,
                         onStart: (currentOffset: number) => {
-                            if (i === 0 && bus.activeRoute && bus.activeRoute.edgeSeq[i] !== 'benbu_to_shahe') {
-                                pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                            } else {
-                                pushLog(`到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
-                            }
                             bus.current = p0.id
                             bus.animateInfo.current = p0.id
                             bus.animateInfo.next = p1.id
@@ -362,7 +357,13 @@ export default defineComponent({
                                 }
                                 bus.animateInfo.type += 2
                             } else {
-                                bus.animateInfo.type = 0
+                                if (i === 0 && bus.activeRoute && bus.activeRoute.edgeSeq[i] !== 'benbu_to_shahe') {
+                                    pushLog(`开始导航，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`)
+                                } else {
+                                    pushLog(
+                                        `到达 ${p0.name} ，前方 ${p1.name} 拥挤度 ${e0.congestionDegree.toFixed(2)}`,
+                                    )
+                                }
                             }
                             const y = Math.sin(p1.position.lng - p0.position.lng) * Math.cos(p1.position.lat)
                             const x =
@@ -412,7 +413,9 @@ export default defineComponent({
                 clock.lastOffsetUpdate = performance.now()
                 if (v) {
                     gsapObj.pause()
-                    genTmpPoint()
+                    if (bus.activeRoute && bus.activeRoute.pointSeq[0] !== 'tmp-point') {
+                        genTmpPoint()
+                    }
                 } else {
                     gsapObj.resume()
                 }

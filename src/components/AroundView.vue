@@ -8,7 +8,9 @@ export default defineComponent({
     setup() {
         let pointsAround = ref([] as [string, number][])
         function searchAround() {
-            genTmpPoint()
+            if (bus.activeRoute && bus.activeRoute.pointSeq[0] !== 'tmp-point') {
+                genTmpPoint()
+            }
             const answer = dijkstra(
                 bus.map.edgeMap,
                 bus.map.pointsMap,
@@ -53,7 +55,14 @@ export default defineComponent({
                 <div class="title">{{ bus.map.pointsMap[i[0]].name }}</div>
                 <div class="desc">{{ Math.round(i[1]) }}m</div>
                 <div class="action">
-                    <el-button circle class="set-button" @click=";(showPopover = false) || (bus.position = i[0])">
+                    <el-button
+                        circle
+                        class="set-button"
+                        @click="
+                            ;(showPopover = false) ||
+                                ((!bus.animateState || bus.animateInfo.pause) && (bus.position = i[0]))
+                        "
+                    >
                         <fa-icon icon="directions" />
                     </el-button>
                 </div>
