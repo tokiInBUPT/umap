@@ -56,7 +56,6 @@ export const bus = reactive({
     },
     routes: [] as IRoute[],
     restaurantPersonCount: [10, 11, 15, 20, 25, 30],
-    log: [] as string[],
 })
 for (const i of bus.map.points) {
     // @ts-ignore
