@@ -26,8 +26,8 @@ export async function calcRoutes({
         }
         const distanceRouteObj = {
             name: '最短路程',
-            description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(
-                0,
+            description: `约${Math.round(distanceRoute[0])}米, 约${Math.floor(time / 60)}分钟${Math.floor(
+                time % 60,
             )}秒`,
             avgDistance: distanceRoute[0],
             pointSeq: distanceRoute[1],
@@ -35,9 +35,9 @@ export async function calcRoutes({
             pathTime: distanceRoute[3],
         }
         if (distanceRoute[0] > 1000) {
-            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(time / 60).toFixed(
-                0,
-            )}分钟${(time % 60).toFixed(0)}秒`
+            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${Math.floor(
+                time / 60,
+            )}分钟${Math.floor(time % 60)}秒`
         }
 
         routes.push(distanceRouteObj)
@@ -53,8 +53,8 @@ export async function calcRoutes({
         }
         const distanceRouteObj = {
             name: '最短路程',
-            description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(
-                0,
+            description: `约${Math.round(distanceRoute[0])}米, 约${Math.floor(time / 60)}分钟${Math.floor(
+                time % 60,
             )}秒`,
             avgDistance: distanceRoute[0],
             pointSeq: distanceRoute[1],
@@ -62,9 +62,9 @@ export async function calcRoutes({
             pathTime: distanceRoute[3],
         }
         if (distanceRoute[0] > 1000) {
-            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(time / 60).toFixed(
-                0,
-            )}分钟${(time % 60).toFixed(0)}秒`
+            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${Math.floor(
+                time / 60,
+            )}分钟${Math.floor(time % 60)}秒`
         }
 
         routes.push(distanceRouteObj)
@@ -80,14 +80,14 @@ export async function calcRoutes({
         }
         const timeRouteObj = <IRoute>{
             name: '最短时间',
-            description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(timeRoute[0])}米`,
+            description: `约${Math.floor(time / 60)}分钟${Math.floor(time % 60)}秒, 约${Math.round(timeRoute[0])}米`,
             avgDistance: timeRoute[0],
             pointSeq: timeRoute[1],
             edgeSeq: timeRoute[2],
             pathTime: timeRoute[3],
         }
         if (timeRoute[0] > 1000) {
-            timeRouteObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
+            timeRouteObj.description = `约${Math.floor(time / 60)}分钟${Math.floor(time % 60)}秒, 约${(
                 timeRoute[0] / 1000
             ).toFixed(2)}千米`
         }
@@ -98,8 +98,8 @@ export async function calcRoutes({
         }
         const distanceRouteObj = {
             name: '最短路程',
-            description: `约${Math.round(distanceRoute[0])}米, 约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(
-                0,
+            description: `约${Math.round(distanceRoute[0])}米, 约${Math.floor(time / 60)}分钟${Math.floor(
+                time % 60,
             )}秒`,
             avgDistance: distanceRoute[0],
             pointSeq: distanceRoute[1],
@@ -107,9 +107,9 @@ export async function calcRoutes({
             pathTime: distanceRoute[3],
         }
         if (distanceRoute[0] > 1000) {
-            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${(time / 60).toFixed(
-                0,
-            )}分钟${(time % 60).toFixed(0)}秒`
+            distanceRouteObj.description = `约${(distanceRoute[0] / 1000).toFixed(2)}千米, 约${Math.floor(
+                time / 60,
+            )}分钟${Math.floor(time % 60)}秒`
         }
         const timeRouteBike = await dijkstra(map.edgeMap, map.pointsMap, currentPoint, map.pointsMap[to], 1, 1)
         time = 0
@@ -118,7 +118,7 @@ export async function calcRoutes({
         }
         const timeRouteBikeObj = {
             name: '最短时间(骑行)',
-            description: `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${Math.round(
+            description: `约${Math.floor(time / 60)}分钟${Math.floor(time % 60)}秒, 约${Math.round(
                 timeRouteBike[0],
             )}米`,
             avgDistance: timeRouteBike[0],
@@ -127,7 +127,7 @@ export async function calcRoutes({
             pathTime: timeRouteBike[3],
         }
         if (timeRouteBike[0] > 1000) {
-            timeRouteBikeObj.description = `约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(0)}秒, 约${(
+            timeRouteBikeObj.description = `约${Math.floor(time / 60)}分钟${Math.floor(time % 60)}秒, 约${(
                 timeRouteBike[0] / 1000
             ).toFixed(2)}千米`
         }
@@ -138,8 +138,8 @@ export async function calcRoutes({
         }
         const distanceRouteBikeObj = {
             name: '最短路程(骑行)',
-            description: `约${Math.round(distanceRouteBike[0])}米, 约${(time / 60).toFixed(0)}分钟${(time % 60).toFixed(
-                0,
+            description: `约${Math.round(distanceRouteBike[0])}米, 约${Math.floor(time / 60)}分钟${Math.floor(
+                time % 60,
             )}秒`,
             avgDistance: distanceRouteBike[0],
             pointSeq: distanceRouteBike[1],
@@ -147,9 +147,9 @@ export async function calcRoutes({
             pathTime: distanceRouteBike[3],
         }
         if (distanceRouteBike[0] > 1000) {
-            distanceRouteBikeObj.description = `约${(distanceRouteBike[0] / 1000).toFixed(2)}千米, 约${(
-                time / 60
-            ).toFixed(0)}分钟${(time % 60).toFixed(0)}秒`
+            distanceRouteBikeObj.description = `约${(distanceRouteBike[0] / 1000).toFixed(2)}千米, 约${Math.floor(
+                time / 60,
+            )}分钟${Math.floor(time % 60)}秒`
         }
         routes.push(timeRouteObj)
         routes.push(distanceRouteObj)
