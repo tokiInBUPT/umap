@@ -17,6 +17,11 @@ import { formatTime } from './utils/clock'
 
 import * as config from './config'
 
+const M_CONFIG = ((<any>window)._M_CONFIG || {}) as {
+    logicPosition: logicPosition[]
+    busTimeList: timeListItem[]
+}
+
 export const bus = reactive({
     type: '',
     current: config.startPoint,
@@ -27,8 +32,8 @@ export const bus = reactive({
         pointsMap: {} as Record<string, mapPoint>,
         edges: [...shahe_edges, ...benbu_edges] as edge[],
         edgeMap: {} as Record<string, edge>,
-        logics: logic_position as logicPosition[],
-        busTimeList: [...busTimeList] as timeListItem[],
+        logics: M_CONFIG.logicPosition ? M_CONFIG.logicPosition : (logic_position as logicPosition[]),
+        busTimeList: M_CONFIG.busTimeList ? M_CONFIG.busTimeList : ([...busTimeList] as timeListItem[]),
     },
     speed: {
         ...config.speed,
