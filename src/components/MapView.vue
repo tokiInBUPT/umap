@@ -65,6 +65,8 @@ export default defineComponent({
             }
             label = createLabelLayer(map, labels)
             pushLog('系统初始化完成')
+            pushLog(`共${bus.map.points.length}个点`)
+            pushLog(`共${bus.map.edges.length}条边`)
         })
         watch(
             () => bus.activeRoute,
