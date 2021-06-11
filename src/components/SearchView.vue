@@ -3,6 +3,7 @@ import { bus, realPosition } from '@/bus'
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import { IRoute } from '@/typings/route'
 import { calcRoutes } from '@/algorithm/calcRoutes'
+import { pushLog } from '@/modules/log'
 export default defineComponent({
     setup() {
         const loading = ref(false)
@@ -37,6 +38,7 @@ export default defineComponent({
                         const key = count.indexOf(Math.min(...count))
                         const toPos = points[key] || ''
                         bus.position = toPos
+                        pushLog('进行食堂负载均衡')
                         return
                     }
                     bus.routes = []
@@ -52,6 +54,7 @@ export default defineComponent({
         function showPath(i: IRoute) {
             if (bus.animateState) return
             bus.activeRoute = i
+            pushLog('展示路线')
         }
         async function moveAlongPath(i: IRoute) {
             bus.animateState = false
@@ -66,6 +69,7 @@ export default defineComponent({
             }
             await nextTick()
             bus.animateState = true
+            pushLog('开始模拟导航')
         }
         async function updateRoutes() {
             if (!bus.current || !bus.position) {

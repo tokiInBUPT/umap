@@ -64,6 +64,7 @@ export default defineComponent({
                 }
             }
             label = createLabelLayer(map, labels)
+            pushLog('系统初始化完成')
         })
         watch(
             () => bus.activeRoute,
@@ -152,6 +153,7 @@ export default defineComponent({
                 bus.animateInfo.totalTime = 0
                 bus.animateInfo.paused = false
                 if (!v) {
+                    pushLog('取消模拟导航')
                     if (gsapObj) {
                         gsapObj.kill()
                         gsapObj = null
@@ -411,6 +413,13 @@ export default defineComponent({
         watch(
             () => bus.animateInfo.paused,
             async (v) => {
+                if (bus.animateState) {
+                    if (bus.animateInfo.paused) {
+                        pushLog('暂停')
+                    } else {
+                        pushLog('继续')
+                    }
+                }
                 if (!gsapObj) return
                 clock.lastOffsetUpdate = performance.now()
                 if (v) {

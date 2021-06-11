@@ -3,11 +3,13 @@ import { bus } from '@/bus'
 import { defineComponent, ref } from 'vue'
 import { dijkstra } from '../algorithm/Dij_Ha'
 import { genTmpPoint } from '@/algorithm/genTmpPoint'
+import { pushLog } from '@/modules/log'
 
 export default defineComponent({
     setup() {
         let pointsAround = ref([] as [string, number][])
         function searchAround() {
+            pushLog('查询周边')
             if (bus.activeRoute && bus.activeRoute.pointSeq[0] !== 'tmp-point') {
                 genTmpPoint()
             }

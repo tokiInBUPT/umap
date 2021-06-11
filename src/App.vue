@@ -9,6 +9,7 @@ import gmView from './components/GMView.vue'
 import logView from './components/LogView.vue'
 import clockView from './components/ClockView.vue'
 import { bus } from '@/bus'
+import { pushLog } from './modules/log'
 export default defineComponent({
     components: {
         MapView,
@@ -22,6 +23,7 @@ export default defineComponent({
     setup() {
         const searchView = ref(null as any)
         async function updateRoutes() {
+            pushLog('传送')
             await nextTick()
             if (bus.current !== 'tmp-point') {
                 if (bus.hasTmpPoint) {
